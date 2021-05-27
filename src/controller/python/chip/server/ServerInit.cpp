@@ -86,7 +86,7 @@ class PythonServerDelegate// : public ServerDelegate
 {
 public:
     void SetPostAttributeChangeCallback(PostAttributeChangeCallback cb) {
-        ChipLogProgress(NotSpecified, "callback %p", cb);
+        //ChipLogProgress(NotSpecified, "callback %p", cb);
         mPostAttributeChangeCallback = cb;
     };
     PostAttributeChangeCallback mPostAttributeChangeCallback = nullptr;
@@ -96,7 +96,7 @@ PythonServerDelegate gPythonServerDelegate;
 
 void pychip_server_set_callbacks(PostAttributeChangeCallback cb)
 {
-    ChipLogProgress(NotSpecified, "setting cb");
+    //ChipLogProgress(NotSpecified, "setting cb");
     gPythonServerDelegate.SetPostAttributeChangeCallback(cb);
 }
 
@@ -173,6 +173,6 @@ void emberAfPostAttributeChangeCallback(chip::EndpointId endpoint, chip::Cluster
         //ChipLogProgress(NotSpecified, "callback %p", gPythonServerDelegate.mPostAttributeChangeCallback);
         gPythonServerDelegate.mPostAttributeChangeCallback(endpoint, clusterId, attributeId, mask, manufacturerCode, type, size, value);
     } else {
-        ChipLogProgress(NotSpecified, "callback nullptr");
+        //ChipLogProgress(NotSpecified, "callback nullptr");
     }
 };

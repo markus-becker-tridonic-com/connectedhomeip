@@ -37,37 +37,44 @@ import asyncio
 import threading
 
 from dali.driver.hid import tridonic
-from dali.gear.general import RecallMaxLevel, RecallMinLevel, QueryActualLevel, Off
+from dali.gear.general import RecallMaxLevel, Off, DAPC
 from dali.address import Broadcast, Short
 
 dali_loop = None
+dev = None
 
 
-async def dalion():
+async def dali_on(is_on: bool):
     global dali_loop
-    dev = tridonic("/dev/dali/daliusb-*", glob=True, loop=dali_loop)
-    dev.connect()
-    print("Waiting for device...")
+    global dev
+
+    #print("Waiting for device...")
     await dev.connected.wait()
-    print(f"Connected, firmware={dev.firmware_version}, serial={dev.serial}")
-    await dev.send(RecallMaxLevel(Broadcast()))
-    dev.disconnect()
+    #print(f"Connected, firmware={dev.firmware_version}, serial={dev.serial}")
+    if (is_on):
+        await dev.send(RecallMaxLevel(Broadcast()))
+    else:
+        await dev.send(Off(Broadcast()))
 
 
-async def dalioff():
+async def dali_level(level: int):
     global dali_loop
-    dev = tridonic("/dev/dali/daliusb-*", glob=True, loop=dali_loop)
-    dev.connect()
-    print("Waiting for device...")
+    global dev
+
+    #print("Waiting for device...")
     await dev.connected.wait()
-    print(f"Connected, firmware={dev.firmware_version}, serial={dev.serial}")
-    await dev.send(Off(Broadcast()))
-    dev.disconnect()
+    #print(f"Connected, firmware={dev.firmware_version}, serial={dev.serial}")
+    await dev.send(DAPC(Broadcast(), level))
 
 
 def daliworker():
     global dali_loop
+    global dev
+
     dali_loop = asyncio.new_event_loop()
+    dev = tridonic("/dev/dali/daliusb-*", glob=True, loop=dali_loop)
+    dev.connect()
+
     asyncio.set_event_loop(dali_loop)
     dali_loop.run_forever()
 
@@ -115,6 +122,7 @@ class LightingMgrCmd(Cmd):
             pass
 
     command_names = [
+        "help"
         # "setup-payload",
         # "ble-scan",
         # "ble-adapter-select",
@@ -170,6 +178,11 @@ class LightingMgrCmd(Cmd):
             pass
 
     def do_help(self, line):
+        """
+        help
+
+        Print the help
+        """
         if line:
             cmd, arg, unused = self.parseline(line)
             try:
@@ -200,28 +213,45 @@ def attributeChangeCallback(
     size: int,
     value: bytes,
 ):
-    print(
-        "AttributeChangeCallback endpoint {} clusterId {} attributeId {} mask {} manufacturerCode {} type {} size {} value {}".format(
-            endpoint,
-            clusterId,
-            attributeId,
-            mask,
-            manufacturerCode,
-            xx_type,
-            size,
-            value,
-        )
-    )
+    # print(
+    #     "[PY] AttributeChangeCallback endpoint {} clusterId {} attributeId {} mask {} manufacturerCode {} type {} size {} value {}".format(
+    #         endpoint,
+    #         clusterId,
+    #         attributeId,
+    #         mask,
+    #         manufacturerCode,
+    #         xx_type,
+    #         size,
+    #         value,
+    #     )
+    # )
     global dali_loop
-    if endpoint == 1 and clusterId == 6 and attributeId == 0:
-        if len(value) == 1 and value[0] == 1:
-            print("light on")
-            future = asyncio.run_coroutine_threadsafe(dalion(), dali_loop)
-            future.result()
+    if endpoint == 1:
+        if clusterId == 6 and attributeId == 0:
+            if len(value) == 1 and value[0] == 1:
+                # print("[PY] light on")
+                future = asyncio.run_coroutine_threadsafe(
+                    dali_on(True), dali_loop)
+                future.result()
+            else:
+                # print("[PY] light off")
+                future = asyncio.run_coroutine_threadsafe(
+                    dali_on(False), dali_loop)
+                future.result()
+        elif clusterId == 8 and attributeId == 0:
+            if len(value) == 2:
+                # print("[PY] level {}".format(value[0]))
+                future = asyncio.run_coroutine_threadsafe(
+                    dali_level(value[0]), dali_loop)
+                future.result()
+            else:
+                print("[PY] no level")
         else:
-            print("light off")
-            future = asyncio.run_coroutine_threadsafe(dalioff(), dali_loop)
-            future.result()
+            # print("[PY] [ERR] unhandled cluster {} or attribute {}".format(
+            #     clusterId, attributeId))
+            pass
+    else:
+        print("[PY] [ERR] unhandled endpoint {} ".format(endpoint))
 
 
 class Lighting:
