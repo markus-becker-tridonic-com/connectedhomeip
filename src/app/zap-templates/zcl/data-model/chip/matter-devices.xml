@@ -72,7 +72,7 @@ limitations under the License.
                 <requireAttribute>ACTIVE_LOCALE</requireAttribute>
                 <requireAttribute>SUPPORTED_LOCALES</requireAttribute>
             </include>
-            <include cluster="Time Format Localization" client="false" server="true" clientLocked="true" serverLocked="false">
+            <include cluster="Time Format Localization" client="false" server="false" clientLocked="true" serverLocked="false">
                 <requireAttribute>HOUR_FORMAT</requireAttribute>
             </include>
             <include cluster="Unit Localization" client="false" server="true" clientLocked="true" serverLocked="false"></include>
