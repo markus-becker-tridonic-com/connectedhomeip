@@ -49,6 +49,7 @@ private:
     static void StartTimer(uint32_t aTimeoutInMs);
     static void FunctionTimerEventHandler(AppEvent * aEvent);
     static void FunctionHandler(AppEvent * aEvent);
+    static void SwitchHandler(AppEvent * aEvent);
     static void ButtonEventHandler(uint32_t aButtonsState, uint32_t aHasChanged);
     static void TimerEventHandler(k_timer * aTimer);
     static void PostEvent(AppEvent * aEvent);

@@ -30,6 +30,7 @@
 #include <app-common/zap-generated/attribute-type.h>
 #include <app-common/zap-generated/cluster-id.h>
 #include <app/clusters/identify-server/identify-server.h>
+#include <app/clusters/switch-server/switch-server.h>
 #include <app/util/attribute-storage.h>
 
 #include <credentials/DeviceAttestationCredsProvider.h>
@@ -44,6 +45,7 @@
 #include <zephyr/zephyr.h>
 
 using namespace ::chip;
+using namespace ::chip::app;
 using namespace ::chip::Credentials;
 using namespace ::chip::DeviceLayer;
 
@@ -243,6 +245,14 @@ void AppTask::ButtonEventHandler(uint32_t aButtonState, uint32_t aHasChanged)
         event.Handler            = StartBLEAdvertisementHandler;
         PostEvent(&event);
     }
+
+    if (SWITCH_BUTTON_MASK & aHasChanged)
+    {
+        event.ButtonEvent.PinNo  = SWITCH_BUTTON;
+        event.ButtonEvent.Action = (SWITCH_BUTTON_MASK & aButtonState) ? BUTTON_PUSH_EVENT : BUTTON_RELEASE_EVENT;
+        event.Handler            = SwitchHandler;
+        PostEvent(&event);
+    }
 }
 
 void AppTask::TimerEventHandler(k_timer * aTimer)
@@ -327,6 +337,26 @@ void AppTask::FunctionHandler(AppEvent * aEvent)
             CancelTimer();
             Instance().mMode = OperatingMode::Normal;
         }
+    }
+}
+
+void AppTask::SwitchHandler(AppEvent * aEvent)
+{
+    EndpointId endpoint      = 1;
+    uint8_t newPosition      = 1;
+    uint8_t previousPosition = 0;
+
+    if (!aEvent)
+        return;
+    if (aEvent->ButtonEvent.PinNo != SWITCH_BUTTON)
+        return;
+
+    if (aEvent->ButtonEvent.Action == BUTTON_PUSH_EVENT) {
+        LOG_INF("InitialPress");
+        Clusters::SwitchServer::Instance().OnInitialPress(endpoint, newPosition);
+    } else {
+        LOG_INF("ShortRelease");
+        Clusters::SwitchServer::Instance().OnShortRelease(endpoint, previousPosition);
     }
 }
 
