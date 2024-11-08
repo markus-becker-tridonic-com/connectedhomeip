@@ -16365,6 +16365,432 @@ CHIP_ERROR DataModelLogger::LogAttribute(const chip::app::ConcreteDataAttributeP
         }
         break;
     }
+    case LuminaireAssetManagement::Id: {
+        switch (path.mAttributeId)
+        {
+        case LuminaireAssetManagement::Attributes::LuminaireManufacturerGTIN::Id: {
+            chip::ByteSpan value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("LuminaireManufacturerGTIN", 1, value);
+        }
+        case LuminaireAssetManagement::Attributes::LuminaireIdentificationNumber::Id: {
+            chip::ByteSpan value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("LuminaireIdentificationNumber", 1, value);
+        }
+        case LuminaireAssetManagement::Attributes::LuminaireYearOfManufacture::Id: {
+            uint8_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("LuminaireYearOfManufacture", 1, value);
+        }
+        case LuminaireAssetManagement::Attributes::LuminaireWeekOfManufacture::Id: {
+            uint8_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("LuminaireWeekOfManufacture", 1, value);
+        }
+        case LuminaireAssetManagement::Attributes::NominalInputPower::Id: {
+            uint16_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("NominalInputPower", 1, value);
+        }
+        case LuminaireAssetManagement::Attributes::PowerAtMinimumDimLevel::Id: {
+            uint16_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("PowerAtMinimumDimLevel", 1, value);
+        }
+        case LuminaireAssetManagement::Attributes::NominalMinimumACMainsVoltage::Id: {
+            uint16_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("NominalMinimumACMainsVoltage", 1, value);
+        }
+        case LuminaireAssetManagement::Attributes::NominalMaximumACMainsVoltage::Id: {
+            uint16_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("NominalMaximumACMainsVoltage", 1, value);
+        }
+        case LuminaireAssetManagement::Attributes::NominalLightOutput::Id: {
+            uint32_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("NominalLightOutput", 1, value);
+        }
+        case LuminaireAssetManagement::Attributes::ColorRenderingIndex::Id: {
+            uint8_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("ColorRenderingIndex", 1, value);
+        }
+        case LuminaireAssetManagement::Attributes::Cct::Id: {
+            uint16_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("CCT", 1, value);
+        }
+        case LuminaireAssetManagement::Attributes::LightDistributionType::Id: {
+            chip::app::Clusters::LuminaireAssetManagement::LightDistributionTypeEnum value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("LightDistributionType", 1, value);
+        }
+        case LuminaireAssetManagement::Attributes::LuminaireColor::Id: {
+            chip::app::DataModel::Nullable<chip::CharSpan> value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("LuminaireColor", 1, value);
+        }
+        case LuminaireAssetManagement::Attributes::LuminaireIdentification::Id: {
+            chip::app::DataModel::Nullable<chip::CharSpan> value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("LuminaireIdentification", 1, value);
+        }
+        case LuminaireAssetManagement::Attributes::LightSourceType::Id: {
+            chip::app::Clusters::LuminaireAssetManagement::LightSourceTypeEnum value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("LightSourceType", 1, value);
+        }
+        case LuminaireAssetManagement::Attributes::GeneratedCommandList::Id: {
+            chip::app::DataModel::DecodableList<chip::CommandId> value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogGeneratedCommandId("GeneratedCommandList", 1, value, LuminaireAssetManagement::Id);
+        }
+        case LuminaireAssetManagement::Attributes::AcceptedCommandList::Id: {
+            chip::app::DataModel::DecodableList<chip::CommandId> value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogAcceptedCommandId("AcceptedCommandList", 1, value, LuminaireAssetManagement::Id);
+        }
+        case LuminaireAssetManagement::Attributes::AttributeList::Id: {
+            chip::app::DataModel::DecodableList<chip::AttributeId> value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogAttributeId("AttributeList", 1, value, LuminaireAssetManagement::Id);
+        }
+        case LuminaireAssetManagement::Attributes::FeatureMap::Id: {
+            uint32_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("FeatureMap", 1, value);
+        }
+        case LuminaireAssetManagement::Attributes::ClusterRevision::Id: {
+            uint16_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("ClusterRevision", 1, value);
+        }
+        }
+        break;
+    }
+    case LuminaireEnergyReporting::Id: {
+        switch (path.mAttributeId)
+        {
+        case LuminaireEnergyReporting::Attributes::ScaleFactorForActiveEnergy::Id: {
+            int8_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("ScaleFactorForActiveEnergy", 1, value);
+        }
+        case LuminaireEnergyReporting::Attributes::ActiveEnergy::Id: {
+            uint64_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("ActiveEnergy", 1, value);
+        }
+        case LuminaireEnergyReporting::Attributes::ScaleFactorForActivePower::Id: {
+            int8_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("ScaleFactorForActivePower", 1, value);
+        }
+        case LuminaireEnergyReporting::Attributes::ActivePower::Id: {
+            uint32_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("ActivePower", 1, value);
+        }
+        case LuminaireEnergyReporting::Attributes::ScaleFactorForApparentEnergy::Id: {
+            int8_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("ScaleFactorForApparentEnergy", 1, value);
+        }
+        case LuminaireEnergyReporting::Attributes::ApparentEnergy::Id: {
+            uint64_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("ApparentEnergy", 1, value);
+        }
+        case LuminaireEnergyReporting::Attributes::ScaleFactorForApparentPower::Id: {
+            int8_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("ScaleFactorForApparentPower", 1, value);
+        }
+        case LuminaireEnergyReporting::Attributes::ApparentPower::Id: {
+            uint32_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("ApparentPower", 1, value);
+        }
+        case LuminaireEnergyReporting::Attributes::ScaleFactorForLoadsideEnergy::Id: {
+            int8_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("ScaleFactorForLoadsideEnergy", 1, value);
+        }
+        case LuminaireEnergyReporting::Attributes::ActiveEnergyLoadside::Id: {
+            uint64_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("ActiveEnergyLoadside", 1, value);
+        }
+        case LuminaireEnergyReporting::Attributes::ScaleFactorForLoadsidePower::Id: {
+            int8_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("ScaleFactorForLoadsidePower", 1, value);
+        }
+        case LuminaireEnergyReporting::Attributes::ActivePowerLoadside::Id: {
+            uint32_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("ActivePowerLoadside", 1, value);
+        }
+        case LuminaireEnergyReporting::Attributes::GeneratedCommandList::Id: {
+            chip::app::DataModel::DecodableList<chip::CommandId> value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogGeneratedCommandId("GeneratedCommandList", 1, value, LuminaireEnergyReporting::Id);
+        }
+        case LuminaireEnergyReporting::Attributes::AcceptedCommandList::Id: {
+            chip::app::DataModel::DecodableList<chip::CommandId> value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogAcceptedCommandId("AcceptedCommandList", 1, value, LuminaireEnergyReporting::Id);
+        }
+        case LuminaireEnergyReporting::Attributes::AttributeList::Id: {
+            chip::app::DataModel::DecodableList<chip::AttributeId> value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogAttributeId("AttributeList", 1, value, LuminaireEnergyReporting::Id);
+        }
+        case LuminaireEnergyReporting::Attributes::FeatureMap::Id: {
+            uint32_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("FeatureMap", 1, value);
+        }
+        case LuminaireEnergyReporting::Attributes::ClusterRevision::Id: {
+            uint16_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("ClusterRevision", 1, value);
+        }
+        }
+        break;
+    }
+    case LuminaireDiagnosticsAndMaintenance::Id: {
+        switch (path.mAttributeId)
+        {
+        case LuminaireDiagnosticsAndMaintenance::Attributes::ControlGearOperatingTime::Id: {
+            uint32_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("ControlGearOperatingTime", 1, value);
+        }
+        case LuminaireDiagnosticsAndMaintenance::Attributes::ControlGearStartCounter::Id: {
+            uint32_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("ControlGearStartCounter", 1, value);
+        }
+        case LuminaireDiagnosticsAndMaintenance::Attributes::ControlGearExternalSupplyVoltage::Id: {
+            uint16_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("ControlGearExternalSupplyVoltage", 1, value);
+        }
+        case LuminaireDiagnosticsAndMaintenance::Attributes::ControlGearExternalSupplyVoltageFrequency::Id: {
+            uint8_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("ControlGearExternalSupplyVoltageFrequency", 1, value);
+        }
+        case LuminaireDiagnosticsAndMaintenance::Attributes::ControlGearPowerFactor::Id: {
+            uint8_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("ControlGearPowerFactor", 1, value);
+        }
+        case LuminaireDiagnosticsAndMaintenance::Attributes::ControlGearOverallFailureCondition::Id: {
+            uint8_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("ControlGearOverallFailureCondition", 1, value);
+        }
+        case LuminaireDiagnosticsAndMaintenance::Attributes::ControlGearOverallFailureConditionCounter::Id: {
+            uint8_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("ControlGearOverallFailureConditionCounter", 1, value);
+        }
+        case LuminaireDiagnosticsAndMaintenance::Attributes::ControlGearExternalSupplyUndervoltage::Id: {
+            uint8_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("ControlGearExternalSupplyUndervoltage", 1, value);
+        }
+        case LuminaireDiagnosticsAndMaintenance::Attributes::ControlGearExternalSupplyUndervoltageCounter::Id: {
+            uint8_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("ControlGearExternalSupplyUndervoltageCounter", 1, value);
+        }
+        case LuminaireDiagnosticsAndMaintenance::Attributes::ControlGearExternalSupplyOvervoltage::Id: {
+            uint8_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("ControlGearExternalSupplyOvervoltage", 1, value);
+        }
+        case LuminaireDiagnosticsAndMaintenance::Attributes::ControlGearExternalSupplyOvervoltageCounter::Id: {
+            uint8_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("ControlGearExternalSupplyOvervoltageCounter", 1, value);
+        }
+        case LuminaireDiagnosticsAndMaintenance::Attributes::ControlGearOutputPowerLimitation::Id: {
+            uint8_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("ControlGearOutputPowerLimitation", 1, value);
+        }
+        case LuminaireDiagnosticsAndMaintenance::Attributes::ControlGearOutputPowerLimitationCounter::Id: {
+            uint8_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("ControlGearOutputPowerLimitationCounter", 1, value);
+        }
+        case LuminaireDiagnosticsAndMaintenance::Attributes::ControlGearThermalDerating::Id: {
+            uint8_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("ControlGearThermalDerating", 1, value);
+        }
+        case LuminaireDiagnosticsAndMaintenance::Attributes::ControlGearThermalDeratingCounter::Id: {
+            uint8_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("ControlGearThermalDeratingCounter", 1, value);
+        }
+        case LuminaireDiagnosticsAndMaintenance::Attributes::ControlGearThermalShutdown::Id: {
+            uint8_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("ControlGearThermalShutdown", 1, value);
+        }
+        case LuminaireDiagnosticsAndMaintenance::Attributes::ControlGearThermalShutdownCounter::Id: {
+            uint8_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("ControlGearThermalShutdownCounter", 1, value);
+        }
+        case LuminaireDiagnosticsAndMaintenance::Attributes::ControlGearTemperature::Id: {
+            uint8_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+                return DataModelLogger::LogValue("
+      ControlGearTemperature", 1, value);
+        }
+        case LuminaireDiagnosticsAndMaintenance::Attributes::ControlGearOutputCurrentPercentage::Id: {
+            uint8_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("ControlGearOutputCurrentPercentage", 1, value);
+        }
+        case LuminaireDiagnosticsAndMaintenance::Attributes::LightSourceStartCounterResettable::Id: {
+            uint32_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("LightSourceStartCounterResettable", 1, value);
+        }
+        case LuminaireDiagnosticsAndMaintenance::Attributes::LightSourceStartCounter::Id: {
+            uint32_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("LightSourceStartCounter", 1, value);
+        }
+        case LuminaireDiagnosticsAndMaintenance::Attributes::LightSourceOnTimeResettable::Id: {
+            uint32_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("LightSourceOnTimeResettable", 1, value);
+        }
+        case LuminaireDiagnosticsAndMaintenance::Attributes::LightSourceOnTime::Id: {
+            uint32_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("LightSourceOnTime", 1, value);
+        }
+        case LuminaireDiagnosticsAndMaintenance::Attributes::LightSourceVoltage::Id: {
+            uint16_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+                return DataModelLogger::LogValue("
+      LightSourceVoltage", 1, value);
+        }
+        case LuminaireDiagnosticsAndMaintenance::Attributes::LightSourceCurrent::Id: {
+            uint16_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+                return DataModelLogger::LogValue("
+      LightSourceCurrent", 1, value);
+        }
+        case LuminaireDiagnosticsAndMaintenance::Attributes::LightSourceOverallFailureCondition::Id: {
+            uint8_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("LightSourceOverallFailureCondition", 1, value);
+        }
+        case LuminaireDiagnosticsAndMaintenance::Attributes::LightSourceOverallFailureConditionCounter::Id: {
+            uint8_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("LightSourceOverallFailureConditionCounter", 1, value);
+        }
+        case LuminaireDiagnosticsAndMaintenance::Attributes::LightSourceShortCircuit::Id: {
+            uint8_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("LightSourceShortCircuit", 1, value);
+        }
+        case LuminaireDiagnosticsAndMaintenance::Attributes::LightSourceShortCircuitCounter::Id: {
+            uint8_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("LightSourceShortCircuitCounter", 1, value);
+        }
+        case LuminaireDiagnosticsAndMaintenance::Attributes::LightSourceOpenCircuit::Id: {
+            uint8_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("LightSourceOpenCircuit", 1, value);
+        }
+        case LuminaireDiagnosticsAndMaintenance::Attributes::LightSourceOpenCircuitCounter::Id: {
+            uint8_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("LightSourceOpenCircuitCounter", 1, value);
+        }
+        case LuminaireDiagnosticsAndMaintenance::Attributes::LightSourceThermalDerating::Id: {
+            uint8_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("LightSourceThermalDerating", 1, value);
+        }
+        case LuminaireDiagnosticsAndMaintenance::Attributes::LightSourceThermalDeratingCounter::Id: {
+            uint8_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("LightSourceThermalDeratingCounter", 1, value);
+        }
+        case LuminaireDiagnosticsAndMaintenance::Attributes::LightSourceThermalShutdown::Id: {
+            uint8_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("LightSourceThermalShutdown", 1, value);
+        }
+        case LuminaireDiagnosticsAndMaintenance::Attributes::LightSourceThermalShutdownCounter::Id: {
+            uint8_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("LightSourceThermalShutdownCounter", 1, value);
+        }
+        case LuminaireDiagnosticsAndMaintenance::Attributes::LightSourceTemperature::Id: {
+            uint8_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("LightSourceTemperature", 1, value);
+        }
+        case LuminaireDiagnosticsAndMaintenance::Attributes::RatedMedianUsefulLifeOfLuminaire::Id: {
+            uint8_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("RatedMedianUsefulLifeOfLuminaire", 1, value);
+        }
+        case LuminaireDiagnosticsAndMaintenance::Attributes::InternalControlGearReferenceTemperature::Id: {
+            uint8_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("InternalControlGearReferenceTemperature", 1, value);
+        }
+        case LuminaireDiagnosticsAndMaintenance::Attributes::RatedMedianUsefulLightSourceStarts::Id: {
+            uint16_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("RatedMedianUsefulLightSourceStarts", 1, value);
+        }
+        case LuminaireDiagnosticsAndMaintenance::Attributes::GeneratedCommandList::Id: {
+            chip::app::DataModel::DecodableList<chip::CommandId> value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogGeneratedCommandId("GeneratedCommandList", 1, value, LuminaireDiagnosticsAndMaintenance::Id);
+        }
+        case LuminaireDiagnosticsAndMaintenance::Attributes::AcceptedCommandList::Id: {
+            chip::app::DataModel::DecodableList<chip::CommandId> value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogAcceptedCommandId("AcceptedCommandList", 1, value, LuminaireDiagnosticsAndMaintenance::Id);
+        }
+        case LuminaireDiagnosticsAndMaintenance::Attributes::AttributeList::Id: {
+            chip::app::DataModel::DecodableList<chip::AttributeId> value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogAttributeId("AttributeList", 1, value, LuminaireDiagnosticsAndMaintenance::Id);
+        }
+        case LuminaireDiagnosticsAndMaintenance::Attributes::FeatureMap::Id: {
+            uint32_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("FeatureMap", 1, value);
+        }
+        case LuminaireDiagnosticsAndMaintenance::Attributes::ClusterRevision::Id: {
+            uint16_t value;
+            ReturnErrorOnFailure(chip::app::DataModel::Decode(*data, value));
+            return DataModelLogger::LogValue("ClusterRevision", 1, value);
+        }
+        }
+        break;
+    }
     case IlluminanceMeasurement::Id: {
         switch (path.mAttributeId)
         {

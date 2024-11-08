@@ -32266,6 +32266,1048 @@ struct TypeInfo
 };
 } // namespace Attributes
 } // namespace BallastConfiguration
+namespace LuminaireAssetManagement {
+
+namespace Attributes {
+
+namespace LuminaireManufacturerGTIN {
+struct TypeInfo
+{
+    using Type             = chip::ByteSpan;
+    using DecodableType    = chip::ByteSpan;
+    using DecodableArgType = chip::ByteSpan;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::LuminaireAssetManagement::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::LuminaireManufacturerGTIN::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+    static constexpr size_t MaxLength() { return 254; }
+};
+} // namespace LuminaireManufacturerGTIN
+namespace LuminaireIdentificationNumber {
+struct TypeInfo
+{
+    using Type             = chip::ByteSpan;
+    using DecodableType    = chip::ByteSpan;
+    using DecodableArgType = chip::ByteSpan;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::LuminaireAssetManagement::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::LuminaireIdentificationNumber::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+    static constexpr size_t MaxLength() { return 254; }
+};
+} // namespace LuminaireIdentificationNumber
+namespace LuminaireYearOfManufacture {
+struct TypeInfo
+{
+    using Type             = uint8_t;
+    using DecodableType    = uint8_t;
+    using DecodableArgType = uint8_t;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::LuminaireAssetManagement::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::LuminaireYearOfManufacture::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace LuminaireYearOfManufacture
+namespace LuminaireWeekOfManufacture {
+struct TypeInfo
+{
+    using Type             = uint8_t;
+    using DecodableType    = uint8_t;
+    using DecodableArgType = uint8_t;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::LuminaireAssetManagement::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::LuminaireWeekOfManufacture::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace LuminaireWeekOfManufacture
+namespace NominalInputPower {
+struct TypeInfo
+{
+    using Type             = uint16_t;
+    using DecodableType    = uint16_t;
+    using DecodableArgType = uint16_t;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::LuminaireAssetManagement::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::NominalInputPower::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace NominalInputPower
+namespace PowerAtMinimumDimLevel {
+struct TypeInfo
+{
+    using Type             = uint16_t;
+    using DecodableType    = uint16_t;
+    using DecodableArgType = uint16_t;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::LuminaireAssetManagement::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::PowerAtMinimumDimLevel::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace PowerAtMinimumDimLevel
+namespace NominalMinimumACMainsVoltage {
+struct TypeInfo
+{
+    using Type             = uint16_t;
+    using DecodableType    = uint16_t;
+    using DecodableArgType = uint16_t;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::LuminaireAssetManagement::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::NominalMinimumACMainsVoltage::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace NominalMinimumACMainsVoltage
+namespace NominalMaximumACMainsVoltage {
+struct TypeInfo
+{
+    using Type             = uint16_t;
+    using DecodableType    = uint16_t;
+    using DecodableArgType = uint16_t;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::LuminaireAssetManagement::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::NominalMaximumACMainsVoltage::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace NominalMaximumACMainsVoltage
+namespace NominalLightOutput {
+struct TypeInfo
+{
+    using Type             = uint32_t;
+    using DecodableType    = uint32_t;
+    using DecodableArgType = uint32_t;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::LuminaireAssetManagement::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::NominalLightOutput::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace NominalLightOutput
+namespace ColorRenderingIndex {
+struct TypeInfo
+{
+    using Type             = uint8_t;
+    using DecodableType    = uint8_t;
+    using DecodableArgType = uint8_t;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::LuminaireAssetManagement::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::ColorRenderingIndex::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace ColorRenderingIndex
+namespace Cct {
+struct TypeInfo
+{
+    using Type             = uint16_t;
+    using DecodableType    = uint16_t;
+    using DecodableArgType = uint16_t;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::LuminaireAssetManagement::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::Cct::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace Cct
+namespace LightDistributionType {
+struct TypeInfo
+{
+    using Type             = chip::app::Clusters::LuminaireAssetManagement::LightDistributionTypeEnum;
+    using DecodableType    = chip::app::Clusters::LuminaireAssetManagement::LightDistributionTypeEnum;
+    using DecodableArgType = chip::app::Clusters::LuminaireAssetManagement::LightDistributionTypeEnum;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::LuminaireAssetManagement::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::LightDistributionType::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace LightDistributionType
+namespace LuminaireColor {
+struct TypeInfo
+{
+    using Type             = chip::app::DataModel::Nullable<chip::CharSpan>;
+    using DecodableType    = chip::app::DataModel::Nullable<chip::CharSpan>;
+    using DecodableArgType = const chip::app::DataModel::Nullable<chip::CharSpan> &;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::LuminaireAssetManagement::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::LuminaireColor::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+    static constexpr size_t MaxLength() { return 254; }
+};
+} // namespace LuminaireColor
+namespace LuminaireIdentification {
+struct TypeInfo
+{
+    using Type             = chip::app::DataModel::Nullable<chip::CharSpan>;
+    using DecodableType    = chip::app::DataModel::Nullable<chip::CharSpan>;
+    using DecodableArgType = const chip::app::DataModel::Nullable<chip::CharSpan> &;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::LuminaireAssetManagement::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::LuminaireIdentification::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+    static constexpr size_t MaxLength() { return 254; }
+};
+} // namespace LuminaireIdentification
+namespace LightSourceType {
+struct TypeInfo
+{
+    using Type             = chip::app::Clusters::LuminaireAssetManagement::LightSourceTypeEnum;
+    using DecodableType    = chip::app::Clusters::LuminaireAssetManagement::LightSourceTypeEnum;
+    using DecodableArgType = chip::app::Clusters::LuminaireAssetManagement::LightSourceTypeEnum;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::LuminaireAssetManagement::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::LightSourceType::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace LightSourceType
+namespace GeneratedCommandList {
+struct TypeInfo : public Clusters::Globals::Attributes::GeneratedCommandList::TypeInfo
+{
+    static constexpr ClusterId GetClusterId() { return Clusters::LuminaireAssetManagement::Id; }
+};
+} // namespace GeneratedCommandList
+namespace AcceptedCommandList {
+struct TypeInfo : public Clusters::Globals::Attributes::AcceptedCommandList::TypeInfo
+{
+    static constexpr ClusterId GetClusterId() { return Clusters::LuminaireAssetManagement::Id; }
+};
+} // namespace AcceptedCommandList
+namespace AttributeList {
+struct TypeInfo : public Clusters::Globals::Attributes::AttributeList::TypeInfo
+{
+    static constexpr ClusterId GetClusterId() { return Clusters::LuminaireAssetManagement::Id; }
+};
+} // namespace AttributeList
+namespace FeatureMap {
+struct TypeInfo : public Clusters::Globals::Attributes::FeatureMap::TypeInfo
+{
+    static constexpr ClusterId GetClusterId() { return Clusters::LuminaireAssetManagement::Id; }
+};
+} // namespace FeatureMap
+namespace ClusterRevision {
+struct TypeInfo : public Clusters::Globals::Attributes::ClusterRevision::TypeInfo
+{
+    static constexpr ClusterId GetClusterId() { return Clusters::LuminaireAssetManagement::Id; }
+};
+} // namespace ClusterRevision
+
+struct TypeInfo
+{
+    struct DecodableType
+    {
+        static constexpr ClusterId GetClusterId() { return Clusters::LuminaireAssetManagement::Id; }
+
+        CHIP_ERROR Decode(TLV::TLVReader & reader, const ConcreteAttributePath & path);
+
+        Attributes::LuminaireManufacturerGTIN::TypeInfo::DecodableType luminaireManufacturerGTIN;
+        Attributes::LuminaireIdentificationNumber::TypeInfo::DecodableType luminaireIdentificationNumber;
+        Attributes::LuminaireYearOfManufacture::TypeInfo::DecodableType luminaireYearOfManufacture     = static_cast<uint8_t>(0);
+        Attributes::LuminaireWeekOfManufacture::TypeInfo::DecodableType luminaireWeekOfManufacture     = static_cast<uint8_t>(0);
+        Attributes::NominalInputPower::TypeInfo::DecodableType nominalInputPower                       = static_cast<uint16_t>(0);
+        Attributes::PowerAtMinimumDimLevel::TypeInfo::DecodableType powerAtMinimumDimLevel             = static_cast<uint16_t>(0);
+        Attributes::NominalMinimumACMainsVoltage::TypeInfo::DecodableType nominalMinimumACMainsVoltage = static_cast<uint16_t>(0);
+        Attributes::NominalMaximumACMainsVoltage::TypeInfo::DecodableType nominalMaximumACMainsVoltage = static_cast<uint16_t>(0);
+        Attributes::NominalLightOutput::TypeInfo::DecodableType nominalLightOutput                     = static_cast<uint32_t>(0);
+        Attributes::ColorRenderingIndex::TypeInfo::DecodableType colorRenderingIndex                   = static_cast<uint8_t>(0);
+        Attributes::Cct::TypeInfo::DecodableType cct                                                   = static_cast<uint16_t>(0);
+        Attributes::LightDistributionType::TypeInfo::DecodableType lightDistributionType =
+            static_cast<chip::app::Clusters::LuminaireAssetManagement::LightDistributionTypeEnum>(0);
+        Attributes::LuminaireColor::TypeInfo::DecodableType luminaireColor;
+        Attributes::LuminaireIdentification::TypeInfo::DecodableType luminaireIdentification;
+        Attributes::LightSourceType::TypeInfo::DecodableType lightSourceType =
+            static_cast<chip::app::Clusters::LuminaireAssetManagement::LightSourceTypeEnum>(0);
+        Attributes::GeneratedCommandList::TypeInfo::DecodableType generatedCommandList;
+        Attributes::AcceptedCommandList::TypeInfo::DecodableType acceptedCommandList;
+        Attributes::AttributeList::TypeInfo::DecodableType attributeList;
+        Attributes::FeatureMap::TypeInfo::DecodableType featureMap           = static_cast<uint32_t>(0);
+        Attributes::ClusterRevision::TypeInfo::DecodableType clusterRevision = static_cast<uint16_t>(0);
+    };
+};
+} // namespace Attributes
+} // namespace LuminaireAssetManagement
+namespace LuminaireEnergyReporting {
+
+namespace Attributes {
+
+namespace ScaleFactorForActiveEnergy {
+struct TypeInfo
+{
+    using Type             = int8_t;
+    using DecodableType    = int8_t;
+    using DecodableArgType = int8_t;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::LuminaireEnergyReporting::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::ScaleFactorForActiveEnergy::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace ScaleFactorForActiveEnergy
+namespace ActiveEnergy {
+struct TypeInfo
+{
+    using Type             = uint64_t;
+    using DecodableType    = uint64_t;
+    using DecodableArgType = uint64_t;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::LuminaireEnergyReporting::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::ActiveEnergy::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace ActiveEnergy
+namespace ScaleFactorForActivePower {
+struct TypeInfo
+{
+    using Type             = int8_t;
+    using DecodableType    = int8_t;
+    using DecodableArgType = int8_t;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::LuminaireEnergyReporting::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::ScaleFactorForActivePower::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace ScaleFactorForActivePower
+namespace ActivePower {
+struct TypeInfo
+{
+    using Type             = uint32_t;
+    using DecodableType    = uint32_t;
+    using DecodableArgType = uint32_t;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::LuminaireEnergyReporting::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::ActivePower::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace ActivePower
+namespace ScaleFactorForApparentEnergy {
+struct TypeInfo
+{
+    using Type             = int8_t;
+    using DecodableType    = int8_t;
+    using DecodableArgType = int8_t;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::LuminaireEnergyReporting::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::ScaleFactorForApparentEnergy::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace ScaleFactorForApparentEnergy
+namespace ApparentEnergy {
+struct TypeInfo
+{
+    using Type             = uint64_t;
+    using DecodableType    = uint64_t;
+    using DecodableArgType = uint64_t;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::LuminaireEnergyReporting::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::ApparentEnergy::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace ApparentEnergy
+namespace ScaleFactorForApparentPower {
+struct TypeInfo
+{
+    using Type             = int8_t;
+    using DecodableType    = int8_t;
+    using DecodableArgType = int8_t;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::LuminaireEnergyReporting::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::ScaleFactorForApparentPower::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace ScaleFactorForApparentPower
+namespace ApparentPower {
+struct TypeInfo
+{
+    using Type             = uint32_t;
+    using DecodableType    = uint32_t;
+    using DecodableArgType = uint32_t;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::LuminaireEnergyReporting::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::ApparentPower::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace ApparentPower
+namespace ScaleFactorForLoadsideEnergy {
+struct TypeInfo
+{
+    using Type             = int8_t;
+    using DecodableType    = int8_t;
+    using DecodableArgType = int8_t;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::LuminaireEnergyReporting::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::ScaleFactorForLoadsideEnergy::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace ScaleFactorForLoadsideEnergy
+namespace ActiveEnergyLoadside {
+struct TypeInfo
+{
+    using Type             = uint64_t;
+    using DecodableType    = uint64_t;
+    using DecodableArgType = uint64_t;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::LuminaireEnergyReporting::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::ActiveEnergyLoadside::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace ActiveEnergyLoadside
+namespace ScaleFactorForLoadsidePower {
+struct TypeInfo
+{
+    using Type             = int8_t;
+    using DecodableType    = int8_t;
+    using DecodableArgType = int8_t;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::LuminaireEnergyReporting::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::ScaleFactorForLoadsidePower::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace ScaleFactorForLoadsidePower
+namespace ActivePowerLoadside {
+struct TypeInfo
+{
+    using Type             = uint32_t;
+    using DecodableType    = uint32_t;
+    using DecodableArgType = uint32_t;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::LuminaireEnergyReporting::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::ActivePowerLoadside::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace ActivePowerLoadside
+namespace GeneratedCommandList {
+struct TypeInfo : public Clusters::Globals::Attributes::GeneratedCommandList::TypeInfo
+{
+    static constexpr ClusterId GetClusterId() { return Clusters::LuminaireEnergyReporting::Id; }
+};
+} // namespace GeneratedCommandList
+namespace AcceptedCommandList {
+struct TypeInfo : public Clusters::Globals::Attributes::AcceptedCommandList::TypeInfo
+{
+    static constexpr ClusterId GetClusterId() { return Clusters::LuminaireEnergyReporting::Id; }
+};
+} // namespace AcceptedCommandList
+namespace AttributeList {
+struct TypeInfo : public Clusters::Globals::Attributes::AttributeList::TypeInfo
+{
+    static constexpr ClusterId GetClusterId() { return Clusters::LuminaireEnergyReporting::Id; }
+};
+} // namespace AttributeList
+namespace FeatureMap {
+struct TypeInfo : public Clusters::Globals::Attributes::FeatureMap::TypeInfo
+{
+    static constexpr ClusterId GetClusterId() { return Clusters::LuminaireEnergyReporting::Id; }
+};
+} // namespace FeatureMap
+namespace ClusterRevision {
+struct TypeInfo : public Clusters::Globals::Attributes::ClusterRevision::TypeInfo
+{
+    static constexpr ClusterId GetClusterId() { return Clusters::LuminaireEnergyReporting::Id; }
+};
+} // namespace ClusterRevision
+
+struct TypeInfo
+{
+    struct DecodableType
+    {
+        static constexpr ClusterId GetClusterId() { return Clusters::LuminaireEnergyReporting::Id; }
+
+        CHIP_ERROR Decode(TLV::TLVReader & reader, const ConcreteAttributePath & path);
+
+        Attributes::ScaleFactorForActiveEnergy::TypeInfo::DecodableType scaleFactorForActiveEnergy     = static_cast<int8_t>(0);
+        Attributes::ActiveEnergy::TypeInfo::DecodableType activeEnergy                                 = static_cast<uint64_t>(0);
+        Attributes::ScaleFactorForActivePower::TypeInfo::DecodableType scaleFactorForActivePower       = static_cast<int8_t>(0);
+        Attributes::ActivePower::TypeInfo::DecodableType activePower                                   = static_cast<uint32_t>(0);
+        Attributes::ScaleFactorForApparentEnergy::TypeInfo::DecodableType scaleFactorForApparentEnergy = static_cast<int8_t>(0);
+        Attributes::ApparentEnergy::TypeInfo::DecodableType apparentEnergy                             = static_cast<uint64_t>(0);
+        Attributes::ScaleFactorForApparentPower::TypeInfo::DecodableType scaleFactorForApparentPower   = static_cast<int8_t>(0);
+        Attributes::ApparentPower::TypeInfo::DecodableType apparentPower                               = static_cast<uint32_t>(0);
+        Attributes::ScaleFactorForLoadsideEnergy::TypeInfo::DecodableType scaleFactorForLoadsideEnergy = static_cast<int8_t>(0);
+        Attributes::ActiveEnergyLoadside::TypeInfo::DecodableType activeEnergyLoadside                 = static_cast<uint64_t>(0);
+        Attributes::ScaleFactorForLoadsidePower::TypeInfo::DecodableType scaleFactorForLoadsidePower   = static_cast<int8_t>(0);
+        Attributes::ActivePowerLoadside::TypeInfo::DecodableType activePowerLoadside                   = static_cast<uint32_t>(0);
+        Attributes::GeneratedCommandList::TypeInfo::DecodableType generatedCommandList;
+        Attributes::AcceptedCommandList::TypeInfo::DecodableType acceptedCommandList;
+        Attributes::AttributeList::TypeInfo::DecodableType attributeList;
+        Attributes::FeatureMap::TypeInfo::DecodableType featureMap           = static_cast<uint32_t>(0);
+        Attributes::ClusterRevision::TypeInfo::DecodableType clusterRevision = static_cast<uint16_t>(0);
+    };
+};
+} // namespace Attributes
+} // namespace LuminaireEnergyReporting
+namespace LuminaireDiagnosticsAndMaintenance {
+
+namespace Attributes {
+
+namespace ControlGearOperatingTime {
+struct TypeInfo
+{
+    using Type             = uint32_t;
+    using DecodableType    = uint32_t;
+    using DecodableArgType = uint32_t;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::LuminaireDiagnosticsAndMaintenance::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::ControlGearOperatingTime::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace ControlGearOperatingTime
+namespace ControlGearStartCounter {
+struct TypeInfo
+{
+    using Type             = uint32_t;
+    using DecodableType    = uint32_t;
+    using DecodableArgType = uint32_t;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::LuminaireDiagnosticsAndMaintenance::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::ControlGearStartCounter::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace ControlGearStartCounter
+namespace ControlGearExternalSupplyVoltage {
+struct TypeInfo
+{
+    using Type             = uint16_t;
+    using DecodableType    = uint16_t;
+    using DecodableArgType = uint16_t;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::LuminaireDiagnosticsAndMaintenance::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::ControlGearExternalSupplyVoltage::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace ControlGearExternalSupplyVoltage
+namespace ControlGearExternalSupplyVoltageFrequency {
+struct TypeInfo
+{
+    using Type             = uint8_t;
+    using DecodableType    = uint8_t;
+    using DecodableArgType = uint8_t;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::LuminaireDiagnosticsAndMaintenance::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::ControlGearExternalSupplyVoltageFrequency::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace ControlGearExternalSupplyVoltageFrequency
+namespace ControlGearPowerFactor {
+struct TypeInfo
+{
+    using Type             = uint8_t;
+    using DecodableType    = uint8_t;
+    using DecodableArgType = uint8_t;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::LuminaireDiagnosticsAndMaintenance::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::ControlGearPowerFactor::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace ControlGearPowerFactor
+namespace ControlGearOverallFailureCondition {
+struct TypeInfo
+{
+    using Type             = uint8_t;
+    using DecodableType    = uint8_t;
+    using DecodableArgType = uint8_t;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::LuminaireDiagnosticsAndMaintenance::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::ControlGearOverallFailureCondition::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace ControlGearOverallFailureCondition
+namespace ControlGearOverallFailureConditionCounter {
+struct TypeInfo
+{
+    using Type             = uint8_t;
+    using DecodableType    = uint8_t;
+    using DecodableArgType = uint8_t;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::LuminaireDiagnosticsAndMaintenance::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::ControlGearOverallFailureConditionCounter::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace ControlGearOverallFailureConditionCounter
+namespace ControlGearExternalSupplyUndervoltage {
+struct TypeInfo
+{
+    using Type             = uint8_t;
+    using DecodableType    = uint8_t;
+    using DecodableArgType = uint8_t;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::LuminaireDiagnosticsAndMaintenance::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::ControlGearExternalSupplyUndervoltage::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace ControlGearExternalSupplyUndervoltage
+namespace ControlGearExternalSupplyUndervoltageCounter {
+struct TypeInfo
+{
+    using Type             = uint8_t;
+    using DecodableType    = uint8_t;
+    using DecodableArgType = uint8_t;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::LuminaireDiagnosticsAndMaintenance::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::ControlGearExternalSupplyUndervoltageCounter::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace ControlGearExternalSupplyUndervoltageCounter
+namespace ControlGearExternalSupplyOvervoltage {
+struct TypeInfo
+{
+    using Type             = uint8_t;
+    using DecodableType    = uint8_t;
+    using DecodableArgType = uint8_t;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::LuminaireDiagnosticsAndMaintenance::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::ControlGearExternalSupplyOvervoltage::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace ControlGearExternalSupplyOvervoltage
+namespace ControlGearExternalSupplyOvervoltageCounter {
+struct TypeInfo
+{
+    using Type             = uint8_t;
+    using DecodableType    = uint8_t;
+    using DecodableArgType = uint8_t;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::LuminaireDiagnosticsAndMaintenance::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::ControlGearExternalSupplyOvervoltageCounter::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace ControlGearExternalSupplyOvervoltageCounter
+namespace ControlGearOutputPowerLimitation {
+struct TypeInfo
+{
+    using Type             = uint8_t;
+    using DecodableType    = uint8_t;
+    using DecodableArgType = uint8_t;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::LuminaireDiagnosticsAndMaintenance::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::ControlGearOutputPowerLimitation::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace ControlGearOutputPowerLimitation
+namespace ControlGearOutputPowerLimitationCounter {
+struct TypeInfo
+{
+    using Type             = uint8_t;
+    using DecodableType    = uint8_t;
+    using DecodableArgType = uint8_t;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::LuminaireDiagnosticsAndMaintenance::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::ControlGearOutputPowerLimitationCounter::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace ControlGearOutputPowerLimitationCounter
+namespace ControlGearThermalDerating {
+struct TypeInfo
+{
+    using Type             = uint8_t;
+    using DecodableType    = uint8_t;
+    using DecodableArgType = uint8_t;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::LuminaireDiagnosticsAndMaintenance::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::ControlGearThermalDerating::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace ControlGearThermalDerating
+namespace ControlGearThermalDeratingCounter {
+struct TypeInfo
+{
+    using Type             = uint8_t;
+    using DecodableType    = uint8_t;
+    using DecodableArgType = uint8_t;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::LuminaireDiagnosticsAndMaintenance::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::ControlGearThermalDeratingCounter::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace ControlGearThermalDeratingCounter
+namespace ControlGearThermalShutdown {
+struct TypeInfo
+{
+    using Type             = uint8_t;
+    using DecodableType    = uint8_t;
+    using DecodableArgType = uint8_t;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::LuminaireDiagnosticsAndMaintenance::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::ControlGearThermalShutdown::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace ControlGearThermalShutdown
+namespace ControlGearThermalShutdownCounter {
+struct TypeInfo
+{
+    using Type             = uint8_t;
+    using DecodableType    = uint8_t;
+    using DecodableArgType = uint8_t;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::LuminaireDiagnosticsAndMaintenance::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::ControlGearThermalShutdownCounter::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace ControlGearThermalShutdownCounter
+namespace ControlGearTemperature {
+struct TypeInfo
+{
+    using Type             = uint8_t;
+    using DecodableType    = uint8_t;
+    using DecodableArgType = uint8_t;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::LuminaireDiagnosticsAndMaintenance::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::ControlGearTemperature::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace ControlGearTemperature
+namespace ControlGearOutputCurrentPercentage {
+struct TypeInfo
+{
+    using Type             = uint8_t;
+    using DecodableType    = uint8_t;
+    using DecodableArgType = uint8_t;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::LuminaireDiagnosticsAndMaintenance::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::ControlGearOutputCurrentPercentage::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace ControlGearOutputCurrentPercentage
+namespace LightSourceStartCounterResettable {
+struct TypeInfo
+{
+    using Type             = uint32_t;
+    using DecodableType    = uint32_t;
+    using DecodableArgType = uint32_t;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::LuminaireDiagnosticsAndMaintenance::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::LightSourceStartCounterResettable::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace LightSourceStartCounterResettable
+namespace LightSourceStartCounter {
+struct TypeInfo
+{
+    using Type             = uint32_t;
+    using DecodableType    = uint32_t;
+    using DecodableArgType = uint32_t;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::LuminaireDiagnosticsAndMaintenance::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::LightSourceStartCounter::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace LightSourceStartCounter
+namespace LightSourceOnTimeResettable {
+struct TypeInfo
+{
+    using Type             = uint32_t;
+    using DecodableType    = uint32_t;
+    using DecodableArgType = uint32_t;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::LuminaireDiagnosticsAndMaintenance::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::LightSourceOnTimeResettable::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace LightSourceOnTimeResettable
+namespace LightSourceOnTime {
+struct TypeInfo
+{
+    using Type             = uint32_t;
+    using DecodableType    = uint32_t;
+    using DecodableArgType = uint32_t;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::LuminaireDiagnosticsAndMaintenance::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::LightSourceOnTime::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace LightSourceOnTime
+namespace LightSourceVoltage {
+struct TypeInfo
+{
+    using Type             = uint16_t;
+    using DecodableType    = uint16_t;
+    using DecodableArgType = uint16_t;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::LuminaireDiagnosticsAndMaintenance::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::LightSourceVoltage::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace LightSourceVoltage
+namespace LightSourceCurrent {
+struct TypeInfo
+{
+    using Type             = uint16_t;
+    using DecodableType    = uint16_t;
+    using DecodableArgType = uint16_t;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::LuminaireDiagnosticsAndMaintenance::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::LightSourceCurrent::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace LightSourceCurrent
+namespace LightSourceOverallFailureCondition {
+struct TypeInfo
+{
+    using Type             = uint8_t;
+    using DecodableType    = uint8_t;
+    using DecodableArgType = uint8_t;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::LuminaireDiagnosticsAndMaintenance::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::LightSourceOverallFailureCondition::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace LightSourceOverallFailureCondition
+namespace LightSourceOverallFailureConditionCounter {
+struct TypeInfo
+{
+    using Type             = uint8_t;
+    using DecodableType    = uint8_t;
+    using DecodableArgType = uint8_t;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::LuminaireDiagnosticsAndMaintenance::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::LightSourceOverallFailureConditionCounter::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace LightSourceOverallFailureConditionCounter
+namespace LightSourceShortCircuit {
+struct TypeInfo
+{
+    using Type             = uint8_t;
+    using DecodableType    = uint8_t;
+    using DecodableArgType = uint8_t;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::LuminaireDiagnosticsAndMaintenance::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::LightSourceShortCircuit::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace LightSourceShortCircuit
+namespace LightSourceShortCircuitCounter {
+struct TypeInfo
+{
+    using Type             = uint8_t;
+    using DecodableType    = uint8_t;
+    using DecodableArgType = uint8_t;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::LuminaireDiagnosticsAndMaintenance::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::LightSourceShortCircuitCounter::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace LightSourceShortCircuitCounter
+namespace LightSourceOpenCircuit {
+struct TypeInfo
+{
+    using Type             = uint8_t;
+    using DecodableType    = uint8_t;
+    using DecodableArgType = uint8_t;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::LuminaireDiagnosticsAndMaintenance::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::LightSourceOpenCircuit::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace LightSourceOpenCircuit
+namespace LightSourceOpenCircuitCounter {
+struct TypeInfo
+{
+    using Type             = uint8_t;
+    using DecodableType    = uint8_t;
+    using DecodableArgType = uint8_t;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::LuminaireDiagnosticsAndMaintenance::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::LightSourceOpenCircuitCounter::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace LightSourceOpenCircuitCounter
+namespace LightSourceThermalDerating {
+struct TypeInfo
+{
+    using Type             = uint8_t;
+    using DecodableType    = uint8_t;
+    using DecodableArgType = uint8_t;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::LuminaireDiagnosticsAndMaintenance::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::LightSourceThermalDerating::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace LightSourceThermalDerating
+namespace LightSourceThermalDeratingCounter {
+struct TypeInfo
+{
+    using Type             = uint8_t;
+    using DecodableType    = uint8_t;
+    using DecodableArgType = uint8_t;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::LuminaireDiagnosticsAndMaintenance::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::LightSourceThermalDeratingCounter::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace LightSourceThermalDeratingCounter
+namespace LightSourceThermalShutdown {
+struct TypeInfo
+{
+    using Type             = uint8_t;
+    using DecodableType    = uint8_t;
+    using DecodableArgType = uint8_t;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::LuminaireDiagnosticsAndMaintenance::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::LightSourceThermalShutdown::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace LightSourceThermalShutdown
+namespace LightSourceThermalShutdownCounter {
+struct TypeInfo
+{
+    using Type             = uint8_t;
+    using DecodableType    = uint8_t;
+    using DecodableArgType = uint8_t;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::LuminaireDiagnosticsAndMaintenance::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::LightSourceThermalShutdownCounter::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace LightSourceThermalShutdownCounter
+namespace LightSourceTemperature {
+struct TypeInfo
+{
+    using Type             = uint8_t;
+    using DecodableType    = uint8_t;
+    using DecodableArgType = uint8_t;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::LuminaireDiagnosticsAndMaintenance::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::LightSourceTemperature::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace LightSourceTemperature
+namespace RatedMedianUsefulLifeOfLuminaire {
+struct TypeInfo
+{
+    using Type             = uint8_t;
+    using DecodableType    = uint8_t;
+    using DecodableArgType = uint8_t;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::LuminaireDiagnosticsAndMaintenance::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::RatedMedianUsefulLifeOfLuminaire::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace RatedMedianUsefulLifeOfLuminaire
+namespace InternalControlGearReferenceTemperature {
+struct TypeInfo
+{
+    using Type             = uint8_t;
+    using DecodableType    = uint8_t;
+    using DecodableArgType = uint8_t;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::LuminaireDiagnosticsAndMaintenance::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::InternalControlGearReferenceTemperature::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace InternalControlGearReferenceTemperature
+namespace RatedMedianUsefulLightSourceStarts {
+struct TypeInfo
+{
+    using Type             = uint16_t;
+    using DecodableType    = uint16_t;
+    using DecodableArgType = uint16_t;
+
+    static constexpr ClusterId GetClusterId() { return Clusters::LuminaireDiagnosticsAndMaintenance::Id; }
+    static constexpr AttributeId GetAttributeId() { return Attributes::RatedMedianUsefulLightSourceStarts::Id; }
+    static constexpr bool MustUseTimedWrite() { return false; }
+};
+} // namespace RatedMedianUsefulLightSourceStarts
+namespace GeneratedCommandList {
+struct TypeInfo : public Clusters::Globals::Attributes::GeneratedCommandList::TypeInfo
+{
+    static constexpr ClusterId GetClusterId() { return Clusters::LuminaireDiagnosticsAndMaintenance::Id; }
+};
+} // namespace GeneratedCommandList
+namespace AcceptedCommandList {
+struct TypeInfo : public Clusters::Globals::Attributes::AcceptedCommandList::TypeInfo
+{
+    static constexpr ClusterId GetClusterId() { return Clusters::LuminaireDiagnosticsAndMaintenance::Id; }
+};
+} // namespace AcceptedCommandList
+namespace AttributeList {
+struct TypeInfo : public Clusters::Globals::Attributes::AttributeList::TypeInfo
+{
+    static constexpr ClusterId GetClusterId() { return Clusters::LuminaireDiagnosticsAndMaintenance::Id; }
+};
+} // namespace AttributeList
+namespace FeatureMap {
+struct TypeInfo : public Clusters::Globals::Attributes::FeatureMap::TypeInfo
+{
+    static constexpr ClusterId GetClusterId() { return Clusters::LuminaireDiagnosticsAndMaintenance::Id; }
+};
+} // namespace FeatureMap
+namespace ClusterRevision {
+struct TypeInfo : public Clusters::Globals::Attributes::ClusterRevision::TypeInfo
+{
+    static constexpr ClusterId GetClusterId() { return Clusters::LuminaireDiagnosticsAndMaintenance::Id; }
+};
+} // namespace ClusterRevision
+
+struct TypeInfo
+{
+    struct DecodableType
+    {
+        static constexpr ClusterId GetClusterId() { return Clusters::LuminaireDiagnosticsAndMaintenance::Id; }
+
+        CHIP_ERROR Decode(TLV::TLVReader & reader, const ConcreteAttributePath & path);
+
+        Attributes::ControlGearOperatingTime::TypeInfo::DecodableType controlGearOperatingTime = static_cast<uint32_t>(0);
+        Attributes::ControlGearStartCounter::TypeInfo::DecodableType controlGearStartCounter   = static_cast<uint32_t>(0);
+        Attributes::ControlGearExternalSupplyVoltage::TypeInfo::DecodableType controlGearExternalSupplyVoltage =
+            static_cast<uint16_t>(0);
+        Attributes::ControlGearExternalSupplyVoltageFrequency::TypeInfo::DecodableType controlGearExternalSupplyVoltageFrequency =
+            static_cast<uint8_t>(0);
+        Attributes::ControlGearPowerFactor::TypeInfo::DecodableType controlGearPowerFactor = static_cast<uint8_t>(0);
+        Attributes::ControlGearOverallFailureCondition::TypeInfo::DecodableType controlGearOverallFailureCondition =
+            static_cast<uint8_t>(0);
+        Attributes::ControlGearOverallFailureConditionCounter::TypeInfo::DecodableType controlGearOverallFailureConditionCounter =
+            static_cast<uint8_t>(0);
+        Attributes::ControlGearExternalSupplyUndervoltage::TypeInfo::DecodableType controlGearExternalSupplyUndervoltage =
+            static_cast<uint8_t>(0);
+        Attributes::ControlGearExternalSupplyUndervoltageCounter::TypeInfo::DecodableType
+            controlGearExternalSupplyUndervoltageCounter = static_cast<uint8_t>(0);
+        Attributes::ControlGearExternalSupplyOvervoltage::TypeInfo::DecodableType controlGearExternalSupplyOvervoltage =
+            static_cast<uint8_t>(0);
+        Attributes::ControlGearExternalSupplyOvervoltageCounter::TypeInfo::DecodableType
+            controlGearExternalSupplyOvervoltageCounter = static_cast<uint8_t>(0);
+        Attributes::ControlGearOutputPowerLimitation::TypeInfo::DecodableType controlGearOutputPowerLimitation =
+            static_cast<uint8_t>(0);
+        Attributes::ControlGearOutputPowerLimitationCounter::TypeInfo::DecodableType controlGearOutputPowerLimitationCounter =
+            static_cast<uint8_t>(0);
+        Attributes::ControlGearThermalDerating::TypeInfo::DecodableType controlGearThermalDerating = static_cast<uint8_t>(0);
+        Attributes::ControlGearThermalDeratingCounter::TypeInfo::DecodableType controlGearThermalDeratingCounter =
+            static_cast<uint8_t>(0);
+        Attributes::ControlGearThermalShutdown::TypeInfo::DecodableType controlGearThermalShutdown = static_cast<uint8_t>(0);
+        Attributes::ControlGearThermalShutdownCounter::TypeInfo::DecodableType controlGearThermalShutdownCounter =
+            static_cast<uint8_t>(0);
+        Attributes::ControlGearTemperature::TypeInfo::DecodableType ControlGearTemperature = static_cast<uint8_t>(0);
+        Attributes::ControlGearOutputCurrentPercentage::TypeInfo::DecodableType controlGearOutputCurrentPercentage =
+            static_cast<uint8_t>(0);
+        Attributes::LightSourceStartCounterResettable::TypeInfo::DecodableType lightSourceStartCounterResettable =
+            static_cast<uint32_t>(0);
+        Attributes::LightSourceStartCounter::TypeInfo::DecodableType lightSourceStartCounter         = static_cast<uint32_t>(0);
+        Attributes::LightSourceOnTimeResettable::TypeInfo::DecodableType lightSourceOnTimeResettable = static_cast<uint32_t>(0);
+        Attributes::LightSourceOnTime::TypeInfo::DecodableType lightSourceOnTime                     = static_cast<uint32_t>(0);
+        Attributes::LightSourceVoltage::TypeInfo::DecodableType LightSourceVoltage                   = static_cast<uint16_t>(0);
+        Attributes::LightSourceCurrent::TypeInfo::DecodableType LightSourceCurrent                   = static_cast<uint16_t>(0);
+        Attributes::LightSourceOverallFailureCondition::TypeInfo::DecodableType lightSourceOverallFailureCondition =
+            static_cast<uint8_t>(0);
+        Attributes::LightSourceOverallFailureConditionCounter::TypeInfo::DecodableType lightSourceOverallFailureConditionCounter =
+            static_cast<uint8_t>(0);
+        Attributes::LightSourceShortCircuit::TypeInfo::DecodableType lightSourceShortCircuit = static_cast<uint8_t>(0);
+        Attributes::LightSourceShortCircuitCounter::TypeInfo::DecodableType lightSourceShortCircuitCounter =
+            static_cast<uint8_t>(0);
+        Attributes::LightSourceOpenCircuit::TypeInfo::DecodableType lightSourceOpenCircuit               = static_cast<uint8_t>(0);
+        Attributes::LightSourceOpenCircuitCounter::TypeInfo::DecodableType lightSourceOpenCircuitCounter = static_cast<uint8_t>(0);
+        Attributes::LightSourceThermalDerating::TypeInfo::DecodableType lightSourceThermalDerating       = static_cast<uint8_t>(0);
+        Attributes::LightSourceThermalDeratingCounter::TypeInfo::DecodableType lightSourceThermalDeratingCounter =
+            static_cast<uint8_t>(0);
+        Attributes::LightSourceThermalShutdown::TypeInfo::DecodableType lightSourceThermalShutdown = static_cast<uint8_t>(0);
+        Attributes::LightSourceThermalShutdownCounter::TypeInfo::DecodableType lightSourceThermalShutdownCounter =
+            static_cast<uint8_t>(0);
+        Attributes::LightSourceTemperature::TypeInfo::DecodableType lightSourceTemperature = static_cast<uint8_t>(0);
+        Attributes::RatedMedianUsefulLifeOfLuminaire::TypeInfo::DecodableType ratedMedianUsefulLifeOfLuminaire =
+            static_cast<uint8_t>(0);
+        Attributes::InternalControlGearReferenceTemperature::TypeInfo::DecodableType internalControlGearReferenceTemperature =
+            static_cast<uint8_t>(0);
+        Attributes::RatedMedianUsefulLightSourceStarts::TypeInfo::DecodableType ratedMedianUsefulLightSourceStarts =
+            static_cast<uint16_t>(0);
+        Attributes::GeneratedCommandList::TypeInfo::DecodableType generatedCommandList;
+        Attributes::AcceptedCommandList::TypeInfo::DecodableType acceptedCommandList;
+        Attributes::AttributeList::TypeInfo::DecodableType attributeList;
+        Attributes::FeatureMap::TypeInfo::DecodableType featureMap           = static_cast<uint32_t>(0);
+        Attributes::ClusterRevision::TypeInfo::DecodableType clusterRevision = static_cast<uint16_t>(0);
+    };
+};
+} // namespace Attributes
+} // namespace LuminaireDiagnosticsAndMaintenance
 namespace IlluminanceMeasurement {
 
 namespace Attributes {

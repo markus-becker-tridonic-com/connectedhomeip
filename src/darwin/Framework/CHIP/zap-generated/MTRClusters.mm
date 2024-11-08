@@ -14679,6 +14679,445 @@ using chip::System::Clock::Timeout;
 }
 @end
 
+@implementation MTRClusterLuminaireAssetManagement
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeLuminaireManufacturerGTINWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeLuminaireAssetManagementID) attributeID:@(MTRAttributeIDTypeClusterLuminaireAssetManagementAttributeLuminaireManufacturerGTINID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeLuminaireIdentificationNumberWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeLuminaireAssetManagementID) attributeID:@(MTRAttributeIDTypeClusterLuminaireAssetManagementAttributeLuminaireIdentificationNumberID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeLuminaireYearOfManufactureWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeLuminaireAssetManagementID) attributeID:@(MTRAttributeIDTypeClusterLuminaireAssetManagementAttributeLuminaireYearOfManufactureID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeLuminaireWeekOfManufactureWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeLuminaireAssetManagementID) attributeID:@(MTRAttributeIDTypeClusterLuminaireAssetManagementAttributeLuminaireWeekOfManufactureID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeNominalInputPowerWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeLuminaireAssetManagementID) attributeID:@(MTRAttributeIDTypeClusterLuminaireAssetManagementAttributeNominalInputPowerID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributePowerAtMinimumDimLevelWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeLuminaireAssetManagementID) attributeID:@(MTRAttributeIDTypeClusterLuminaireAssetManagementAttributePowerAtMinimumDimLevelID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeNominalMinimumACMainsVoltageWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeLuminaireAssetManagementID) attributeID:@(MTRAttributeIDTypeClusterLuminaireAssetManagementAttributeNominalMinimumACMainsVoltageID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeNominalMaximumACMainsVoltageWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeLuminaireAssetManagementID) attributeID:@(MTRAttributeIDTypeClusterLuminaireAssetManagementAttributeNominalMaximumACMainsVoltageID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeNominalLightOutputWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeLuminaireAssetManagementID) attributeID:@(MTRAttributeIDTypeClusterLuminaireAssetManagementAttributeNominalLightOutputID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeColorRenderingIndexWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeLuminaireAssetManagementID) attributeID:@(MTRAttributeIDTypeClusterLuminaireAssetManagementAttributeColorRenderingIndexID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeCCTWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeLuminaireAssetManagementID) attributeID:@(MTRAttributeIDTypeClusterLuminaireAssetManagementAttributeCCTID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeLightDistributionTypeWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeLuminaireAssetManagementID) attributeID:@(MTRAttributeIDTypeClusterLuminaireAssetManagementAttributeLightDistributionTypeID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeLuminaireColorWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeLuminaireAssetManagementID) attributeID:@(MTRAttributeIDTypeClusterLuminaireAssetManagementAttributeLuminaireColorID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeLuminaireIdentificationWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeLuminaireAssetManagementID) attributeID:@(MTRAttributeIDTypeClusterLuminaireAssetManagementAttributeLuminaireIdentificationID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeLightSourceTypeWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeLuminaireAssetManagementID) attributeID:@(MTRAttributeIDTypeClusterLuminaireAssetManagementAttributeLightSourceTypeID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeGeneratedCommandListWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeLuminaireAssetManagementID) attributeID:@(MTRAttributeIDTypeClusterLuminaireAssetManagementAttributeGeneratedCommandListID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeAcceptedCommandListWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeLuminaireAssetManagementID) attributeID:@(MTRAttributeIDTypeClusterLuminaireAssetManagementAttributeAcceptedCommandListID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeAttributeListWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeLuminaireAssetManagementID) attributeID:@(MTRAttributeIDTypeClusterLuminaireAssetManagementAttributeAttributeListID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeFeatureMapWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeLuminaireAssetManagementID) attributeID:@(MTRAttributeIDTypeClusterLuminaireAssetManagementAttributeFeatureMapID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeClusterRevisionWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeLuminaireAssetManagementID) attributeID:@(MTRAttributeIDTypeClusterLuminaireAssetManagementAttributeClusterRevisionID) params:params];
+}
+
+@end
+
+@implementation MTRClusterLuminaireEnergyReporting
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeScaleFactorForActiveEnergyWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeLuminaireEnergyReportingID) attributeID:@(MTRAttributeIDTypeClusterLuminaireEnergyReportingAttributeScaleFactorForActiveEnergyID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeActiveEnergyWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeLuminaireEnergyReportingID) attributeID:@(MTRAttributeIDTypeClusterLuminaireEnergyReportingAttributeActiveEnergyID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeScaleFactorForActivePowerWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeLuminaireEnergyReportingID) attributeID:@(MTRAttributeIDTypeClusterLuminaireEnergyReportingAttributeScaleFactorForActivePowerID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeActivePowerWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeLuminaireEnergyReportingID) attributeID:@(MTRAttributeIDTypeClusterLuminaireEnergyReportingAttributeActivePowerID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeScaleFactorForApparentEnergyWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeLuminaireEnergyReportingID) attributeID:@(MTRAttributeIDTypeClusterLuminaireEnergyReportingAttributeScaleFactorForApparentEnergyID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeApparentEnergyWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeLuminaireEnergyReportingID) attributeID:@(MTRAttributeIDTypeClusterLuminaireEnergyReportingAttributeApparentEnergyID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeScaleFactorForApparentPowerWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeLuminaireEnergyReportingID) attributeID:@(MTRAttributeIDTypeClusterLuminaireEnergyReportingAttributeScaleFactorForApparentPowerID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeApparentPowerWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeLuminaireEnergyReportingID) attributeID:@(MTRAttributeIDTypeClusterLuminaireEnergyReportingAttributeApparentPowerID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeScaleFactorForLoadsideEnergyWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeLuminaireEnergyReportingID) attributeID:@(MTRAttributeIDTypeClusterLuminaireEnergyReportingAttributeScaleFactorForLoadsideEnergyID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeActiveEnergyLoadsideWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeLuminaireEnergyReportingID) attributeID:@(MTRAttributeIDTypeClusterLuminaireEnergyReportingAttributeActiveEnergyLoadsideID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeScaleFactorForLoadsidePowerWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeLuminaireEnergyReportingID) attributeID:@(MTRAttributeIDTypeClusterLuminaireEnergyReportingAttributeScaleFactorForLoadsidePowerID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeActivePowerLoadsideWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeLuminaireEnergyReportingID) attributeID:@(MTRAttributeIDTypeClusterLuminaireEnergyReportingAttributeActivePowerLoadsideID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeGeneratedCommandListWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeLuminaireEnergyReportingID) attributeID:@(MTRAttributeIDTypeClusterLuminaireEnergyReportingAttributeGeneratedCommandListID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeAcceptedCommandListWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeLuminaireEnergyReportingID) attributeID:@(MTRAttributeIDTypeClusterLuminaireEnergyReportingAttributeAcceptedCommandListID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeAttributeListWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeLuminaireEnergyReportingID) attributeID:@(MTRAttributeIDTypeClusterLuminaireEnergyReportingAttributeAttributeListID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeFeatureMapWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeLuminaireEnergyReportingID) attributeID:@(MTRAttributeIDTypeClusterLuminaireEnergyReportingAttributeFeatureMapID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeClusterRevisionWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeLuminaireEnergyReportingID) attributeID:@(MTRAttributeIDTypeClusterLuminaireEnergyReportingAttributeClusterRevisionID) params:params];
+}
+
+@end
+
+@implementation MTRClusterLuminaireDiagnosticsAndMaintenance
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeControlGearOperatingTimeWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeLuminaireDiagnosticsAndMaintenanceID) attributeID:@(MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeControlGearOperatingTimeID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeControlGearStartCounterWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeLuminaireDiagnosticsAndMaintenanceID) attributeID:@(MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeControlGearStartCounterID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeControlGearExternalSupplyVoltageWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeLuminaireDiagnosticsAndMaintenanceID) attributeID:@(MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeControlGearExternalSupplyVoltageID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeControlGearExternalSupplyVoltageFrequencyWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeLuminaireDiagnosticsAndMaintenanceID) attributeID:@(MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeControlGearExternalSupplyVoltageFrequencyID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeControlGearPowerFactorWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeLuminaireDiagnosticsAndMaintenanceID) attributeID:@(MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeControlGearPowerFactorID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeControlGearOverallFailureConditionWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeLuminaireDiagnosticsAndMaintenanceID) attributeID:@(MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeControlGearOverallFailureConditionID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeControlGearOverallFailureConditionCounterWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeLuminaireDiagnosticsAndMaintenanceID) attributeID:@(MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeControlGearOverallFailureConditionCounterID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeControlGearExternalSupplyUndervoltageWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeLuminaireDiagnosticsAndMaintenanceID) attributeID:@(MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeControlGearExternalSupplyUndervoltageID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeControlGearExternalSupplyUndervoltageCounterWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeLuminaireDiagnosticsAndMaintenanceID) attributeID:@(MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeControlGearExternalSupplyUndervoltageCounterID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeControlGearExternalSupplyOvervoltageWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeLuminaireDiagnosticsAndMaintenanceID) attributeID:@(MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeControlGearExternalSupplyOvervoltageID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeControlGearExternalSupplyOvervoltageCounterWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeLuminaireDiagnosticsAndMaintenanceID) attributeID:@(MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeControlGearExternalSupplyOvervoltageCounterID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeControlGearOutputPowerLimitationWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeLuminaireDiagnosticsAndMaintenanceID) attributeID:@(MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeControlGearOutputPowerLimitationID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeControlGearOutputPowerLimitationCounterWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeLuminaireDiagnosticsAndMaintenanceID) attributeID:@(MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeControlGearOutputPowerLimitationCounterID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeControlGearThermalDeratingWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeLuminaireDiagnosticsAndMaintenanceID) attributeID:@(MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeControlGearThermalDeratingID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeControlGearThermalDeratingCounterWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeLuminaireDiagnosticsAndMaintenanceID) attributeID:@(MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeControlGearThermalDeratingCounterID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeControlGearThermalShutdownWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeLuminaireDiagnosticsAndMaintenanceID) attributeID:@(MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeControlGearThermalShutdownID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeControlGearThermalShutdownCounterWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeLuminaireDiagnosticsAndMaintenanceID) attributeID:@(MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeControlGearThermalShutdownCounterID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeControlGearTemperatureWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeLuminaireDiagnosticsAndMaintenanceID) attributeID:@(MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeControlGearTemperatureID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeControlGearOutputCurrentPercentageWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeLuminaireDiagnosticsAndMaintenanceID) attributeID:@(MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeControlGearOutputCurrentPercentageID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeLightSourceStartCounterResettableWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeLuminaireDiagnosticsAndMaintenanceID) attributeID:@(MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeLightSourceStartCounterResettableID) params:params];
+}
+
+- (void)writeAttributeLightSourceStartCounterResettableWithValue:(NSDictionary<NSString *, id> *)dataValueDictionary expectedValueInterval:(NSNumber *)expectedValueIntervalMs
+{
+    [self writeAttributeLightSourceStartCounterResettableWithValue:dataValueDictionary expectedValueInterval:expectedValueIntervalMs params:nil];
+}
+- (void)writeAttributeLightSourceStartCounterResettableWithValue:(NSDictionary<NSString *, id> *)dataValueDictionary expectedValueInterval:(NSNumber *)expectedValueIntervalMs params:(MTRWriteParams * _Nullable)params
+{
+    NSNumber * timedWriteTimeout = params.timedWriteTimeout;
+
+    [self.device writeAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeLuminaireDiagnosticsAndMaintenanceID) attributeID:@(MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeLightSourceStartCounterResettableID) value:dataValueDictionary expectedValueInterval:expectedValueIntervalMs timedWriteTimeout:timedWriteTimeout];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeLightSourceStartCounterWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeLuminaireDiagnosticsAndMaintenanceID) attributeID:@(MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeLightSourceStartCounterID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeLightSourceOnTimeResettableWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeLuminaireDiagnosticsAndMaintenanceID) attributeID:@(MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeLightSourceOnTimeResettableID) params:params];
+}
+
+- (void)writeAttributeLightSourceOnTimeResettableWithValue:(NSDictionary<NSString *, id> *)dataValueDictionary expectedValueInterval:(NSNumber *)expectedValueIntervalMs
+{
+    [self writeAttributeLightSourceOnTimeResettableWithValue:dataValueDictionary expectedValueInterval:expectedValueIntervalMs params:nil];
+}
+- (void)writeAttributeLightSourceOnTimeResettableWithValue:(NSDictionary<NSString *, id> *)dataValueDictionary expectedValueInterval:(NSNumber *)expectedValueIntervalMs params:(MTRWriteParams * _Nullable)params
+{
+    NSNumber * timedWriteTimeout = params.timedWriteTimeout;
+
+    [self.device writeAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeLuminaireDiagnosticsAndMaintenanceID) attributeID:@(MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeLightSourceOnTimeResettableID) value:dataValueDictionary expectedValueInterval:expectedValueIntervalMs timedWriteTimeout:timedWriteTimeout];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeLightSourceOnTimeWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeLuminaireDiagnosticsAndMaintenanceID) attributeID:@(MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeLightSourceOnTimeID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeLightSourceVoltageWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeLuminaireDiagnosticsAndMaintenanceID) attributeID:@(MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeLightSourceVoltageID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeLightSourceCurrentWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeLuminaireDiagnosticsAndMaintenanceID) attributeID:@(MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeLightSourceCurrentID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeLightSourceOverallFailureConditionWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeLuminaireDiagnosticsAndMaintenanceID) attributeID:@(MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeLightSourceOverallFailureConditionID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeLightSourceOverallFailureConditionCounterWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeLuminaireDiagnosticsAndMaintenanceID) attributeID:@(MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeLightSourceOverallFailureConditionCounterID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeLightSourceShortCircuitWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeLuminaireDiagnosticsAndMaintenanceID) attributeID:@(MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeLightSourceShortCircuitID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeLightSourceShortCircuitCounterWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeLuminaireDiagnosticsAndMaintenanceID) attributeID:@(MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeLightSourceShortCircuitCounterID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeLightSourceOpenCircuitWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeLuminaireDiagnosticsAndMaintenanceID) attributeID:@(MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeLightSourceOpenCircuitID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeLightSourceOpenCircuitCounterWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeLuminaireDiagnosticsAndMaintenanceID) attributeID:@(MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeLightSourceOpenCircuitCounterID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeLightSourceThermalDeratingWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeLuminaireDiagnosticsAndMaintenanceID) attributeID:@(MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeLightSourceThermalDeratingID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeLightSourceThermalDeratingCounterWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeLuminaireDiagnosticsAndMaintenanceID) attributeID:@(MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeLightSourceThermalDeratingCounterID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeLightSourceThermalShutdownWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeLuminaireDiagnosticsAndMaintenanceID) attributeID:@(MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeLightSourceThermalShutdownID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeLightSourceThermalShutdownCounterWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeLuminaireDiagnosticsAndMaintenanceID) attributeID:@(MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeLightSourceThermalShutdownCounterID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeLightSourceTemperatureWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeLuminaireDiagnosticsAndMaintenanceID) attributeID:@(MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeLightSourceTemperatureID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeRatedMedianUsefulLifeOfLuminaireWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeLuminaireDiagnosticsAndMaintenanceID) attributeID:@(MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeRatedMedianUsefulLifeOfLuminaireID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeInternalControlGearReferenceTemperatureWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeLuminaireDiagnosticsAndMaintenanceID) attributeID:@(MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeInternalControlGearReferenceTemperatureID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeRatedMedianUsefulLightSourceStartsWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeLuminaireDiagnosticsAndMaintenanceID) attributeID:@(MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeRatedMedianUsefulLightSourceStartsID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeGeneratedCommandListWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeLuminaireDiagnosticsAndMaintenanceID) attributeID:@(MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeGeneratedCommandListID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeAcceptedCommandListWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeLuminaireDiagnosticsAndMaintenanceID) attributeID:@(MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeAcceptedCommandListID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeAttributeListWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeLuminaireDiagnosticsAndMaintenanceID) attributeID:@(MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeAttributeListID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeFeatureMapWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeLuminaireDiagnosticsAndMaintenanceID) attributeID:@(MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeFeatureMapID) params:params];
+}
+
+- (NSDictionary<NSString *, id> * _Nullable)readAttributeClusterRevisionWithParams:(MTRReadParams * _Nullable)params
+{
+    return [self.device readAttributeWithEndpointID:self.endpointID clusterID:@(MTRClusterIDTypeLuminaireDiagnosticsAndMaintenanceID) attributeID:@(MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeClusterRevisionID) params:params];
+}
+
+@end
+
 @implementation MTRClusterIlluminanceMeasurement
 
 - (NSDictionary<NSString *, id> * _Nullable)readAttributeMeasuredValueWithParams:(MTRReadParams * _Nullable)params

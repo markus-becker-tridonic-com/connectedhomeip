@@ -3032,6 +3032,56 @@ public class ClusterWriteMapping {
     );
     writeBallastConfigurationInteractionInfo.put("writeLampBurnHoursTripPointAttribute", writeBallastConfigurationLampBurnHoursTripPointAttributeInteractionInfo);
     writeAttributeMap.put("ballastConfiguration", writeBallastConfigurationInteractionInfo);
+    Map<String, InteractionInfo> writeLuminaireAssetManagementInteractionInfo = new LinkedHashMap<>();
+    writeAttributeMap.put("luminaireAssetManagement", writeLuminaireAssetManagementInteractionInfo);
+    Map<String, InteractionInfo> writeLuminaireEnergyReportingInteractionInfo = new LinkedHashMap<>();
+    writeAttributeMap.put("luminaireEnergyReporting", writeLuminaireEnergyReportingInteractionInfo);
+    Map<String, InteractionInfo> writeLuminaireDiagnosticsAndMaintenanceInteractionInfo = new LinkedHashMap<>();
+    Map<String, CommandParameterInfo> writeLuminaireDiagnosticsAndMaintenanceLightSourceStartCounterResettableCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+    CommandParameterInfo luminaireDiagnosticsAndMaintenancelightSourceStartCounterResettableCommandParameterInfo =
+        new CommandParameterInfo(
+            "value", 
+            Long.class, 
+            Long.class 
+        );
+    writeLuminaireDiagnosticsAndMaintenanceLightSourceStartCounterResettableCommandParams.put(
+        "value",
+        luminaireDiagnosticsAndMaintenancelightSourceStartCounterResettableCommandParameterInfo
+    );
+    InteractionInfo writeLuminaireDiagnosticsAndMaintenanceLightSourceStartCounterResettableAttributeInteractionInfo = new InteractionInfo(
+      (cluster, callback, commandArguments) -> {
+        ((ChipClusters.LuminaireDiagnosticsAndMaintenanceCluster) cluster).writeLightSourceStartCounterResettableAttribute(
+          (DefaultClusterCallback) callback,
+          (Long) commandArguments.get("value")
+        );
+      },
+      () -> new ClusterInfoMapping.DelegatedDefaultClusterCallback(),
+      writeLuminaireDiagnosticsAndMaintenanceLightSourceStartCounterResettableCommandParams
+    );
+    writeLuminaireDiagnosticsAndMaintenanceInteractionInfo.put("writeLightSourceStartCounterResettableAttribute", writeLuminaireDiagnosticsAndMaintenanceLightSourceStartCounterResettableAttributeInteractionInfo);
+    Map<String, CommandParameterInfo> writeLuminaireDiagnosticsAndMaintenanceLightSourceOnTimeResettableCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+    CommandParameterInfo luminaireDiagnosticsAndMaintenancelightSourceOnTimeResettableCommandParameterInfo =
+        new CommandParameterInfo(
+            "value", 
+            Long.class, 
+            Long.class 
+        );
+    writeLuminaireDiagnosticsAndMaintenanceLightSourceOnTimeResettableCommandParams.put(
+        "value",
+        luminaireDiagnosticsAndMaintenancelightSourceOnTimeResettableCommandParameterInfo
+    );
+    InteractionInfo writeLuminaireDiagnosticsAndMaintenanceLightSourceOnTimeResettableAttributeInteractionInfo = new InteractionInfo(
+      (cluster, callback, commandArguments) -> {
+        ((ChipClusters.LuminaireDiagnosticsAndMaintenanceCluster) cluster).writeLightSourceOnTimeResettableAttribute(
+          (DefaultClusterCallback) callback,
+          (Long) commandArguments.get("value")
+        );
+      },
+      () -> new ClusterInfoMapping.DelegatedDefaultClusterCallback(),
+      writeLuminaireDiagnosticsAndMaintenanceLightSourceOnTimeResettableCommandParams
+    );
+    writeLuminaireDiagnosticsAndMaintenanceInteractionInfo.put("writeLightSourceOnTimeResettableAttribute", writeLuminaireDiagnosticsAndMaintenanceLightSourceOnTimeResettableAttributeInteractionInfo);
+    writeAttributeMap.put("luminaireDiagnosticsAndMaintenance", writeLuminaireDiagnosticsAndMaintenanceInteractionInfo);
     Map<String, InteractionInfo> writeIlluminanceMeasurementInteractionInfo = new LinkedHashMap<>();
     writeAttributeMap.put("illuminanceMeasurement", writeIlluminanceMeasurementInteractionInfo);
     Map<String, InteractionInfo> writeTemperatureMeasurementInteractionInfo = new LinkedHashMap<>();

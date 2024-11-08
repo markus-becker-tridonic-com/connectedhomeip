@@ -96,6 +96,9 @@ Generally regenerate using one of:
 |        516 |      0x204 | ThermostatUserInterfaceConfiguration                    |
 |        768 |      0x300 | ColorControl                                            |
 |        769 |      0x301 | BallastConfiguration                                    |
+|        770 |      0x302 | LuminaireAssetManagement                                |
+|        771 |      0x303 | LuminaireEnergyReporting                                |
+|        772 |      0x304 | LuminaireDiagnosticsAndMaintenance                      |
 |       1024 |      0x400 | IlluminanceMeasurement                                  |
 |       1026 |      0x402 | TemperatureMeasurement                                  |
 |       1027 |      0x403 | PressureMeasurement                                     |

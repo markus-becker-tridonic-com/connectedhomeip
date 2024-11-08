@@ -4663,6 +4663,76 @@ enum class LampAlarmModeBitmap : uint8_t
 };
 } // namespace BallastConfiguration
 
+namespace LuminaireAssetManagement {
+
+// Enum for LightDistributionTypeEnum
+enum class LightDistributionTypeEnum : uint8_t
+{
+    kNotSpecified = 0x00,
+    kTypeI        = 0x01,
+    kTypeII       = 0x02,
+    kTypeIII      = 0x03,
+    kTypeIV       = 0x04,
+    kTypeV        = 0x05,
+    kUnknown      = 0xFF,
+    // All received enum values that are not listed above will be mapped
+    // to kUnknownEnumValue. This is a helper enum value that should only
+    // be used by code to process how it handles receiving and unknown
+    // enum value. This specific should never be transmitted.
+    kUnknownEnumValue = 6,
+};
+
+// Enum for LightSourceTypeEnum
+enum class LightSourceTypeEnum : uint8_t
+{
+    kLowPressureFluorescent = 0x00,
+    kHid                    = 0x02,
+    kLowVoltageHalogen      = 0x03,
+    kIncandescent           = 0x04,
+    kLed                    = 0x06,
+    kOled                   = 0x07,
+    kOtherThanListedAbove   = 0xFC,
+    kUnknownLightSource     = 0xFD,
+    kNoLightSource          = 0xFE,
+    kMultipleLightSources   = 0xFF,
+    // All received enum values that are not listed above will be mapped
+    // to kUnknownEnumValue. This is a helper enum value that should only
+    // be used by code to process how it handles receiving and unknown
+    // enum value. This specific should never be transmitted.
+    kUnknownEnumValue = 1,
+};
+} // namespace LuminaireAssetManagement
+
+namespace LuminaireEnergyReporting {
+
+// Bitmap for Feature
+enum class Feature : uint32_t
+{
+    kLuminaireApparentEnergy       = 0x1,
+    kLuminaireApparentPower        = 0x2,
+    kLuminaireActiveLoadsideEnergy = 0x4,
+    kLuminaireActiveLoadsidePower  = 0x8,
+};
+} // namespace LuminaireEnergyReporting
+
+namespace LuminaireDiagnosticsAndMaintenance {
+
+// Bitmap for Feature
+enum class Feature : uint32_t
+{
+    kLuminaireControlGearExternalSupplyVoltage      = 0x1,
+    kLuminaireControlGearExternalSupplyUndervoltage = 0x2,
+    kLuminaireControlGearExternalSupplyOvervoltage  = 0x4,
+    kLuminaireControlGearOutputPowerLimitation      = 0x8,
+    kLuminaireControlGearThermalDerating            = 0x10,
+    kLuminaireControlGearThermalShutdown            = 0x20,
+    kLuminaireLightSourceShortCircuit               = 0x40,
+    kLuminaireLightSourceOpenCircuit                = 0x80,
+    kLuminaireLightSourceThermalDerating            = 0x100,
+    kLuminaireLightSourceThermalShutdown            = 0x200,
+};
+} // namespace LuminaireDiagnosticsAndMaintenance
+
 namespace IlluminanceMeasurement {
 
 // Enum for LightSensorTypeEnum

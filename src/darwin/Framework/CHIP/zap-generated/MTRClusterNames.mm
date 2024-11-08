@@ -270,6 +270,15 @@ NSString * MTRClusterNameForID(MTRClusterIDType clusterID)
     case MTRClusterIDTypeBallastConfigurationID:
         result = @"BallastConfiguration";
         break;
+    case MTRClusterIDTypeLuminaireAssetManagementID:
+        result = @"LuminaireAssetManagement";
+        break;
+    case MTRClusterIDTypeLuminaireEnergyReportingID:
+        result = @"LuminaireEnergyReporting";
+        break;
+    case MTRClusterIDTypeLuminaireDiagnosticsAndMaintenanceID:
+        result = @"LuminaireDiagnosticsAndMaintenance";
+        break;
     case MTRClusterIDTypeIlluminanceMeasurementID:
         result = @"IlluminanceMeasurement";
         break;
@@ -5840,6 +5849,363 @@ NSString * MTRAttributeNameForID(MTRClusterIDType clusterID, MTRAttributeIDType 
         }
         break;
 
+    case MTRClusterIDTypeLuminaireAssetManagementID:
+
+        switch (attributeID) {
+
+            // Cluster LuminaireAssetManagement attributes
+        case MTRAttributeIDTypeClusterLuminaireAssetManagementAttributeLuminaireManufacturerGTINID:
+            result = @"LuminaireManufacturerGTIN";
+            break;
+
+        case MTRAttributeIDTypeClusterLuminaireAssetManagementAttributeLuminaireIdentificationNumberID:
+            result = @"LuminaireIdentificationNumber";
+            break;
+
+        case MTRAttributeIDTypeClusterLuminaireAssetManagementAttributeLuminaireYearOfManufactureID:
+            result = @"LuminaireYearOfManufacture";
+            break;
+
+        case MTRAttributeIDTypeClusterLuminaireAssetManagementAttributeLuminaireWeekOfManufactureID:
+            result = @"LuminaireWeekOfManufacture";
+            break;
+
+        case MTRAttributeIDTypeClusterLuminaireAssetManagementAttributeNominalInputPowerID:
+            result = @"NominalInputPower";
+            break;
+
+        case MTRAttributeIDTypeClusterLuminaireAssetManagementAttributePowerAtMinimumDimLevelID:
+            result = @"PowerAtMinimumDimLevel";
+            break;
+
+        case MTRAttributeIDTypeClusterLuminaireAssetManagementAttributeNominalMinimumACMainsVoltageID:
+            result = @"NominalMinimumACMainsVoltage";
+            break;
+
+        case MTRAttributeIDTypeClusterLuminaireAssetManagementAttributeNominalMaximumACMainsVoltageID:
+            result = @"NominalMaximumACMainsVoltage";
+            break;
+
+        case MTRAttributeIDTypeClusterLuminaireAssetManagementAttributeNominalLightOutputID:
+            result = @"NominalLightOutput";
+            break;
+
+        case MTRAttributeIDTypeClusterLuminaireAssetManagementAttributeColorRenderingIndexID:
+            result = @"ColorRenderingIndex";
+            break;
+
+        case MTRAttributeIDTypeClusterLuminaireAssetManagementAttributeCCTID:
+            result = @"CCT";
+            break;
+
+        case MTRAttributeIDTypeClusterLuminaireAssetManagementAttributeLightDistributionTypeID:
+            result = @"LightDistributionType";
+            break;
+
+        case MTRAttributeIDTypeClusterLuminaireAssetManagementAttributeLuminaireColorID:
+            result = @"LuminaireColor";
+            break;
+
+        case MTRAttributeIDTypeClusterLuminaireAssetManagementAttributeLuminaireIdentificationID:
+            result = @"LuminaireIdentification";
+            break;
+
+        case MTRAttributeIDTypeClusterLuminaireAssetManagementAttributeLightSourceTypeID:
+            result = @"LightSourceType";
+            break;
+
+        case MTRAttributeIDTypeClusterLuminaireAssetManagementAttributeGeneratedCommandListID:
+            result = @"GeneratedCommandList";
+            break;
+
+        case MTRAttributeIDTypeClusterLuminaireAssetManagementAttributeAcceptedCommandListID:
+            result = @"AcceptedCommandList";
+            break;
+
+        case MTRAttributeIDTypeClusterLuminaireAssetManagementAttributeAttributeListID:
+            result = @"AttributeList";
+            break;
+
+        case MTRAttributeIDTypeClusterLuminaireAssetManagementAttributeFeatureMapID:
+            result = @"FeatureMap";
+            break;
+
+        case MTRAttributeIDTypeClusterLuminaireAssetManagementAttributeClusterRevisionID:
+            result = @"ClusterRevision";
+            break;
+
+        default:
+            result = [NSString stringWithFormat:@"<Unknown attributeID %u>", attributeID];
+            break;
+        }
+        break;
+
+    case MTRClusterIDTypeLuminaireEnergyReportingID:
+
+        switch (attributeID) {
+
+            // Cluster LuminaireEnergyReporting attributes
+        case MTRAttributeIDTypeClusterLuminaireEnergyReportingAttributeScaleFactorForActiveEnergyID:
+            result = @"ScaleFactorForActiveEnergy";
+            break;
+
+        case MTRAttributeIDTypeClusterLuminaireEnergyReportingAttributeActiveEnergyID:
+            result = @"ActiveEnergy";
+            break;
+
+        case MTRAttributeIDTypeClusterLuminaireEnergyReportingAttributeScaleFactorForActivePowerID:
+            result = @"ScaleFactorForActivePower";
+            break;
+
+        case MTRAttributeIDTypeClusterLuminaireEnergyReportingAttributeActivePowerID:
+            result = @"ActivePower";
+            break;
+
+        case MTRAttributeIDTypeClusterLuminaireEnergyReportingAttributeScaleFactorForApparentEnergyID:
+            result = @"ScaleFactorForApparentEnergy";
+            break;
+
+        case MTRAttributeIDTypeClusterLuminaireEnergyReportingAttributeApparentEnergyID:
+            result = @"ApparentEnergy";
+            break;
+
+        case MTRAttributeIDTypeClusterLuminaireEnergyReportingAttributeScaleFactorForApparentPowerID:
+            result = @"ScaleFactorForApparentPower";
+            break;
+
+        case MTRAttributeIDTypeClusterLuminaireEnergyReportingAttributeApparentPowerID:
+            result = @"ApparentPower";
+            break;
+
+        case MTRAttributeIDTypeClusterLuminaireEnergyReportingAttributeScaleFactorForLoadsideEnergyID:
+            result = @"ScaleFactorForLoadsideEnergy";
+            break;
+
+        case MTRAttributeIDTypeClusterLuminaireEnergyReportingAttributeActiveEnergyLoadsideID:
+            result = @"ActiveEnergyLoadside";
+            break;
+
+        case MTRAttributeIDTypeClusterLuminaireEnergyReportingAttributeScaleFactorForLoadsidePowerID:
+            result = @"ScaleFactorForLoadsidePower";
+            break;
+
+        case MTRAttributeIDTypeClusterLuminaireEnergyReportingAttributeActivePowerLoadsideID:
+            result = @"ActivePowerLoadside";
+            break;
+
+        case MTRAttributeIDTypeClusterLuminaireEnergyReportingAttributeGeneratedCommandListID:
+            result = @"GeneratedCommandList";
+            break;
+
+        case MTRAttributeIDTypeClusterLuminaireEnergyReportingAttributeAcceptedCommandListID:
+            result = @"AcceptedCommandList";
+            break;
+
+        case MTRAttributeIDTypeClusterLuminaireEnergyReportingAttributeAttributeListID:
+            result = @"AttributeList";
+            break;
+
+        case MTRAttributeIDTypeClusterLuminaireEnergyReportingAttributeFeatureMapID:
+            result = @"FeatureMap";
+            break;
+
+        case MTRAttributeIDTypeClusterLuminaireEnergyReportingAttributeClusterRevisionID:
+            result = @"ClusterRevision";
+            break;
+
+        default:
+            result = [NSString stringWithFormat:@"<Unknown attributeID %u>", attributeID];
+            break;
+        }
+        break;
+
+    case MTRClusterIDTypeLuminaireDiagnosticsAndMaintenanceID:
+
+        switch (attributeID) {
+
+            // Cluster LuminaireDiagnosticsAndMaintenance attributes
+        case MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeControlGearOperatingTimeID:
+            result = @"ControlGearOperatingTime";
+            break;
+
+        case MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeControlGearStartCounterID:
+            result = @"ControlGearStartCounter";
+            break;
+
+        case MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeControlGearExternalSupplyVoltageID:
+            result = @"ControlGearExternalSupplyVoltage";
+            break;
+
+        case MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeControlGearExternalSupplyVoltageFrequencyID:
+            result = @"ControlGearExternalSupplyVoltageFrequency";
+            break;
+
+        case MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeControlGearPowerFactorID:
+            result = @"ControlGearPowerFactor";
+            break;
+
+        case MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeControlGearOverallFailureConditionID:
+            result = @"ControlGearOverallFailureCondition";
+            break;
+
+        case MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeControlGearOverallFailureConditionCounterID:
+            result = @"ControlGearOverallFailureConditionCounter";
+            break;
+
+        case MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeControlGearExternalSupplyUndervoltageID:
+            result = @"ControlGearExternalSupplyUndervoltage";
+            break;
+
+        case MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeControlGearExternalSupplyUndervoltageCounterID:
+            result = @"ControlGearExternalSupplyUndervoltageCounter";
+            break;
+
+        case MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeControlGearExternalSupplyOvervoltageID:
+            result = @"ControlGearExternalSupplyOvervoltage";
+            break;
+
+        case MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeControlGearExternalSupplyOvervoltageCounterID:
+            result = @"ControlGearExternalSupplyOvervoltageCounter";
+            break;
+
+        case MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeControlGearOutputPowerLimitationID:
+            result = @"ControlGearOutputPowerLimitation";
+            break;
+
+        case MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeControlGearOutputPowerLimitationCounterID:
+            result = @"ControlGearOutputPowerLimitationCounter";
+            break;
+
+        case MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeControlGearThermalDeratingID:
+            result = @"ControlGearThermalDerating";
+            break;
+
+        case MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeControlGearThermalDeratingCounterID:
+            result = @"ControlGearThermalDeratingCounter";
+            break;
+
+        case MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeControlGearThermalShutdownID:
+            result = @"ControlGearThermalShutdown";
+            break;
+
+        case MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeControlGearThermalShutdownCounterID:
+            result = @"ControlGearThermalShutdownCounter";
+            break;
+
+        case MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeControlGearTemperatureID:
+            result = @"ControlGearTemperature";
+            break;
+
+        case MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeControlGearOutputCurrentPercentageID:
+            result = @"ControlGearOutputCurrentPercentage";
+            break;
+
+        case MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeLightSourceStartCounterResettableID:
+            result = @"LightSourceStartCounterResettable";
+            break;
+
+        case MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeLightSourceStartCounterID:
+            result = @"LightSourceStartCounter";
+            break;
+
+        case MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeLightSourceOnTimeResettableID:
+            result = @"LightSourceOnTimeResettable";
+            break;
+
+        case MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeLightSourceOnTimeID:
+            result = @"LightSourceOnTime";
+            break;
+
+        case MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeLightSourceVoltageID:
+            result = @"LightSourceVoltage";
+            break;
+
+        case MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeLightSourceCurrentID:
+            result = @"LightSourceCurrent";
+            break;
+
+        case MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeLightSourceOverallFailureConditionID:
+            result = @"LightSourceOverallFailureCondition";
+            break;
+
+        case MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeLightSourceOverallFailureConditionCounterID:
+            result = @"LightSourceOverallFailureConditionCounter";
+            break;
+
+        case MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeLightSourceShortCircuitID:
+            result = @"LightSourceShortCircuit";
+            break;
+
+        case MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeLightSourceShortCircuitCounterID:
+            result = @"LightSourceShortCircuitCounter";
+            break;
+
+        case MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeLightSourceOpenCircuitID:
+            result = @"LightSourceOpenCircuit";
+            break;
+
+        case MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeLightSourceOpenCircuitCounterID:
+            result = @"LightSourceOpenCircuitCounter";
+            break;
+
+        case MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeLightSourceThermalDeratingID:
+            result = @"LightSourceThermalDerating";
+            break;
+
+        case MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeLightSourceThermalDeratingCounterID:
+            result = @"LightSourceThermalDeratingCounter";
+            break;
+
+        case MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeLightSourceThermalShutdownID:
+            result = @"LightSourceThermalShutdown";
+            break;
+
+        case MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeLightSourceThermalShutdownCounterID:
+            result = @"LightSourceThermalShutdownCounter";
+            break;
+
+        case MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeLightSourceTemperatureID:
+            result = @"LightSourceTemperature";
+            break;
+
+        case MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeRatedMedianUsefulLifeOfLuminaireID:
+            result = @"RatedMedianUsefulLifeOfLuminaire";
+            break;
+
+        case MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeInternalControlGearReferenceTemperatureID:
+            result = @"InternalControlGearReferenceTemperature";
+            break;
+
+        case MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeRatedMedianUsefulLightSourceStartsID:
+            result = @"RatedMedianUsefulLightSourceStarts";
+            break;
+
+        case MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeGeneratedCommandListID:
+            result = @"GeneratedCommandList";
+            break;
+
+        case MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeAcceptedCommandListID:
+            result = @"AcceptedCommandList";
+            break;
+
+        case MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeAttributeListID:
+            result = @"AttributeList";
+            break;
+
+        case MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeFeatureMapID:
+            result = @"FeatureMap";
+            break;
+
+        case MTRAttributeIDTypeClusterLuminaireDiagnosticsAndMaintenanceAttributeClusterRevisionID:
+            result = @"ClusterRevision";
+            break;
+
+        default:
+            result = [NSString stringWithFormat:@"<Unknown attributeID %u>", attributeID];
+            break;
+        }
+        break;
+
     case MTRClusterIDTypeIlluminanceMeasurementID:
 
         switch (attributeID) {
@@ -10212,6 +10578,36 @@ NSString * MTRRequestCommandNameForID(MTRClusterIDType clusterID, MTRCommandIDTy
         }
         break;
 
+    case MTRClusterIDTypeLuminaireAssetManagementID:
+
+        switch (commandID) {
+
+        default:
+            result = [NSString stringWithFormat:@"<Unknown commandID %u>", commandID];
+            break;
+        }
+        break;
+
+    case MTRClusterIDTypeLuminaireEnergyReportingID:
+
+        switch (commandID) {
+
+        default:
+            result = [NSString stringWithFormat:@"<Unknown commandID %u>", commandID];
+            break;
+        }
+        break;
+
+    case MTRClusterIDTypeLuminaireDiagnosticsAndMaintenanceID:
+
+        switch (commandID) {
+
+        default:
+            result = [NSString stringWithFormat:@"<Unknown commandID %u>", commandID];
+            break;
+        }
+        break;
+
     case MTRClusterIDTypeIlluminanceMeasurementID:
 
         switch (commandID) {
@@ -12140,6 +12536,36 @@ NSString * MTRResponseCommandNameForID(MTRClusterIDType clusterID, MTRCommandIDT
         }
         break;
 
+    case MTRClusterIDTypeLuminaireAssetManagementID:
+
+        switch (commandID) {
+
+        default:
+            result = [NSString stringWithFormat:@"<Unknown commandID %u>", commandID];
+            break;
+        }
+        break;
+
+    case MTRClusterIDTypeLuminaireEnergyReportingID:
+
+        switch (commandID) {
+
+        default:
+            result = [NSString stringWithFormat:@"<Unknown commandID %u>", commandID];
+            break;
+        }
+        break;
+
+    case MTRClusterIDTypeLuminaireDiagnosticsAndMaintenanceID:
+
+        switch (commandID) {
+
+        default:
+            result = [NSString stringWithFormat:@"<Unknown commandID %u>", commandID];
+            break;
+        }
+        break;
+
     case MTRClusterIDTypeIlluminanceMeasurementID:
 
         switch (commandID) {
@@ -13991,6 +14417,36 @@ NSString * MTREventNameForID(MTRClusterIDType clusterID, MTREventIDType eventID)
         break;
 
     case MTRClusterIDTypeBallastConfigurationID:
+
+        switch (eventID) {
+
+        default:
+            result = [NSString stringWithFormat:@"<Unknown eventID %u>", eventID];
+            break;
+        }
+        break;
+
+    case MTRClusterIDTypeLuminaireAssetManagementID:
+
+        switch (eventID) {
+
+        default:
+            result = [NSString stringWithFormat:@"<Unknown eventID %u>", eventID];
+            break;
+        }
+        break;
+
+    case MTRClusterIDTypeLuminaireEnergyReportingID:
+
+        switch (eventID) {
+
+        default:
+            result = [NSString stringWithFormat:@"<Unknown eventID %u>", eventID];
+            break;
+        }
+        break;
+
+    case MTRClusterIDTypeLuminaireDiagnosticsAndMaintenanceID:
 
         switch (eventID) {
 

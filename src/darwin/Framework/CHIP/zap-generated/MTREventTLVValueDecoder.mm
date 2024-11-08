@@ -3982,6 +3982,42 @@ static id _Nullable DecodeEventPayloadForBallastConfigurationCluster(EventId aEv
     *aError = CHIP_ERROR_IM_MALFORMED_EVENT_PATH_IB;
     return nil;
 }
+static id _Nullable DecodeEventPayloadForLuminaireAssetManagementCluster(EventId aEventId, TLV::TLVReader & aReader, CHIP_ERROR * aError)
+{
+    using namespace Clusters::LuminaireAssetManagement;
+    switch (aEventId) {
+    default: {
+        break;
+    }
+    }
+
+    *aError = CHIP_ERROR_IM_MALFORMED_EVENT_PATH_IB;
+    return nil;
+}
+static id _Nullable DecodeEventPayloadForLuminaireEnergyReportingCluster(EventId aEventId, TLV::TLVReader & aReader, CHIP_ERROR * aError)
+{
+    using namespace Clusters::LuminaireEnergyReporting;
+    switch (aEventId) {
+    default: {
+        break;
+    }
+    }
+
+    *aError = CHIP_ERROR_IM_MALFORMED_EVENT_PATH_IB;
+    return nil;
+}
+static id _Nullable DecodeEventPayloadForLuminaireDiagnosticsAndMaintenanceCluster(EventId aEventId, TLV::TLVReader & aReader, CHIP_ERROR * aError)
+{
+    using namespace Clusters::LuminaireDiagnosticsAndMaintenance;
+    switch (aEventId) {
+    default: {
+        break;
+    }
+    }
+
+    *aError = CHIP_ERROR_IM_MALFORMED_EVENT_PATH_IB;
+    return nil;
+}
 static id _Nullable DecodeEventPayloadForIlluminanceMeasurementCluster(EventId aEventId, TLV::TLVReader & aReader, CHIP_ERROR * aError)
 {
     using namespace Clusters::IlluminanceMeasurement;
@@ -5424,6 +5460,15 @@ id _Nullable MTRDecodeEventPayload(const ConcreteEventPath & aPath, TLV::TLVRead
     }
     case Clusters::BallastConfiguration::Id: {
         return DecodeEventPayloadForBallastConfigurationCluster(aPath.mEventId, aReader, aError);
+    }
+    case Clusters::LuminaireAssetManagement::Id: {
+        return DecodeEventPayloadForLuminaireAssetManagementCluster(aPath.mEventId, aReader, aError);
+    }
+    case Clusters::LuminaireEnergyReporting::Id: {
+        return DecodeEventPayloadForLuminaireEnergyReportingCluster(aPath.mEventId, aReader, aError);
+    }
+    case Clusters::LuminaireDiagnosticsAndMaintenance::Id: {
+        return DecodeEventPayloadForLuminaireDiagnosticsAndMaintenanceCluster(aPath.mEventId, aReader, aError);
     }
     case Clusters::IlluminanceMeasurement::Id: {
         return DecodeEventPayloadForIlluminanceMeasurementCluster(aPath.mEventId, aReader, aError);

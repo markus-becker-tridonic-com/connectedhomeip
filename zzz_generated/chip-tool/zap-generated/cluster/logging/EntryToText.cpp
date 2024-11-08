@@ -193,6 +193,12 @@ char const * ClusterIdToText(chip::ClusterId id)
         return "ColorControl";
     case chip::app::Clusters::BallastConfiguration::Id:
         return "BallastConfiguration";
+    case chip::app::Clusters::LuminaireAssetManagement::Id:
+        return "LuminaireAssetManagement";
+    case chip::app::Clusters::LuminaireEnergyReporting::Id:
+        return "LuminaireEnergyReporting";
+    case chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id:
+        return "LuminaireDiagnosticsAndMaintenance";
     case chip::app::Clusters::IlluminanceMeasurement::Id:
         return "IlluminanceMeasurement";
     case chip::app::Clusters::TemperatureMeasurement::Id:
@@ -3169,6 +3175,189 @@ char const * AttributeIdToText(chip::ClusterId cluster, chip::AttributeId id)
         case chip::app::Clusters::BallastConfiguration::Attributes::FeatureMap::Id:
             return "FeatureMap";
         case chip::app::Clusters::BallastConfiguration::Attributes::ClusterRevision::Id:
+            return "ClusterRevision";
+        default:
+            return "Unknown";
+        }
+    }
+    case chip::app::Clusters::LuminaireAssetManagement::Id: {
+        switch (id)
+        {
+        case chip::app::Clusters::LuminaireAssetManagement::Attributes::LuminaireManufacturerGTIN::Id:
+            return "LuminaireManufacturerGTIN";
+        case chip::app::Clusters::LuminaireAssetManagement::Attributes::LuminaireIdentificationNumber::Id:
+            return "LuminaireIdentificationNumber";
+        case chip::app::Clusters::LuminaireAssetManagement::Attributes::LuminaireYearOfManufacture::Id:
+            return "LuminaireYearOfManufacture";
+        case chip::app::Clusters::LuminaireAssetManagement::Attributes::LuminaireWeekOfManufacture::Id:
+            return "LuminaireWeekOfManufacture";
+        case chip::app::Clusters::LuminaireAssetManagement::Attributes::NominalInputPower::Id:
+            return "NominalInputPower";
+        case chip::app::Clusters::LuminaireAssetManagement::Attributes::PowerAtMinimumDimLevel::Id:
+            return "PowerAtMinimumDimLevel";
+        case chip::app::Clusters::LuminaireAssetManagement::Attributes::NominalMinimumACMainsVoltage::Id:
+            return "NominalMinimumACMainsVoltage";
+        case chip::app::Clusters::LuminaireAssetManagement::Attributes::NominalMaximumACMainsVoltage::Id:
+            return "NominalMaximumACMainsVoltage";
+        case chip::app::Clusters::LuminaireAssetManagement::Attributes::NominalLightOutput::Id:
+            return "NominalLightOutput";
+        case chip::app::Clusters::LuminaireAssetManagement::Attributes::ColorRenderingIndex::Id:
+            return "ColorRenderingIndex";
+        case chip::app::Clusters::LuminaireAssetManagement::Attributes::Cct::Id:
+            return "Cct";
+        case chip::app::Clusters::LuminaireAssetManagement::Attributes::LightDistributionType::Id:
+            return "LightDistributionType";
+        case chip::app::Clusters::LuminaireAssetManagement::Attributes::LuminaireColor::Id:
+            return "LuminaireColor";
+        case chip::app::Clusters::LuminaireAssetManagement::Attributes::LuminaireIdentification::Id:
+            return "LuminaireIdentification";
+        case chip::app::Clusters::LuminaireAssetManagement::Attributes::LightSourceType::Id:
+            return "LightSourceType";
+        case chip::app::Clusters::LuminaireAssetManagement::Attributes::GeneratedCommandList::Id:
+            return "GeneratedCommandList";
+        case chip::app::Clusters::LuminaireAssetManagement::Attributes::AcceptedCommandList::Id:
+            return "AcceptedCommandList";
+        case chip::app::Clusters::LuminaireAssetManagement::Attributes::AttributeList::Id:
+            return "AttributeList";
+        case chip::app::Clusters::LuminaireAssetManagement::Attributes::FeatureMap::Id:
+            return "FeatureMap";
+        case chip::app::Clusters::LuminaireAssetManagement::Attributes::ClusterRevision::Id:
+            return "ClusterRevision";
+        default:
+            return "Unknown";
+        }
+    }
+    case chip::app::Clusters::LuminaireEnergyReporting::Id: {
+        switch (id)
+        {
+        case chip::app::Clusters::LuminaireEnergyReporting::Attributes::ScaleFactorForActiveEnergy::Id:
+            return "ScaleFactorForActiveEnergy";
+        case chip::app::Clusters::LuminaireEnergyReporting::Attributes::ActiveEnergy::Id:
+            return "ActiveEnergy";
+        case chip::app::Clusters::LuminaireEnergyReporting::Attributes::ScaleFactorForActivePower::Id:
+            return "ScaleFactorForActivePower";
+        case chip::app::Clusters::LuminaireEnergyReporting::Attributes::ActivePower::Id:
+            return "ActivePower";
+        case chip::app::Clusters::LuminaireEnergyReporting::Attributes::ScaleFactorForApparentEnergy::Id:
+            return "ScaleFactorForApparentEnergy";
+        case chip::app::Clusters::LuminaireEnergyReporting::Attributes::ApparentEnergy::Id:
+            return "ApparentEnergy";
+        case chip::app::Clusters::LuminaireEnergyReporting::Attributes::ScaleFactorForApparentPower::Id:
+            return "ScaleFactorForApparentPower";
+        case chip::app::Clusters::LuminaireEnergyReporting::Attributes::ApparentPower::Id:
+            return "ApparentPower";
+        case chip::app::Clusters::LuminaireEnergyReporting::Attributes::ScaleFactorForLoadsideEnergy::Id:
+            return "ScaleFactorForLoadsideEnergy";
+        case chip::app::Clusters::LuminaireEnergyReporting::Attributes::ActiveEnergyLoadside::Id:
+            return "ActiveEnergyLoadside";
+        case chip::app::Clusters::LuminaireEnergyReporting::Attributes::ScaleFactorForLoadsidePower::Id:
+            return "ScaleFactorForLoadsidePower";
+        case chip::app::Clusters::LuminaireEnergyReporting::Attributes::ActivePowerLoadside::Id:
+            return "ActivePowerLoadside";
+        case chip::app::Clusters::LuminaireEnergyReporting::Attributes::GeneratedCommandList::Id:
+            return "GeneratedCommandList";
+        case chip::app::Clusters::LuminaireEnergyReporting::Attributes::AcceptedCommandList::Id:
+            return "AcceptedCommandList";
+        case chip::app::Clusters::LuminaireEnergyReporting::Attributes::AttributeList::Id:
+            return "AttributeList";
+        case chip::app::Clusters::LuminaireEnergyReporting::Attributes::FeatureMap::Id:
+            return "FeatureMap";
+        case chip::app::Clusters::LuminaireEnergyReporting::Attributes::ClusterRevision::Id:
+            return "ClusterRevision";
+        default:
+            return "Unknown";
+        }
+    }
+    case chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id: {
+        switch (id)
+        {
+        case chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::ControlGearOperatingTime::Id:
+            return "ControlGearOperatingTime";
+        case chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::ControlGearStartCounter::Id:
+            return "ControlGearStartCounter";
+        case chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::ControlGearExternalSupplyVoltage::Id:
+            return "ControlGearExternalSupplyVoltage";
+        case chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::ControlGearExternalSupplyVoltageFrequency::Id:
+            return "ControlGearExternalSupplyVoltageFrequency";
+        case chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::ControlGearPowerFactor::Id:
+            return "ControlGearPowerFactor";
+        case chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::ControlGearOverallFailureCondition::Id:
+            return "ControlGearOverallFailureCondition";
+        case chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::ControlGearOverallFailureConditionCounter::Id:
+            return "ControlGearOverallFailureConditionCounter";
+        case chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::ControlGearExternalSupplyUndervoltage::Id:
+            return "ControlGearExternalSupplyUndervoltage";
+        case chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::ControlGearExternalSupplyUndervoltageCounter::Id:
+            return "ControlGearExternalSupplyUndervoltageCounter";
+        case chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::ControlGearExternalSupplyOvervoltage::Id:
+            return "ControlGearExternalSupplyOvervoltage";
+        case chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::ControlGearExternalSupplyOvervoltageCounter::Id:
+            return "ControlGearExternalSupplyOvervoltageCounter";
+        case chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::ControlGearOutputPowerLimitation::Id:
+            return "ControlGearOutputPowerLimitation";
+        case chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::ControlGearOutputPowerLimitationCounter::Id:
+            return "ControlGearOutputPowerLimitationCounter";
+        case chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::ControlGearThermalDerating::Id:
+            return "ControlGearThermalDerating";
+        case chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::ControlGearThermalDeratingCounter::Id:
+            return "ControlGearThermalDeratingCounter";
+        case chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::ControlGearThermalShutdown::Id:
+            return "ControlGearThermalShutdown";
+        case chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::ControlGearThermalShutdownCounter::Id:
+            return "ControlGearThermalShutdownCounter";
+        case chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::ControlGearTemperature::Id:
+            return "ControlGearTemperature";
+        case chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::ControlGearOutputCurrentPercentage::Id:
+            return "ControlGearOutputCurrentPercentage";
+        case chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::LightSourceStartCounterResettable::Id:
+            return "LightSourceStartCounterResettable";
+        case chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::LightSourceStartCounter::Id:
+            return "LightSourceStartCounter";
+        case chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::LightSourceOnTimeResettable::Id:
+            return "LightSourceOnTimeResettable";
+        case chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::LightSourceOnTime::Id:
+            return "LightSourceOnTime";
+        case chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::LightSourceVoltage::Id:
+            return "LightSourceVoltage";
+        case chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::LightSourceCurrent::Id:
+            return "LightSourceCurrent";
+        case chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::LightSourceOverallFailureCondition::Id:
+            return "LightSourceOverallFailureCondition";
+        case chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::LightSourceOverallFailureConditionCounter::Id:
+            return "LightSourceOverallFailureConditionCounter";
+        case chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::LightSourceShortCircuit::Id:
+            return "LightSourceShortCircuit";
+        case chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::LightSourceShortCircuitCounter::Id:
+            return "LightSourceShortCircuitCounter";
+        case chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::LightSourceOpenCircuit::Id:
+            return "LightSourceOpenCircuit";
+        case chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::LightSourceOpenCircuitCounter::Id:
+            return "LightSourceOpenCircuitCounter";
+        case chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::LightSourceThermalDerating::Id:
+            return "LightSourceThermalDerating";
+        case chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::LightSourceThermalDeratingCounter::Id:
+            return "LightSourceThermalDeratingCounter";
+        case chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::LightSourceThermalShutdown::Id:
+            return "LightSourceThermalShutdown";
+        case chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::LightSourceThermalShutdownCounter::Id:
+            return "LightSourceThermalShutdownCounter";
+        case chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::LightSourceTemperature::Id:
+            return "LightSourceTemperature";
+        case chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::RatedMedianUsefulLifeOfLuminaire::Id:
+            return "RatedMedianUsefulLifeOfLuminaire";
+        case chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::InternalControlGearReferenceTemperature::Id:
+            return "InternalControlGearReferenceTemperature";
+        case chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::RatedMedianUsefulLightSourceStarts::Id:
+            return "RatedMedianUsefulLightSourceStarts";
+        case chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::GeneratedCommandList::Id:
+            return "GeneratedCommandList";
+        case chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::AcceptedCommandList::Id:
+            return "AcceptedCommandList";
+        case chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::AttributeList::Id:
+            return "AttributeList";
+        case chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::FeatureMap::Id:
+            return "FeatureMap";
+        case chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::ClusterRevision::Id:
             return "ClusterRevision";
         default:
             return "Unknown";

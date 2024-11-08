@@ -812,6 +812,33 @@ static BOOL CommandNeedsTimedInvokeInBallastConfigurationCluster(AttributeId aAt
     }
     }
 }
+static BOOL CommandNeedsTimedInvokeInLuminaireAssetManagementCluster(AttributeId aAttributeId)
+{
+    using namespace Clusters::LuminaireAssetManagement;
+    switch (aAttributeId) {
+    default: {
+        return NO;
+    }
+    }
+}
+static BOOL CommandNeedsTimedInvokeInLuminaireEnergyReportingCluster(AttributeId aAttributeId)
+{
+    using namespace Clusters::LuminaireEnergyReporting;
+    switch (aAttributeId) {
+    default: {
+        return NO;
+    }
+    }
+}
+static BOOL CommandNeedsTimedInvokeInLuminaireDiagnosticsAndMaintenanceCluster(AttributeId aAttributeId)
+{
+    using namespace Clusters::LuminaireDiagnosticsAndMaintenance;
+    switch (aAttributeId) {
+    default: {
+        return NO;
+    }
+    }
+}
 static BOOL CommandNeedsTimedInvokeInIlluminanceMeasurementCluster(AttributeId aAttributeId)
 {
     using namespace Clusters::IlluminanceMeasurement;
@@ -1457,6 +1484,15 @@ BOOL MTRCommandNeedsTimedInvoke(NSNumber * _Nonnull aClusterID, NSNumber * _Nonn
     }
     case Clusters::BallastConfiguration::Id: {
         return CommandNeedsTimedInvokeInBallastConfigurationCluster(commandID);
+    }
+    case Clusters::LuminaireAssetManagement::Id: {
+        return CommandNeedsTimedInvokeInLuminaireAssetManagementCluster(commandID);
+    }
+    case Clusters::LuminaireEnergyReporting::Id: {
+        return CommandNeedsTimedInvokeInLuminaireEnergyReportingCluster(commandID);
+    }
+    case Clusters::LuminaireDiagnosticsAndMaintenance::Id: {
+        return CommandNeedsTimedInvokeInLuminaireDiagnosticsAndMaintenanceCluster(commandID);
     }
     case Clusters::IlluminanceMeasurement::Id: {
         return CommandNeedsTimedInvokeInIlluminanceMeasurementCluster(commandID);

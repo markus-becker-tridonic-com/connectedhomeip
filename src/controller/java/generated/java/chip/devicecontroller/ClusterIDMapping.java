@@ -280,6 +280,15 @@ public class ClusterIDMapping {
         if (clusterId == BallastConfiguration.ID) {
             return new BallastConfiguration();
         }
+        if (clusterId == LuminaireAssetManagement.ID) {
+            return new LuminaireAssetManagement();
+        }
+        if (clusterId == LuminaireEnergyReporting.ID) {
+            return new LuminaireEnergyReporting();
+        }
+        if (clusterId == LuminaireDiagnosticsAndMaintenance.ID) {
+            return new LuminaireDiagnosticsAndMaintenance();
+        }
         if (clusterId == IlluminanceMeasurement.ID) {
             return new IlluminanceMeasurement();
         }
@@ -12585,6 +12594,372 @@ public class ClusterIDMapping {
             LampBurnHours(51L),
             LampAlarmMode(52L),
             LampBurnHoursTripPoint(53L),
+            GeneratedCommandList(65528L),
+            AcceptedCommandList(65529L),
+            EventList(65530L),
+            AttributeList(65531L),
+            FeatureMap(65532L),
+            ClusterRevision(65533L),;
+            private final long id;
+            Attribute(long id) {
+                this.id = id;
+            }
+
+            public long getID() {
+                return id;
+            }
+
+            public static Attribute value(long id) throws NoSuchFieldError {
+                for (Attribute attribute : Attribute.values()) {
+                    if (attribute.getID() == id) {
+                        return attribute;
+                    }
+                }
+                throw new NoSuchFieldError();
+            }
+        }
+
+        public enum Event {;
+            private final long id;
+            Event(long id) {
+                this.id = id;
+            }
+
+            public long getID() {
+                return id;
+            }
+
+            public static Event value(long id) throws NoSuchFieldError {
+                for (Event event : Event.values()) {
+                    if (event.getID() == id) {
+                        return event;
+                    }
+                }
+                throw new NoSuchFieldError();
+            }
+        }
+
+        public enum Command {;
+            private final long id;
+            Command(long id) {
+                this.id = id;
+            }
+
+            public long getID() {
+                return id;
+            }
+
+            public static Command value(long id) throws NoSuchFieldError {
+                for (Command command : Command.values()) {
+                    if (command.getID() == id) {
+                        return command;
+                    }
+                }
+                throw new NoSuchFieldError();
+            }
+        }@Override
+        public String getAttributeName(long id) throws NoSuchFieldError {
+            return Attribute.value(id).toString();
+        }
+
+        @Override
+        public String getEventName(long id) throws NoSuchFieldError {
+            return Event.value(id).toString();
+        }
+
+        @Override
+        public String getCommandName(long id) throws NoSuchFieldError {
+            return Command.value(id).toString();
+        }
+
+        @Override
+        public long getAttributeID(String name) throws IllegalArgumentException {
+            return Attribute.valueOf(name).getID();
+        }
+
+        @Override
+        public long getEventID(String name) throws IllegalArgumentException {
+            return Event.valueOf(name).getID();
+        }
+
+        @Override
+        public long getCommandID(String name) throws IllegalArgumentException {
+            return Command.valueOf(name).getID();
+        }
+    }
+    public static class LuminaireAssetManagement implements BaseCluster {
+        public static final long ID = 770L;
+        public long getID() {
+            return ID;
+        }
+
+        public enum Attribute {
+            LuminaireManufacturerGTIN(0L),
+            LuminaireIdentificationNumber(1L),
+            LuminaireYearOfManufacture(2L),
+            LuminaireWeekOfManufacture(3L),
+            NominalInputPower(4L),
+            PowerAtMinimumDimLevel(5L),
+            NominalMinimumACMainsVoltage(6L),
+            NominalMaximumACMainsVoltage(7L),
+            NominalLightOutput(8L),
+            ColorRenderingIndex(9L),
+            Cct(10L),
+            LightDistributionType(11L),
+            LuminaireColor(12L),
+            LuminaireIdentification(13L),
+            LightSourceType(14L),
+            GeneratedCommandList(65528L),
+            AcceptedCommandList(65529L),
+            EventList(65530L),
+            AttributeList(65531L),
+            FeatureMap(65532L),
+            ClusterRevision(65533L),;
+            private final long id;
+            Attribute(long id) {
+                this.id = id;
+            }
+
+            public long getID() {
+                return id;
+            }
+
+            public static Attribute value(long id) throws NoSuchFieldError {
+                for (Attribute attribute : Attribute.values()) {
+                    if (attribute.getID() == id) {
+                        return attribute;
+                    }
+                }
+                throw new NoSuchFieldError();
+            }
+        }
+
+        public enum Event {;
+            private final long id;
+            Event(long id) {
+                this.id = id;
+            }
+
+            public long getID() {
+                return id;
+            }
+
+            public static Event value(long id) throws NoSuchFieldError {
+                for (Event event : Event.values()) {
+                    if (event.getID() == id) {
+                        return event;
+                    }
+                }
+                throw new NoSuchFieldError();
+            }
+        }
+
+        public enum Command {;
+            private final long id;
+            Command(long id) {
+                this.id = id;
+            }
+
+            public long getID() {
+                return id;
+            }
+
+            public static Command value(long id) throws NoSuchFieldError {
+                for (Command command : Command.values()) {
+                    if (command.getID() == id) {
+                        return command;
+                    }
+                }
+                throw new NoSuchFieldError();
+            }
+        }@Override
+        public String getAttributeName(long id) throws NoSuchFieldError {
+            return Attribute.value(id).toString();
+        }
+
+        @Override
+        public String getEventName(long id) throws NoSuchFieldError {
+            return Event.value(id).toString();
+        }
+
+        @Override
+        public String getCommandName(long id) throws NoSuchFieldError {
+            return Command.value(id).toString();
+        }
+
+        @Override
+        public long getAttributeID(String name) throws IllegalArgumentException {
+            return Attribute.valueOf(name).getID();
+        }
+
+        @Override
+        public long getEventID(String name) throws IllegalArgumentException {
+            return Event.valueOf(name).getID();
+        }
+
+        @Override
+        public long getCommandID(String name) throws IllegalArgumentException {
+            return Command.valueOf(name).getID();
+        }
+    }
+    public static class LuminaireEnergyReporting implements BaseCluster {
+        public static final long ID = 771L;
+        public long getID() {
+            return ID;
+        }
+
+        public enum Attribute {
+            ScaleFactorForActiveEnergy(0L),
+            ActiveEnergy(1L),
+            ScaleFactorForActivePower(2L),
+            ActivePower(3L),
+            ScaleFactorForApparentEnergy(4L),
+            ApparentEnergy(5L),
+            ScaleFactorForApparentPower(6L),
+            ApparentPower(7L),
+            ScaleFactorForLoadsideEnergy(16L),
+            ActiveEnergyLoadside(17L),
+            ScaleFactorForLoadsidePower(18L),
+            ActivePowerLoadside(19L),
+            GeneratedCommandList(65528L),
+            AcceptedCommandList(65529L),
+            EventList(65530L),
+            AttributeList(65531L),
+            FeatureMap(65532L),
+            ClusterRevision(65533L),;
+            private final long id;
+            Attribute(long id) {
+                this.id = id;
+            }
+
+            public long getID() {
+                return id;
+            }
+
+            public static Attribute value(long id) throws NoSuchFieldError {
+                for (Attribute attribute : Attribute.values()) {
+                    if (attribute.getID() == id) {
+                        return attribute;
+                    }
+                }
+                throw new NoSuchFieldError();
+            }
+        }
+
+        public enum Event {;
+            private final long id;
+            Event(long id) {
+                this.id = id;
+            }
+
+            public long getID() {
+                return id;
+            }
+
+            public static Event value(long id) throws NoSuchFieldError {
+                for (Event event : Event.values()) {
+                    if (event.getID() == id) {
+                        return event;
+                    }
+                }
+                throw new NoSuchFieldError();
+            }
+        }
+
+        public enum Command {;
+            private final long id;
+            Command(long id) {
+                this.id = id;
+            }
+
+            public long getID() {
+                return id;
+            }
+
+            public static Command value(long id) throws NoSuchFieldError {
+                for (Command command : Command.values()) {
+                    if (command.getID() == id) {
+                        return command;
+                    }
+                }
+                throw new NoSuchFieldError();
+            }
+        }@Override
+        public String getAttributeName(long id) throws NoSuchFieldError {
+            return Attribute.value(id).toString();
+        }
+
+        @Override
+        public String getEventName(long id) throws NoSuchFieldError {
+            return Event.value(id).toString();
+        }
+
+        @Override
+        public String getCommandName(long id) throws NoSuchFieldError {
+            return Command.value(id).toString();
+        }
+
+        @Override
+        public long getAttributeID(String name) throws IllegalArgumentException {
+            return Attribute.valueOf(name).getID();
+        }
+
+        @Override
+        public long getEventID(String name) throws IllegalArgumentException {
+            return Event.valueOf(name).getID();
+        }
+
+        @Override
+        public long getCommandID(String name) throws IllegalArgumentException {
+            return Command.valueOf(name).getID();
+        }
+    }
+    public static class LuminaireDiagnosticsAndMaintenance implements BaseCluster {
+        public static final long ID = 772L;
+        public long getID() {
+            return ID;
+        }
+
+        public enum Attribute {
+            ControlGearOperatingTime(0L),
+            ControlGearStartCounter(1L),
+            ControlGearExternalSupplyVoltage(2L),
+            ControlGearExternalSupplyVoltageFrequency(3L),
+            ControlGearPowerFactor(4L),
+            ControlGearOverallFailureCondition(5L),
+            ControlGearOverallFailureConditionCounter(6L),
+            ControlGearExternalSupplyUndervoltage(7L),
+            ControlGearExternalSupplyUndervoltageCounter(8L),
+            ControlGearExternalSupplyOvervoltage(9L),
+            ControlGearExternalSupplyOvervoltageCounter(10L),
+            ControlGearOutputPowerLimitation(11L),
+            ControlGearOutputPowerLimitationCounter(12L),
+            ControlGearThermalDerating(13L),
+            ControlGearThermalDeratingCounter(14L),
+            ControlGearThermalShutdown(15L),
+            ControlGearThermalShutdownCounter(16L),
+            ControlGearTemperature(17L),
+            ControlGearOutputCurrentPercentage(18L),
+            LightSourceStartCounterResettable(32L),
+            LightSourceStartCounter(33L),
+            LightSourceOnTimeResettable(34L),
+            LightSourceOnTime(35L),
+            LightSourceVoltage(36L),
+            LightSourceCurrent(37L),
+            LightSourceOverallFailureCondition(38L),
+            LightSourceOverallFailureConditionCounter(39L),
+            LightSourceShortCircuit(40L),
+            LightSourceShortCircuitCounter(41L),
+            LightSourceOpenCircuit(42L),
+            LightSourceOpenCircuitCounter(43L),
+            LightSourceThermalDerating(44L),
+            LightSourceThermalDeratingCounter(45L),
+            LightSourceThermalShutdown(46L),
+            LightSourceThermalShutdownCounter(47L),
+            LightSourceTemperature(48L),
+            RatedMedianUsefulLifeOfLuminaire(64L),
+            InternalControlGearReferenceTemperature(65L),
+            RatedMedianUsefulLightSourceStarts(66L),
             GeneratedCommandList(65528L),
             AcceptedCommandList(65529L),
             EventList(65530L),

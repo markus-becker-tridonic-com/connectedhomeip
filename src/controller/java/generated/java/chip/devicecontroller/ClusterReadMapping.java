@@ -13726,6 +13726,942 @@ public class ClusterReadMapping {
      
        return result;
     }
+    private static Map<String, InteractionInfo> readLuminaireAssetManagementInteractionInfo() {
+       Map<String, InteractionInfo> result = new LinkedHashMap<>();Map<String, CommandParameterInfo> readLuminaireAssetManagementLuminaireManufacturerGTINCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readLuminaireAssetManagementLuminaireManufacturerGTINAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.LuminaireAssetManagementCluster) cluster).readLuminaireManufacturerGTINAttribute(
+              (ChipClusters.OctetStringAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedOctetStringAttributeCallback(),
+          readLuminaireAssetManagementLuminaireManufacturerGTINCommandParams
+        );
+        result.put("readLuminaireManufacturerGTINAttribute", readLuminaireAssetManagementLuminaireManufacturerGTINAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readLuminaireAssetManagementLuminaireIdentificationNumberCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readLuminaireAssetManagementLuminaireIdentificationNumberAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.LuminaireAssetManagementCluster) cluster).readLuminaireIdentificationNumberAttribute(
+              (ChipClusters.OctetStringAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedOctetStringAttributeCallback(),
+          readLuminaireAssetManagementLuminaireIdentificationNumberCommandParams
+        );
+        result.put("readLuminaireIdentificationNumberAttribute", readLuminaireAssetManagementLuminaireIdentificationNumberAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readLuminaireAssetManagementLuminaireYearOfManufactureCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readLuminaireAssetManagementLuminaireYearOfManufactureAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.LuminaireAssetManagementCluster) cluster).readLuminaireYearOfManufactureAttribute(
+              (ChipClusters.IntegerAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedIntegerAttributeCallback(),
+          readLuminaireAssetManagementLuminaireYearOfManufactureCommandParams
+        );
+        result.put("readLuminaireYearOfManufactureAttribute", readLuminaireAssetManagementLuminaireYearOfManufactureAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readLuminaireAssetManagementLuminaireWeekOfManufactureCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readLuminaireAssetManagementLuminaireWeekOfManufactureAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.LuminaireAssetManagementCluster) cluster).readLuminaireWeekOfManufactureAttribute(
+              (ChipClusters.IntegerAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedIntegerAttributeCallback(),
+          readLuminaireAssetManagementLuminaireWeekOfManufactureCommandParams
+        );
+        result.put("readLuminaireWeekOfManufactureAttribute", readLuminaireAssetManagementLuminaireWeekOfManufactureAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readLuminaireAssetManagementNominalInputPowerCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readLuminaireAssetManagementNominalInputPowerAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.LuminaireAssetManagementCluster) cluster).readNominalInputPowerAttribute(
+              (ChipClusters.IntegerAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedIntegerAttributeCallback(),
+          readLuminaireAssetManagementNominalInputPowerCommandParams
+        );
+        result.put("readNominalInputPowerAttribute", readLuminaireAssetManagementNominalInputPowerAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readLuminaireAssetManagementPowerAtMinimumDimLevelCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readLuminaireAssetManagementPowerAtMinimumDimLevelAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.LuminaireAssetManagementCluster) cluster).readPowerAtMinimumDimLevelAttribute(
+              (ChipClusters.IntegerAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedIntegerAttributeCallback(),
+          readLuminaireAssetManagementPowerAtMinimumDimLevelCommandParams
+        );
+        result.put("readPowerAtMinimumDimLevelAttribute", readLuminaireAssetManagementPowerAtMinimumDimLevelAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readLuminaireAssetManagementNominalMinimumACMainsVoltageCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readLuminaireAssetManagementNominalMinimumACMainsVoltageAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.LuminaireAssetManagementCluster) cluster).readNominalMinimumACMainsVoltageAttribute(
+              (ChipClusters.IntegerAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedIntegerAttributeCallback(),
+          readLuminaireAssetManagementNominalMinimumACMainsVoltageCommandParams
+        );
+        result.put("readNominalMinimumACMainsVoltageAttribute", readLuminaireAssetManagementNominalMinimumACMainsVoltageAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readLuminaireAssetManagementNominalMaximumACMainsVoltageCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readLuminaireAssetManagementNominalMaximumACMainsVoltageAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.LuminaireAssetManagementCluster) cluster).readNominalMaximumACMainsVoltageAttribute(
+              (ChipClusters.IntegerAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedIntegerAttributeCallback(),
+          readLuminaireAssetManagementNominalMaximumACMainsVoltageCommandParams
+        );
+        result.put("readNominalMaximumACMainsVoltageAttribute", readLuminaireAssetManagementNominalMaximumACMainsVoltageAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readLuminaireAssetManagementNominalLightOutputCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readLuminaireAssetManagementNominalLightOutputAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.LuminaireAssetManagementCluster) cluster).readNominalLightOutputAttribute(
+              (ChipClusters.LongAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedLongAttributeCallback(),
+          readLuminaireAssetManagementNominalLightOutputCommandParams
+        );
+        result.put("readNominalLightOutputAttribute", readLuminaireAssetManagementNominalLightOutputAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readLuminaireAssetManagementColorRenderingIndexCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readLuminaireAssetManagementColorRenderingIndexAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.LuminaireAssetManagementCluster) cluster).readColorRenderingIndexAttribute(
+              (ChipClusters.IntegerAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedIntegerAttributeCallback(),
+          readLuminaireAssetManagementColorRenderingIndexCommandParams
+        );
+        result.put("readColorRenderingIndexAttribute", readLuminaireAssetManagementColorRenderingIndexAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readLuminaireAssetManagementCctCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readLuminaireAssetManagementCctAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.LuminaireAssetManagementCluster) cluster).readCctAttribute(
+              (ChipClusters.IntegerAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedIntegerAttributeCallback(),
+          readLuminaireAssetManagementCctCommandParams
+        );
+        result.put("readCctAttribute", readLuminaireAssetManagementCctAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readLuminaireAssetManagementLightDistributionTypeCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readLuminaireAssetManagementLightDistributionTypeAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.LuminaireAssetManagementCluster) cluster).readLightDistributionTypeAttribute(
+              (ChipClusters.IntegerAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedIntegerAttributeCallback(),
+          readLuminaireAssetManagementLightDistributionTypeCommandParams
+        );
+        result.put("readLightDistributionTypeAttribute", readLuminaireAssetManagementLightDistributionTypeAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readLuminaireAssetManagementLuminaireColorCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readLuminaireAssetManagementLuminaireColorAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.LuminaireAssetManagementCluster) cluster).readLuminaireColorAttribute(
+              (ChipClusters.LuminaireAssetManagementCluster.LuminaireColorAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedLuminaireAssetManagementClusterLuminaireColorAttributeCallback(),
+          readLuminaireAssetManagementLuminaireColorCommandParams
+        );
+        result.put("readLuminaireColorAttribute", readLuminaireAssetManagementLuminaireColorAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readLuminaireAssetManagementLuminaireIdentificationCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readLuminaireAssetManagementLuminaireIdentificationAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.LuminaireAssetManagementCluster) cluster).readLuminaireIdentificationAttribute(
+              (ChipClusters.LuminaireAssetManagementCluster.LuminaireIdentificationAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedLuminaireAssetManagementClusterLuminaireIdentificationAttributeCallback(),
+          readLuminaireAssetManagementLuminaireIdentificationCommandParams
+        );
+        result.put("readLuminaireIdentificationAttribute", readLuminaireAssetManagementLuminaireIdentificationAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readLuminaireAssetManagementLightSourceTypeCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readLuminaireAssetManagementLightSourceTypeAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.LuminaireAssetManagementCluster) cluster).readLightSourceTypeAttribute(
+              (ChipClusters.IntegerAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedIntegerAttributeCallback(),
+          readLuminaireAssetManagementLightSourceTypeCommandParams
+        );
+        result.put("readLightSourceTypeAttribute", readLuminaireAssetManagementLightSourceTypeAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readLuminaireAssetManagementGeneratedCommandListCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readLuminaireAssetManagementGeneratedCommandListAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.LuminaireAssetManagementCluster) cluster).readGeneratedCommandListAttribute(
+              (ChipClusters.LuminaireAssetManagementCluster.GeneratedCommandListAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedLuminaireAssetManagementClusterGeneratedCommandListAttributeCallback(),
+          readLuminaireAssetManagementGeneratedCommandListCommandParams
+        );
+        result.put("readGeneratedCommandListAttribute", readLuminaireAssetManagementGeneratedCommandListAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readLuminaireAssetManagementAcceptedCommandListCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readLuminaireAssetManagementAcceptedCommandListAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.LuminaireAssetManagementCluster) cluster).readAcceptedCommandListAttribute(
+              (ChipClusters.LuminaireAssetManagementCluster.AcceptedCommandListAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedLuminaireAssetManagementClusterAcceptedCommandListAttributeCallback(),
+          readLuminaireAssetManagementAcceptedCommandListCommandParams
+        );
+        result.put("readAcceptedCommandListAttribute", readLuminaireAssetManagementAcceptedCommandListAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readLuminaireAssetManagementEventListCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readLuminaireAssetManagementEventListAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.LuminaireAssetManagementCluster) cluster).readEventListAttribute(
+              (ChipClusters.LuminaireAssetManagementCluster.EventListAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedLuminaireAssetManagementClusterEventListAttributeCallback(),
+          readLuminaireAssetManagementEventListCommandParams
+        );
+        result.put("readEventListAttribute", readLuminaireAssetManagementEventListAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readLuminaireAssetManagementAttributeListCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readLuminaireAssetManagementAttributeListAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.LuminaireAssetManagementCluster) cluster).readAttributeListAttribute(
+              (ChipClusters.LuminaireAssetManagementCluster.AttributeListAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedLuminaireAssetManagementClusterAttributeListAttributeCallback(),
+          readLuminaireAssetManagementAttributeListCommandParams
+        );
+        result.put("readAttributeListAttribute", readLuminaireAssetManagementAttributeListAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readLuminaireAssetManagementFeatureMapCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readLuminaireAssetManagementFeatureMapAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.LuminaireAssetManagementCluster) cluster).readFeatureMapAttribute(
+              (ChipClusters.LongAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedLongAttributeCallback(),
+          readLuminaireAssetManagementFeatureMapCommandParams
+        );
+        result.put("readFeatureMapAttribute", readLuminaireAssetManagementFeatureMapAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readLuminaireAssetManagementClusterRevisionCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readLuminaireAssetManagementClusterRevisionAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.LuminaireAssetManagementCluster) cluster).readClusterRevisionAttribute(
+              (ChipClusters.IntegerAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedIntegerAttributeCallback(),
+          readLuminaireAssetManagementClusterRevisionCommandParams
+        );
+        result.put("readClusterRevisionAttribute", readLuminaireAssetManagementClusterRevisionAttributeInteractionInfo);
+     
+       return result;
+    }
+    private static Map<String, InteractionInfo> readLuminaireEnergyReportingInteractionInfo() {
+       Map<String, InteractionInfo> result = new LinkedHashMap<>();Map<String, CommandParameterInfo> readLuminaireEnergyReportingScaleFactorForActiveEnergyCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readLuminaireEnergyReportingScaleFactorForActiveEnergyAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.LuminaireEnergyReportingCluster) cluster).readScaleFactorForActiveEnergyAttribute(
+              (ChipClusters.IntegerAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedIntegerAttributeCallback(),
+          readLuminaireEnergyReportingScaleFactorForActiveEnergyCommandParams
+        );
+        result.put("readScaleFactorForActiveEnergyAttribute", readLuminaireEnergyReportingScaleFactorForActiveEnergyAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readLuminaireEnergyReportingActiveEnergyCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readLuminaireEnergyReportingActiveEnergyAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.LuminaireEnergyReportingCluster) cluster).readActiveEnergyAttribute(
+              (ChipClusters.LongAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedLongAttributeCallback(),
+          readLuminaireEnergyReportingActiveEnergyCommandParams
+        );
+        result.put("readActiveEnergyAttribute", readLuminaireEnergyReportingActiveEnergyAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readLuminaireEnergyReportingScaleFactorForActivePowerCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readLuminaireEnergyReportingScaleFactorForActivePowerAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.LuminaireEnergyReportingCluster) cluster).readScaleFactorForActivePowerAttribute(
+              (ChipClusters.IntegerAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedIntegerAttributeCallback(),
+          readLuminaireEnergyReportingScaleFactorForActivePowerCommandParams
+        );
+        result.put("readScaleFactorForActivePowerAttribute", readLuminaireEnergyReportingScaleFactorForActivePowerAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readLuminaireEnergyReportingActivePowerCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readLuminaireEnergyReportingActivePowerAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.LuminaireEnergyReportingCluster) cluster).readActivePowerAttribute(
+              (ChipClusters.LongAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedLongAttributeCallback(),
+          readLuminaireEnergyReportingActivePowerCommandParams
+        );
+        result.put("readActivePowerAttribute", readLuminaireEnergyReportingActivePowerAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readLuminaireEnergyReportingScaleFactorForApparentEnergyCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readLuminaireEnergyReportingScaleFactorForApparentEnergyAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.LuminaireEnergyReportingCluster) cluster).readScaleFactorForApparentEnergyAttribute(
+              (ChipClusters.IntegerAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedIntegerAttributeCallback(),
+          readLuminaireEnergyReportingScaleFactorForApparentEnergyCommandParams
+        );
+        result.put("readScaleFactorForApparentEnergyAttribute", readLuminaireEnergyReportingScaleFactorForApparentEnergyAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readLuminaireEnergyReportingApparentEnergyCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readLuminaireEnergyReportingApparentEnergyAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.LuminaireEnergyReportingCluster) cluster).readApparentEnergyAttribute(
+              (ChipClusters.LongAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedLongAttributeCallback(),
+          readLuminaireEnergyReportingApparentEnergyCommandParams
+        );
+        result.put("readApparentEnergyAttribute", readLuminaireEnergyReportingApparentEnergyAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readLuminaireEnergyReportingScaleFactorForApparentPowerCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readLuminaireEnergyReportingScaleFactorForApparentPowerAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.LuminaireEnergyReportingCluster) cluster).readScaleFactorForApparentPowerAttribute(
+              (ChipClusters.IntegerAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedIntegerAttributeCallback(),
+          readLuminaireEnergyReportingScaleFactorForApparentPowerCommandParams
+        );
+        result.put("readScaleFactorForApparentPowerAttribute", readLuminaireEnergyReportingScaleFactorForApparentPowerAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readLuminaireEnergyReportingApparentPowerCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readLuminaireEnergyReportingApparentPowerAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.LuminaireEnergyReportingCluster) cluster).readApparentPowerAttribute(
+              (ChipClusters.LongAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedLongAttributeCallback(),
+          readLuminaireEnergyReportingApparentPowerCommandParams
+        );
+        result.put("readApparentPowerAttribute", readLuminaireEnergyReportingApparentPowerAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readLuminaireEnergyReportingScaleFactorForLoadsideEnergyCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readLuminaireEnergyReportingScaleFactorForLoadsideEnergyAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.LuminaireEnergyReportingCluster) cluster).readScaleFactorForLoadsideEnergyAttribute(
+              (ChipClusters.IntegerAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedIntegerAttributeCallback(),
+          readLuminaireEnergyReportingScaleFactorForLoadsideEnergyCommandParams
+        );
+        result.put("readScaleFactorForLoadsideEnergyAttribute", readLuminaireEnergyReportingScaleFactorForLoadsideEnergyAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readLuminaireEnergyReportingActiveEnergyLoadsideCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readLuminaireEnergyReportingActiveEnergyLoadsideAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.LuminaireEnergyReportingCluster) cluster).readActiveEnergyLoadsideAttribute(
+              (ChipClusters.LongAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedLongAttributeCallback(),
+          readLuminaireEnergyReportingActiveEnergyLoadsideCommandParams
+        );
+        result.put("readActiveEnergyLoadsideAttribute", readLuminaireEnergyReportingActiveEnergyLoadsideAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readLuminaireEnergyReportingScaleFactorForLoadsidePowerCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readLuminaireEnergyReportingScaleFactorForLoadsidePowerAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.LuminaireEnergyReportingCluster) cluster).readScaleFactorForLoadsidePowerAttribute(
+              (ChipClusters.IntegerAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedIntegerAttributeCallback(),
+          readLuminaireEnergyReportingScaleFactorForLoadsidePowerCommandParams
+        );
+        result.put("readScaleFactorForLoadsidePowerAttribute", readLuminaireEnergyReportingScaleFactorForLoadsidePowerAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readLuminaireEnergyReportingActivePowerLoadsideCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readLuminaireEnergyReportingActivePowerLoadsideAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.LuminaireEnergyReportingCluster) cluster).readActivePowerLoadsideAttribute(
+              (ChipClusters.LongAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedLongAttributeCallback(),
+          readLuminaireEnergyReportingActivePowerLoadsideCommandParams
+        );
+        result.put("readActivePowerLoadsideAttribute", readLuminaireEnergyReportingActivePowerLoadsideAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readLuminaireEnergyReportingGeneratedCommandListCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readLuminaireEnergyReportingGeneratedCommandListAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.LuminaireEnergyReportingCluster) cluster).readGeneratedCommandListAttribute(
+              (ChipClusters.LuminaireEnergyReportingCluster.GeneratedCommandListAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedLuminaireEnergyReportingClusterGeneratedCommandListAttributeCallback(),
+          readLuminaireEnergyReportingGeneratedCommandListCommandParams
+        );
+        result.put("readGeneratedCommandListAttribute", readLuminaireEnergyReportingGeneratedCommandListAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readLuminaireEnergyReportingAcceptedCommandListCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readLuminaireEnergyReportingAcceptedCommandListAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.LuminaireEnergyReportingCluster) cluster).readAcceptedCommandListAttribute(
+              (ChipClusters.LuminaireEnergyReportingCluster.AcceptedCommandListAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedLuminaireEnergyReportingClusterAcceptedCommandListAttributeCallback(),
+          readLuminaireEnergyReportingAcceptedCommandListCommandParams
+        );
+        result.put("readAcceptedCommandListAttribute", readLuminaireEnergyReportingAcceptedCommandListAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readLuminaireEnergyReportingEventListCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readLuminaireEnergyReportingEventListAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.LuminaireEnergyReportingCluster) cluster).readEventListAttribute(
+              (ChipClusters.LuminaireEnergyReportingCluster.EventListAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedLuminaireEnergyReportingClusterEventListAttributeCallback(),
+          readLuminaireEnergyReportingEventListCommandParams
+        );
+        result.put("readEventListAttribute", readLuminaireEnergyReportingEventListAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readLuminaireEnergyReportingAttributeListCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readLuminaireEnergyReportingAttributeListAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.LuminaireEnergyReportingCluster) cluster).readAttributeListAttribute(
+              (ChipClusters.LuminaireEnergyReportingCluster.AttributeListAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedLuminaireEnergyReportingClusterAttributeListAttributeCallback(),
+          readLuminaireEnergyReportingAttributeListCommandParams
+        );
+        result.put("readAttributeListAttribute", readLuminaireEnergyReportingAttributeListAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readLuminaireEnergyReportingFeatureMapCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readLuminaireEnergyReportingFeatureMapAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.LuminaireEnergyReportingCluster) cluster).readFeatureMapAttribute(
+              (ChipClusters.LongAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedLongAttributeCallback(),
+          readLuminaireEnergyReportingFeatureMapCommandParams
+        );
+        result.put("readFeatureMapAttribute", readLuminaireEnergyReportingFeatureMapAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readLuminaireEnergyReportingClusterRevisionCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readLuminaireEnergyReportingClusterRevisionAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.LuminaireEnergyReportingCluster) cluster).readClusterRevisionAttribute(
+              (ChipClusters.IntegerAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedIntegerAttributeCallback(),
+          readLuminaireEnergyReportingClusterRevisionCommandParams
+        );
+        result.put("readClusterRevisionAttribute", readLuminaireEnergyReportingClusterRevisionAttributeInteractionInfo);
+     
+       return result;
+    }
+    private static Map<String, InteractionInfo> readLuminaireDiagnosticsAndMaintenanceInteractionInfo() {
+       Map<String, InteractionInfo> result = new LinkedHashMap<>();Map<String, CommandParameterInfo> readLuminaireDiagnosticsAndMaintenanceControlGearOperatingTimeCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readLuminaireDiagnosticsAndMaintenanceControlGearOperatingTimeAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.LuminaireDiagnosticsAndMaintenanceCluster) cluster).readControlGearOperatingTimeAttribute(
+              (ChipClusters.LongAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedLongAttributeCallback(),
+          readLuminaireDiagnosticsAndMaintenanceControlGearOperatingTimeCommandParams
+        );
+        result.put("readControlGearOperatingTimeAttribute", readLuminaireDiagnosticsAndMaintenanceControlGearOperatingTimeAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readLuminaireDiagnosticsAndMaintenanceControlGearStartCounterCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readLuminaireDiagnosticsAndMaintenanceControlGearStartCounterAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.LuminaireDiagnosticsAndMaintenanceCluster) cluster).readControlGearStartCounterAttribute(
+              (ChipClusters.LongAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedLongAttributeCallback(),
+          readLuminaireDiagnosticsAndMaintenanceControlGearStartCounterCommandParams
+        );
+        result.put("readControlGearStartCounterAttribute", readLuminaireDiagnosticsAndMaintenanceControlGearStartCounterAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readLuminaireDiagnosticsAndMaintenanceControlGearExternalSupplyVoltageCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readLuminaireDiagnosticsAndMaintenanceControlGearExternalSupplyVoltageAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.LuminaireDiagnosticsAndMaintenanceCluster) cluster).readControlGearExternalSupplyVoltageAttribute(
+              (ChipClusters.IntegerAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedIntegerAttributeCallback(),
+          readLuminaireDiagnosticsAndMaintenanceControlGearExternalSupplyVoltageCommandParams
+        );
+        result.put("readControlGearExternalSupplyVoltageAttribute", readLuminaireDiagnosticsAndMaintenanceControlGearExternalSupplyVoltageAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readLuminaireDiagnosticsAndMaintenanceControlGearExternalSupplyVoltageFrequencyCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readLuminaireDiagnosticsAndMaintenanceControlGearExternalSupplyVoltageFrequencyAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.LuminaireDiagnosticsAndMaintenanceCluster) cluster).readControlGearExternalSupplyVoltageFrequencyAttribute(
+              (ChipClusters.IntegerAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedIntegerAttributeCallback(),
+          readLuminaireDiagnosticsAndMaintenanceControlGearExternalSupplyVoltageFrequencyCommandParams
+        );
+        result.put("readControlGearExternalSupplyVoltageFrequencyAttribute", readLuminaireDiagnosticsAndMaintenanceControlGearExternalSupplyVoltageFrequencyAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readLuminaireDiagnosticsAndMaintenanceControlGearPowerFactorCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readLuminaireDiagnosticsAndMaintenanceControlGearPowerFactorAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.LuminaireDiagnosticsAndMaintenanceCluster) cluster).readControlGearPowerFactorAttribute(
+              (ChipClusters.IntegerAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedIntegerAttributeCallback(),
+          readLuminaireDiagnosticsAndMaintenanceControlGearPowerFactorCommandParams
+        );
+        result.put("readControlGearPowerFactorAttribute", readLuminaireDiagnosticsAndMaintenanceControlGearPowerFactorAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readLuminaireDiagnosticsAndMaintenanceControlGearOverallFailureConditionCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readLuminaireDiagnosticsAndMaintenanceControlGearOverallFailureConditionAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.LuminaireDiagnosticsAndMaintenanceCluster) cluster).readControlGearOverallFailureConditionAttribute(
+              (ChipClusters.IntegerAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedIntegerAttributeCallback(),
+          readLuminaireDiagnosticsAndMaintenanceControlGearOverallFailureConditionCommandParams
+        );
+        result.put("readControlGearOverallFailureConditionAttribute", readLuminaireDiagnosticsAndMaintenanceControlGearOverallFailureConditionAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readLuminaireDiagnosticsAndMaintenanceControlGearOverallFailureConditionCounterCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readLuminaireDiagnosticsAndMaintenanceControlGearOverallFailureConditionCounterAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.LuminaireDiagnosticsAndMaintenanceCluster) cluster).readControlGearOverallFailureConditionCounterAttribute(
+              (ChipClusters.IntegerAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedIntegerAttributeCallback(),
+          readLuminaireDiagnosticsAndMaintenanceControlGearOverallFailureConditionCounterCommandParams
+        );
+        result.put("readControlGearOverallFailureConditionCounterAttribute", readLuminaireDiagnosticsAndMaintenanceControlGearOverallFailureConditionCounterAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readLuminaireDiagnosticsAndMaintenanceControlGearExternalSupplyUndervoltageCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readLuminaireDiagnosticsAndMaintenanceControlGearExternalSupplyUndervoltageAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.LuminaireDiagnosticsAndMaintenanceCluster) cluster).readControlGearExternalSupplyUndervoltageAttribute(
+              (ChipClusters.IntegerAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedIntegerAttributeCallback(),
+          readLuminaireDiagnosticsAndMaintenanceControlGearExternalSupplyUndervoltageCommandParams
+        );
+        result.put("readControlGearExternalSupplyUndervoltageAttribute", readLuminaireDiagnosticsAndMaintenanceControlGearExternalSupplyUndervoltageAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readLuminaireDiagnosticsAndMaintenanceControlGearExternalSupplyUndervoltageCounterCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readLuminaireDiagnosticsAndMaintenanceControlGearExternalSupplyUndervoltageCounterAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.LuminaireDiagnosticsAndMaintenanceCluster) cluster).readControlGearExternalSupplyUndervoltageCounterAttribute(
+              (ChipClusters.IntegerAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedIntegerAttributeCallback(),
+          readLuminaireDiagnosticsAndMaintenanceControlGearExternalSupplyUndervoltageCounterCommandParams
+        );
+        result.put("readControlGearExternalSupplyUndervoltageCounterAttribute", readLuminaireDiagnosticsAndMaintenanceControlGearExternalSupplyUndervoltageCounterAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readLuminaireDiagnosticsAndMaintenanceControlGearExternalSupplyOvervoltageCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readLuminaireDiagnosticsAndMaintenanceControlGearExternalSupplyOvervoltageAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.LuminaireDiagnosticsAndMaintenanceCluster) cluster).readControlGearExternalSupplyOvervoltageAttribute(
+              (ChipClusters.IntegerAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedIntegerAttributeCallback(),
+          readLuminaireDiagnosticsAndMaintenanceControlGearExternalSupplyOvervoltageCommandParams
+        );
+        result.put("readControlGearExternalSupplyOvervoltageAttribute", readLuminaireDiagnosticsAndMaintenanceControlGearExternalSupplyOvervoltageAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readLuminaireDiagnosticsAndMaintenanceControlGearExternalSupplyOvervoltageCounterCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readLuminaireDiagnosticsAndMaintenanceControlGearExternalSupplyOvervoltageCounterAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.LuminaireDiagnosticsAndMaintenanceCluster) cluster).readControlGearExternalSupplyOvervoltageCounterAttribute(
+              (ChipClusters.IntegerAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedIntegerAttributeCallback(),
+          readLuminaireDiagnosticsAndMaintenanceControlGearExternalSupplyOvervoltageCounterCommandParams
+        );
+        result.put("readControlGearExternalSupplyOvervoltageCounterAttribute", readLuminaireDiagnosticsAndMaintenanceControlGearExternalSupplyOvervoltageCounterAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readLuminaireDiagnosticsAndMaintenanceControlGearOutputPowerLimitationCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readLuminaireDiagnosticsAndMaintenanceControlGearOutputPowerLimitationAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.LuminaireDiagnosticsAndMaintenanceCluster) cluster).readControlGearOutputPowerLimitationAttribute(
+              (ChipClusters.IntegerAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedIntegerAttributeCallback(),
+          readLuminaireDiagnosticsAndMaintenanceControlGearOutputPowerLimitationCommandParams
+        );
+        result.put("readControlGearOutputPowerLimitationAttribute", readLuminaireDiagnosticsAndMaintenanceControlGearOutputPowerLimitationAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readLuminaireDiagnosticsAndMaintenanceControlGearOutputPowerLimitationCounterCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readLuminaireDiagnosticsAndMaintenanceControlGearOutputPowerLimitationCounterAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.LuminaireDiagnosticsAndMaintenanceCluster) cluster).readControlGearOutputPowerLimitationCounterAttribute(
+              (ChipClusters.IntegerAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedIntegerAttributeCallback(),
+          readLuminaireDiagnosticsAndMaintenanceControlGearOutputPowerLimitationCounterCommandParams
+        );
+        result.put("readControlGearOutputPowerLimitationCounterAttribute", readLuminaireDiagnosticsAndMaintenanceControlGearOutputPowerLimitationCounterAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readLuminaireDiagnosticsAndMaintenanceControlGearThermalDeratingCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readLuminaireDiagnosticsAndMaintenanceControlGearThermalDeratingAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.LuminaireDiagnosticsAndMaintenanceCluster) cluster).readControlGearThermalDeratingAttribute(
+              (ChipClusters.IntegerAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedIntegerAttributeCallback(),
+          readLuminaireDiagnosticsAndMaintenanceControlGearThermalDeratingCommandParams
+        );
+        result.put("readControlGearThermalDeratingAttribute", readLuminaireDiagnosticsAndMaintenanceControlGearThermalDeratingAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readLuminaireDiagnosticsAndMaintenanceControlGearThermalDeratingCounterCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readLuminaireDiagnosticsAndMaintenanceControlGearThermalDeratingCounterAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.LuminaireDiagnosticsAndMaintenanceCluster) cluster).readControlGearThermalDeratingCounterAttribute(
+              (ChipClusters.IntegerAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedIntegerAttributeCallback(),
+          readLuminaireDiagnosticsAndMaintenanceControlGearThermalDeratingCounterCommandParams
+        );
+        result.put("readControlGearThermalDeratingCounterAttribute", readLuminaireDiagnosticsAndMaintenanceControlGearThermalDeratingCounterAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readLuminaireDiagnosticsAndMaintenanceControlGearThermalShutdownCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readLuminaireDiagnosticsAndMaintenanceControlGearThermalShutdownAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.LuminaireDiagnosticsAndMaintenanceCluster) cluster).readControlGearThermalShutdownAttribute(
+              (ChipClusters.IntegerAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedIntegerAttributeCallback(),
+          readLuminaireDiagnosticsAndMaintenanceControlGearThermalShutdownCommandParams
+        );
+        result.put("readControlGearThermalShutdownAttribute", readLuminaireDiagnosticsAndMaintenanceControlGearThermalShutdownAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readLuminaireDiagnosticsAndMaintenanceControlGearThermalShutdownCounterCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readLuminaireDiagnosticsAndMaintenanceControlGearThermalShutdownCounterAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.LuminaireDiagnosticsAndMaintenanceCluster) cluster).readControlGearThermalShutdownCounterAttribute(
+              (ChipClusters.IntegerAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedIntegerAttributeCallback(),
+          readLuminaireDiagnosticsAndMaintenanceControlGearThermalShutdownCounterCommandParams
+        );
+        result.put("readControlGearThermalShutdownCounterAttribute", readLuminaireDiagnosticsAndMaintenanceControlGearThermalShutdownCounterAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readLuminaireDiagnosticsAndMaintenanceControlGearTemperatureCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readLuminaireDiagnosticsAndMaintenanceControlGearTemperatureAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.LuminaireDiagnosticsAndMaintenanceCluster) cluster).readControlGearTemperatureAttribute(
+              (ChipClusters.IntegerAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedIntegerAttributeCallback(),
+          readLuminaireDiagnosticsAndMaintenanceControlGearTemperatureCommandParams
+        );
+        result.put("readControlGearTemperatureAttribute", readLuminaireDiagnosticsAndMaintenanceControlGearTemperatureAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readLuminaireDiagnosticsAndMaintenanceControlGearOutputCurrentPercentageCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readLuminaireDiagnosticsAndMaintenanceControlGearOutputCurrentPercentageAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.LuminaireDiagnosticsAndMaintenanceCluster) cluster).readControlGearOutputCurrentPercentageAttribute(
+              (ChipClusters.IntegerAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedIntegerAttributeCallback(),
+          readLuminaireDiagnosticsAndMaintenanceControlGearOutputCurrentPercentageCommandParams
+        );
+        result.put("readControlGearOutputCurrentPercentageAttribute", readLuminaireDiagnosticsAndMaintenanceControlGearOutputCurrentPercentageAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readLuminaireDiagnosticsAndMaintenanceLightSourceStartCounterResettableCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readLuminaireDiagnosticsAndMaintenanceLightSourceStartCounterResettableAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.LuminaireDiagnosticsAndMaintenanceCluster) cluster).readLightSourceStartCounterResettableAttribute(
+              (ChipClusters.LongAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedLongAttributeCallback(),
+          readLuminaireDiagnosticsAndMaintenanceLightSourceStartCounterResettableCommandParams
+        );
+        result.put("readLightSourceStartCounterResettableAttribute", readLuminaireDiagnosticsAndMaintenanceLightSourceStartCounterResettableAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readLuminaireDiagnosticsAndMaintenanceLightSourceStartCounterCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readLuminaireDiagnosticsAndMaintenanceLightSourceStartCounterAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.LuminaireDiagnosticsAndMaintenanceCluster) cluster).readLightSourceStartCounterAttribute(
+              (ChipClusters.LongAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedLongAttributeCallback(),
+          readLuminaireDiagnosticsAndMaintenanceLightSourceStartCounterCommandParams
+        );
+        result.put("readLightSourceStartCounterAttribute", readLuminaireDiagnosticsAndMaintenanceLightSourceStartCounterAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readLuminaireDiagnosticsAndMaintenanceLightSourceOnTimeResettableCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readLuminaireDiagnosticsAndMaintenanceLightSourceOnTimeResettableAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.LuminaireDiagnosticsAndMaintenanceCluster) cluster).readLightSourceOnTimeResettableAttribute(
+              (ChipClusters.LongAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedLongAttributeCallback(),
+          readLuminaireDiagnosticsAndMaintenanceLightSourceOnTimeResettableCommandParams
+        );
+        result.put("readLightSourceOnTimeResettableAttribute", readLuminaireDiagnosticsAndMaintenanceLightSourceOnTimeResettableAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readLuminaireDiagnosticsAndMaintenanceLightSourceOnTimeCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readLuminaireDiagnosticsAndMaintenanceLightSourceOnTimeAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.LuminaireDiagnosticsAndMaintenanceCluster) cluster).readLightSourceOnTimeAttribute(
+              (ChipClusters.LongAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedLongAttributeCallback(),
+          readLuminaireDiagnosticsAndMaintenanceLightSourceOnTimeCommandParams
+        );
+        result.put("readLightSourceOnTimeAttribute", readLuminaireDiagnosticsAndMaintenanceLightSourceOnTimeAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readLuminaireDiagnosticsAndMaintenanceLightSourceVoltageCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readLuminaireDiagnosticsAndMaintenanceLightSourceVoltageAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.LuminaireDiagnosticsAndMaintenanceCluster) cluster).readLightSourceVoltageAttribute(
+              (ChipClusters.IntegerAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedIntegerAttributeCallback(),
+          readLuminaireDiagnosticsAndMaintenanceLightSourceVoltageCommandParams
+        );
+        result.put("readLightSourceVoltageAttribute", readLuminaireDiagnosticsAndMaintenanceLightSourceVoltageAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readLuminaireDiagnosticsAndMaintenanceLightSourceCurrentCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readLuminaireDiagnosticsAndMaintenanceLightSourceCurrentAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.LuminaireDiagnosticsAndMaintenanceCluster) cluster).readLightSourceCurrentAttribute(
+              (ChipClusters.IntegerAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedIntegerAttributeCallback(),
+          readLuminaireDiagnosticsAndMaintenanceLightSourceCurrentCommandParams
+        );
+        result.put("readLightSourceCurrentAttribute", readLuminaireDiagnosticsAndMaintenanceLightSourceCurrentAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readLuminaireDiagnosticsAndMaintenanceLightSourceOverallFailureConditionCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readLuminaireDiagnosticsAndMaintenanceLightSourceOverallFailureConditionAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.LuminaireDiagnosticsAndMaintenanceCluster) cluster).readLightSourceOverallFailureConditionAttribute(
+              (ChipClusters.IntegerAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedIntegerAttributeCallback(),
+          readLuminaireDiagnosticsAndMaintenanceLightSourceOverallFailureConditionCommandParams
+        );
+        result.put("readLightSourceOverallFailureConditionAttribute", readLuminaireDiagnosticsAndMaintenanceLightSourceOverallFailureConditionAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readLuminaireDiagnosticsAndMaintenanceLightSourceOverallFailureConditionCounterCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readLuminaireDiagnosticsAndMaintenanceLightSourceOverallFailureConditionCounterAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.LuminaireDiagnosticsAndMaintenanceCluster) cluster).readLightSourceOverallFailureConditionCounterAttribute(
+              (ChipClusters.IntegerAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedIntegerAttributeCallback(),
+          readLuminaireDiagnosticsAndMaintenanceLightSourceOverallFailureConditionCounterCommandParams
+        );
+        result.put("readLightSourceOverallFailureConditionCounterAttribute", readLuminaireDiagnosticsAndMaintenanceLightSourceOverallFailureConditionCounterAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readLuminaireDiagnosticsAndMaintenanceLightSourceShortCircuitCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readLuminaireDiagnosticsAndMaintenanceLightSourceShortCircuitAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.LuminaireDiagnosticsAndMaintenanceCluster) cluster).readLightSourceShortCircuitAttribute(
+              (ChipClusters.IntegerAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedIntegerAttributeCallback(),
+          readLuminaireDiagnosticsAndMaintenanceLightSourceShortCircuitCommandParams
+        );
+        result.put("readLightSourceShortCircuitAttribute", readLuminaireDiagnosticsAndMaintenanceLightSourceShortCircuitAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readLuminaireDiagnosticsAndMaintenanceLightSourceShortCircuitCounterCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readLuminaireDiagnosticsAndMaintenanceLightSourceShortCircuitCounterAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.LuminaireDiagnosticsAndMaintenanceCluster) cluster).readLightSourceShortCircuitCounterAttribute(
+              (ChipClusters.IntegerAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedIntegerAttributeCallback(),
+          readLuminaireDiagnosticsAndMaintenanceLightSourceShortCircuitCounterCommandParams
+        );
+        result.put("readLightSourceShortCircuitCounterAttribute", readLuminaireDiagnosticsAndMaintenanceLightSourceShortCircuitCounterAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readLuminaireDiagnosticsAndMaintenanceLightSourceOpenCircuitCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readLuminaireDiagnosticsAndMaintenanceLightSourceOpenCircuitAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.LuminaireDiagnosticsAndMaintenanceCluster) cluster).readLightSourceOpenCircuitAttribute(
+              (ChipClusters.IntegerAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedIntegerAttributeCallback(),
+          readLuminaireDiagnosticsAndMaintenanceLightSourceOpenCircuitCommandParams
+        );
+        result.put("readLightSourceOpenCircuitAttribute", readLuminaireDiagnosticsAndMaintenanceLightSourceOpenCircuitAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readLuminaireDiagnosticsAndMaintenanceLightSourceOpenCircuitCounterCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readLuminaireDiagnosticsAndMaintenanceLightSourceOpenCircuitCounterAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.LuminaireDiagnosticsAndMaintenanceCluster) cluster).readLightSourceOpenCircuitCounterAttribute(
+              (ChipClusters.IntegerAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedIntegerAttributeCallback(),
+          readLuminaireDiagnosticsAndMaintenanceLightSourceOpenCircuitCounterCommandParams
+        );
+        result.put("readLightSourceOpenCircuitCounterAttribute", readLuminaireDiagnosticsAndMaintenanceLightSourceOpenCircuitCounterAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readLuminaireDiagnosticsAndMaintenanceLightSourceThermalDeratingCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readLuminaireDiagnosticsAndMaintenanceLightSourceThermalDeratingAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.LuminaireDiagnosticsAndMaintenanceCluster) cluster).readLightSourceThermalDeratingAttribute(
+              (ChipClusters.IntegerAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedIntegerAttributeCallback(),
+          readLuminaireDiagnosticsAndMaintenanceLightSourceThermalDeratingCommandParams
+        );
+        result.put("readLightSourceThermalDeratingAttribute", readLuminaireDiagnosticsAndMaintenanceLightSourceThermalDeratingAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readLuminaireDiagnosticsAndMaintenanceLightSourceThermalDeratingCounterCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readLuminaireDiagnosticsAndMaintenanceLightSourceThermalDeratingCounterAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.LuminaireDiagnosticsAndMaintenanceCluster) cluster).readLightSourceThermalDeratingCounterAttribute(
+              (ChipClusters.IntegerAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedIntegerAttributeCallback(),
+          readLuminaireDiagnosticsAndMaintenanceLightSourceThermalDeratingCounterCommandParams
+        );
+        result.put("readLightSourceThermalDeratingCounterAttribute", readLuminaireDiagnosticsAndMaintenanceLightSourceThermalDeratingCounterAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readLuminaireDiagnosticsAndMaintenanceLightSourceThermalShutdownCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readLuminaireDiagnosticsAndMaintenanceLightSourceThermalShutdownAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.LuminaireDiagnosticsAndMaintenanceCluster) cluster).readLightSourceThermalShutdownAttribute(
+              (ChipClusters.IntegerAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedIntegerAttributeCallback(),
+          readLuminaireDiagnosticsAndMaintenanceLightSourceThermalShutdownCommandParams
+        );
+        result.put("readLightSourceThermalShutdownAttribute", readLuminaireDiagnosticsAndMaintenanceLightSourceThermalShutdownAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readLuminaireDiagnosticsAndMaintenanceLightSourceThermalShutdownCounterCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readLuminaireDiagnosticsAndMaintenanceLightSourceThermalShutdownCounterAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.LuminaireDiagnosticsAndMaintenanceCluster) cluster).readLightSourceThermalShutdownCounterAttribute(
+              (ChipClusters.IntegerAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedIntegerAttributeCallback(),
+          readLuminaireDiagnosticsAndMaintenanceLightSourceThermalShutdownCounterCommandParams
+        );
+        result.put("readLightSourceThermalShutdownCounterAttribute", readLuminaireDiagnosticsAndMaintenanceLightSourceThermalShutdownCounterAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readLuminaireDiagnosticsAndMaintenanceLightSourceTemperatureCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readLuminaireDiagnosticsAndMaintenanceLightSourceTemperatureAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.LuminaireDiagnosticsAndMaintenanceCluster) cluster).readLightSourceTemperatureAttribute(
+              (ChipClusters.IntegerAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedIntegerAttributeCallback(),
+          readLuminaireDiagnosticsAndMaintenanceLightSourceTemperatureCommandParams
+        );
+        result.put("readLightSourceTemperatureAttribute", readLuminaireDiagnosticsAndMaintenanceLightSourceTemperatureAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readLuminaireDiagnosticsAndMaintenanceRatedMedianUsefulLifeOfLuminaireCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readLuminaireDiagnosticsAndMaintenanceRatedMedianUsefulLifeOfLuminaireAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.LuminaireDiagnosticsAndMaintenanceCluster) cluster).readRatedMedianUsefulLifeOfLuminaireAttribute(
+              (ChipClusters.IntegerAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedIntegerAttributeCallback(),
+          readLuminaireDiagnosticsAndMaintenanceRatedMedianUsefulLifeOfLuminaireCommandParams
+        );
+        result.put("readRatedMedianUsefulLifeOfLuminaireAttribute", readLuminaireDiagnosticsAndMaintenanceRatedMedianUsefulLifeOfLuminaireAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readLuminaireDiagnosticsAndMaintenanceInternalControlGearReferenceTemperatureCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readLuminaireDiagnosticsAndMaintenanceInternalControlGearReferenceTemperatureAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.LuminaireDiagnosticsAndMaintenanceCluster) cluster).readInternalControlGearReferenceTemperatureAttribute(
+              (ChipClusters.IntegerAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedIntegerAttributeCallback(),
+          readLuminaireDiagnosticsAndMaintenanceInternalControlGearReferenceTemperatureCommandParams
+        );
+        result.put("readInternalControlGearReferenceTemperatureAttribute", readLuminaireDiagnosticsAndMaintenanceInternalControlGearReferenceTemperatureAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readLuminaireDiagnosticsAndMaintenanceRatedMedianUsefulLightSourceStartsCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readLuminaireDiagnosticsAndMaintenanceRatedMedianUsefulLightSourceStartsAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.LuminaireDiagnosticsAndMaintenanceCluster) cluster).readRatedMedianUsefulLightSourceStartsAttribute(
+              (ChipClusters.IntegerAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedIntegerAttributeCallback(),
+          readLuminaireDiagnosticsAndMaintenanceRatedMedianUsefulLightSourceStartsCommandParams
+        );
+        result.put("readRatedMedianUsefulLightSourceStartsAttribute", readLuminaireDiagnosticsAndMaintenanceRatedMedianUsefulLightSourceStartsAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readLuminaireDiagnosticsAndMaintenanceGeneratedCommandListCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readLuminaireDiagnosticsAndMaintenanceGeneratedCommandListAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.LuminaireDiagnosticsAndMaintenanceCluster) cluster).readGeneratedCommandListAttribute(
+              (ChipClusters.LuminaireDiagnosticsAndMaintenanceCluster.GeneratedCommandListAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedLuminaireDiagnosticsAndMaintenanceClusterGeneratedCommandListAttributeCallback(),
+          readLuminaireDiagnosticsAndMaintenanceGeneratedCommandListCommandParams
+        );
+        result.put("readGeneratedCommandListAttribute", readLuminaireDiagnosticsAndMaintenanceGeneratedCommandListAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readLuminaireDiagnosticsAndMaintenanceAcceptedCommandListCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readLuminaireDiagnosticsAndMaintenanceAcceptedCommandListAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.LuminaireDiagnosticsAndMaintenanceCluster) cluster).readAcceptedCommandListAttribute(
+              (ChipClusters.LuminaireDiagnosticsAndMaintenanceCluster.AcceptedCommandListAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedLuminaireDiagnosticsAndMaintenanceClusterAcceptedCommandListAttributeCallback(),
+          readLuminaireDiagnosticsAndMaintenanceAcceptedCommandListCommandParams
+        );
+        result.put("readAcceptedCommandListAttribute", readLuminaireDiagnosticsAndMaintenanceAcceptedCommandListAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readLuminaireDiagnosticsAndMaintenanceEventListCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readLuminaireDiagnosticsAndMaintenanceEventListAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.LuminaireDiagnosticsAndMaintenanceCluster) cluster).readEventListAttribute(
+              (ChipClusters.LuminaireDiagnosticsAndMaintenanceCluster.EventListAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedLuminaireDiagnosticsAndMaintenanceClusterEventListAttributeCallback(),
+          readLuminaireDiagnosticsAndMaintenanceEventListCommandParams
+        );
+        result.put("readEventListAttribute", readLuminaireDiagnosticsAndMaintenanceEventListAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readLuminaireDiagnosticsAndMaintenanceAttributeListCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readLuminaireDiagnosticsAndMaintenanceAttributeListAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.LuminaireDiagnosticsAndMaintenanceCluster) cluster).readAttributeListAttribute(
+              (ChipClusters.LuminaireDiagnosticsAndMaintenanceCluster.AttributeListAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedLuminaireDiagnosticsAndMaintenanceClusterAttributeListAttributeCallback(),
+          readLuminaireDiagnosticsAndMaintenanceAttributeListCommandParams
+        );
+        result.put("readAttributeListAttribute", readLuminaireDiagnosticsAndMaintenanceAttributeListAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readLuminaireDiagnosticsAndMaintenanceFeatureMapCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readLuminaireDiagnosticsAndMaintenanceFeatureMapAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.LuminaireDiagnosticsAndMaintenanceCluster) cluster).readFeatureMapAttribute(
+              (ChipClusters.LongAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedLongAttributeCallback(),
+          readLuminaireDiagnosticsAndMaintenanceFeatureMapCommandParams
+        );
+        result.put("readFeatureMapAttribute", readLuminaireDiagnosticsAndMaintenanceFeatureMapAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readLuminaireDiagnosticsAndMaintenanceClusterRevisionCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readLuminaireDiagnosticsAndMaintenanceClusterRevisionAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.LuminaireDiagnosticsAndMaintenanceCluster) cluster).readClusterRevisionAttribute(
+              (ChipClusters.IntegerAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedIntegerAttributeCallback(),
+          readLuminaireDiagnosticsAndMaintenanceClusterRevisionCommandParams
+        );
+        result.put("readClusterRevisionAttribute", readLuminaireDiagnosticsAndMaintenanceClusterRevisionAttributeInteractionInfo);
+     
+       return result;
+    }
     private static Map<String, InteractionInfo> readIlluminanceMeasurementInteractionInfo() {
        Map<String, InteractionInfo> result = new LinkedHashMap<>();Map<String, CommandParameterInfo> readIlluminanceMeasurementMeasuredValueCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
         InteractionInfo readIlluminanceMeasurementMeasuredValueAttributeInteractionInfo = new InteractionInfo(
@@ -20498,6 +21434,9 @@ public class ClusterReadMapping {
             put("thermostatUserInterfaceConfiguration", readThermostatUserInterfaceConfigurationInteractionInfo());
             put("colorControl", readColorControlInteractionInfo());
             put("ballastConfiguration", readBallastConfigurationInteractionInfo());
+            put("luminaireAssetManagement", readLuminaireAssetManagementInteractionInfo());
+            put("luminaireEnergyReporting", readLuminaireEnergyReportingInteractionInfo());
+            put("luminaireDiagnosticsAndMaintenance", readLuminaireDiagnosticsAndMaintenanceInteractionInfo());
             put("illuminanceMeasurement", readIlluminanceMeasurementInteractionInfo());
             put("temperatureMeasurement", readTemperatureMeasurementInteractionInfo());
             put("pressureMeasurement", readPressureMeasurementInteractionInfo());

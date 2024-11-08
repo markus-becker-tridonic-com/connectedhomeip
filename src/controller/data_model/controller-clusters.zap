@@ -1,6 +1,6 @@
 {
   "fileFormat": 2,
-  "featureLevel": 103,
+  "featureLevel": 104,
   "creator": "zap",
   "keyValuePairs": [
     {
@@ -41,14 +41,16 @@
         "code": 22,
         "profileId": 259,
         "label": "MA-rootdevice",
-        "name": "MA-rootdevice"
+        "name": "MA-rootdevice",
+        "deviceTypeOrder": 0
       },
       "deviceTypes": [
         {
           "code": 22,
           "profileId": 259,
           "label": "MA-rootdevice",
-          "name": "MA-rootdevice"
+          "name": "MA-rootdevice",
+          "deviceTypeOrder": 0
         }
       ],
       "deviceVersions": [
@@ -2325,6 +2327,33 @@
           "code": 769,
           "mfgCode": null,
           "define": "BALLAST_CONFIGURATION_CLUSTER",
+          "side": "client",
+          "enabled": 1,
+          "apiMaturity": "provisional"
+        },
+        {
+          "name": "Luminaire Asset Management",
+          "code": 770,
+          "mfgCode": null,
+          "define": "LUMINAIRE_ASSET_MANAGEMENT_CLUSTER",
+          "side": "client",
+          "enabled": 1,
+          "apiMaturity": "provisional"
+        },
+        {
+          "name": "Luminaire Energy Reporting",
+          "code": 771,
+          "mfgCode": null,
+          "define": "LUMINAIRE_ENERGY_REPORTING_CLUSTER",
+          "side": "client",
+          "enabled": 1,
+          "apiMaturity": "provisional"
+        },
+        {
+          "name": "Luminaire Diagnostics And Maintenance",
+          "code": 772,
+          "mfgCode": null,
+          "define": "LUMINAIRE_DIAGNOSTICS_AND_MAINTENANCE_CLUSTER",
           "side": "client",
           "enabled": 1,
           "apiMaturity": "provisional"

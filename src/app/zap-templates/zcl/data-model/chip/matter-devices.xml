@@ -304,6 +304,68 @@ limitations under the License.
                 <requireCommand>StepWithOnOff</requireCommand>
                 <requireCommand>StopWithOnOff</requireCommand>
             </include>
+            <include cluster="Ballast Configuration" client="false" server="false" clientLocked="true" serverLocked="false">
+                <features>
+                    <feature code="DALI" name="DALI-controlled lighting">
+                    <mandatoryConform/>
+                    </feature>
+                </features>
+                <requireAttribute>PHYSICAL_MIN_LEVEL</requireAttribute>
+                <requireAttribute>PHYSICAL_MAX_LEVEL</requireAttribute>
+                <requireAttribute>MIN_LEVEL</requireAttribute>
+                <requireAttribute>MAX_LEVEL</requireAttribute>
+                <requireAttribute>LAMP_QUANTITY</requireAttribute>
+            </include>
+            <include cluster="Luminaire Asset Management" client="false" server="false" clientLocked="true" serverLocked="false">
+                <features>
+                    <feature code="DALI" name="DALI-controlled lighting">
+                    <mandatoryConform/>
+                    </feature>
+                </features>
+                <requireAttribute>LUMINAIRE_MANUFACTURER_GTIN</requireAttribute>
+                <requireAttribute>LUMINAIRE_IDENTIFICATION_NUMBER</requireAttribute>
+                <requireAttribute>LUMINAIRE_YEAR_OF_MANUFACTURE</requireAttribute>
+                <requireAttribute>LUMINAIRE_WEEK_OF_MANUFACTURE</requireAttribute>
+                <requireAttribute>NOMINAL_INPUT_POWER</requireAttribute>
+                <requireAttribute>POWER_AT_MINIMUM_DIM_LEVEL</requireAttribute>
+                <requireAttribute>NOMINAL_MINIMUM_ACMAINS_VOLTAGE</requireAttribute>
+                <requireAttribute>NOMINAL_MAXIMUM_ACMAINS_VOLTAGE</requireAttribute>
+                <requireAttribute>NOMINAL_LIGHT_OUTPUT</requireAttribute>
+                <requireAttribute>COLOR_RENDERING_INDEX</requireAttribute>
+                <requireAttribute>CCT</requireAttribute>
+                <requireAttribute>LIGHT_DISTRIBUTION_TYPE</requireAttribute>
+                <requireAttribute>LUMINAIRE_COLOR</requireAttribute>
+                <requireAttribute>LUMINAIRE_IDENTIFICATION</requireAttribute>
+                <requireAttribute>LIGHT_SOURCE_TYPE</requireAttribute>
+            </include>
+            <include cluster="Luminaire Diagnostics And Maintenance" client="false" server="false" clientLocked="true" serverLocked="false">
+                <features>
+                    <feature code="DALI" name="DALI-controlled lighting">
+                    <mandatoryConform/>
+                    </feature>
+                </features>
+                <requireAttribute>CONTROL_GEAR_OPERATING_TIME</requireAttribute>
+                <requireAttribute>CONTROL_GEAR_START_COUNTER</requireAttribute>
+                <requireAttribute>CONTROL_GEAR_OVERALL_FAILURE_CONDITION</requireAttribute>
+                <requireAttribute>CONTROL_GEAR_OVERALL_FAILURE_CONDITION_COUNTER</requireAttribute>
+                <requireAttribute>CONTROL_GEAR_TEMPERATURE</requireAttribute>
+                <requireAttribute>CONTROL_GEAR_OUTPUT_CURRENT_PERCENTAGE</requireAttribute>
+                <requireAttribute>LIGHT_SOURCE_START_COUNTER_RESETTABLE</requireAttribute>
+                <requireAttribute>LIGHT_SOURCE_START_COUNTER</requireAttribute>
+                <requireAttribute>LIGHT_SOURCE_ON_TIME_RESETTABLE</requireAttribute>
+                <requireAttribute>LIGHT_SOURCE_ON_TIME</requireAttribute>
+                <requireAttribute>LIGHT_SOURCE_VOLTAGE</requireAttribute>
+                <requireAttribute>LIGHT_SOURCE_CURRENT</requireAttribute>
+                <requireAttribute>LIGHT_SOURCE_OVERALL_FAILURE_CONDITION</requireAttribute>
+                <requireAttribute>LIGHT_SOURCE_OVERALL_FAILURE_CONDITION_COUNTER</requireAttribute>
+            </include>
+            <include cluster="Luminaire Energy Reporting" client="false" server="false" clientLocked="true" serverLocked="false">
+                <features>
+                    <feature code="DALI" name="DALI-controlled lighting">
+                    <mandatoryConform/>
+                    </feature>
+                </features>
+            </include>
             <include cluster="Occupancy Sensing" client="false" server="false" clientLocked="false" serverLocked="true" />
         </clusters>
     </deviceType>

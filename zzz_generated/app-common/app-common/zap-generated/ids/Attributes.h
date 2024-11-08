@@ -5151,6 +5151,348 @@ static constexpr AttributeId Id = Globals::Attributes::ClusterRevision::Id;
 } // namespace Attributes
 } // namespace BallastConfiguration
 
+namespace LuminaireAssetManagement {
+namespace Attributes {
+
+namespace LuminaireManufacturerGTIN {
+static constexpr AttributeId Id = 0x00000000;
+} // namespace LuminaireManufacturerGTIN
+
+namespace LuminaireIdentificationNumber {
+static constexpr AttributeId Id = 0x00000001;
+} // namespace LuminaireIdentificationNumber
+
+namespace LuminaireYearOfManufacture {
+static constexpr AttributeId Id = 0x00000002;
+} // namespace LuminaireYearOfManufacture
+
+namespace LuminaireWeekOfManufacture {
+static constexpr AttributeId Id = 0x00000003;
+} // namespace LuminaireWeekOfManufacture
+
+namespace NominalInputPower {
+static constexpr AttributeId Id = 0x00000004;
+} // namespace NominalInputPower
+
+namespace PowerAtMinimumDimLevel {
+static constexpr AttributeId Id = 0x00000005;
+} // namespace PowerAtMinimumDimLevel
+
+namespace NominalMinimumACMainsVoltage {
+static constexpr AttributeId Id = 0x00000006;
+} // namespace NominalMinimumACMainsVoltage
+
+namespace NominalMaximumACMainsVoltage {
+static constexpr AttributeId Id = 0x00000007;
+} // namespace NominalMaximumACMainsVoltage
+
+namespace NominalLightOutput {
+static constexpr AttributeId Id = 0x00000008;
+} // namespace NominalLightOutput
+
+namespace ColorRenderingIndex {
+static constexpr AttributeId Id = 0x00000009;
+} // namespace ColorRenderingIndex
+
+namespace Cct {
+static constexpr AttributeId Id = 0x0000000A;
+} // namespace Cct
+
+namespace LightDistributionType {
+static constexpr AttributeId Id = 0x0000000B;
+} // namespace LightDistributionType
+
+namespace LuminaireColor {
+static constexpr AttributeId Id = 0x0000000C;
+} // namespace LuminaireColor
+
+namespace LuminaireIdentification {
+static constexpr AttributeId Id = 0x0000000D;
+} // namespace LuminaireIdentification
+
+namespace LightSourceType {
+static constexpr AttributeId Id = 0x0000000E;
+} // namespace LightSourceType
+
+namespace GeneratedCommandList {
+static constexpr AttributeId Id = Globals::Attributes::GeneratedCommandList::Id;
+} // namespace GeneratedCommandList
+
+namespace AcceptedCommandList {
+static constexpr AttributeId Id = Globals::Attributes::AcceptedCommandList::Id;
+} // namespace AcceptedCommandList
+
+namespace AttributeList {
+static constexpr AttributeId Id = Globals::Attributes::AttributeList::Id;
+} // namespace AttributeList
+
+namespace FeatureMap {
+static constexpr AttributeId Id = Globals::Attributes::FeatureMap::Id;
+} // namespace FeatureMap
+
+namespace ClusterRevision {
+static constexpr AttributeId Id = Globals::Attributes::ClusterRevision::Id;
+} // namespace ClusterRevision
+
+} // namespace Attributes
+} // namespace LuminaireAssetManagement
+
+namespace LuminaireEnergyReporting {
+namespace Attributes {
+
+namespace ScaleFactorForActiveEnergy {
+static constexpr AttributeId Id = 0x00000000;
+} // namespace ScaleFactorForActiveEnergy
+
+namespace ActiveEnergy {
+static constexpr AttributeId Id = 0x00000001;
+} // namespace ActiveEnergy
+
+namespace ScaleFactorForActivePower {
+static constexpr AttributeId Id = 0x00000002;
+} // namespace ScaleFactorForActivePower
+
+namespace ActivePower {
+static constexpr AttributeId Id = 0x00000003;
+} // namespace ActivePower
+
+namespace ScaleFactorForApparentEnergy {
+static constexpr AttributeId Id = 0x00000004;
+} // namespace ScaleFactorForApparentEnergy
+
+namespace ApparentEnergy {
+static constexpr AttributeId Id = 0x00000005;
+} // namespace ApparentEnergy
+
+namespace ScaleFactorForApparentPower {
+static constexpr AttributeId Id = 0x00000006;
+} // namespace ScaleFactorForApparentPower
+
+namespace ApparentPower {
+static constexpr AttributeId Id = 0x00000007;
+} // namespace ApparentPower
+
+namespace ScaleFactorForLoadsideEnergy {
+static constexpr AttributeId Id = 0x00000010;
+} // namespace ScaleFactorForLoadsideEnergy
+
+namespace ActiveEnergyLoadside {
+static constexpr AttributeId Id = 0x00000011;
+} // namespace ActiveEnergyLoadside
+
+namespace ScaleFactorForLoadsidePower {
+static constexpr AttributeId Id = 0x00000012;
+} // namespace ScaleFactorForLoadsidePower
+
+namespace ActivePowerLoadside {
+static constexpr AttributeId Id = 0x00000013;
+} // namespace ActivePowerLoadside
+
+namespace GeneratedCommandList {
+static constexpr AttributeId Id = Globals::Attributes::GeneratedCommandList::Id;
+} // namespace GeneratedCommandList
+
+namespace AcceptedCommandList {
+static constexpr AttributeId Id = Globals::Attributes::AcceptedCommandList::Id;
+} // namespace AcceptedCommandList
+
+namespace AttributeList {
+static constexpr AttributeId Id = Globals::Attributes::AttributeList::Id;
+} // namespace AttributeList
+
+namespace FeatureMap {
+static constexpr AttributeId Id = Globals::Attributes::FeatureMap::Id;
+} // namespace FeatureMap
+
+namespace ClusterRevision {
+static constexpr AttributeId Id = Globals::Attributes::ClusterRevision::Id;
+} // namespace ClusterRevision
+
+} // namespace Attributes
+} // namespace LuminaireEnergyReporting
+
+namespace LuminaireDiagnosticsAndMaintenance {
+namespace Attributes {
+
+namespace ControlGearOperatingTime {
+static constexpr AttributeId Id = 0x00000000;
+} // namespace ControlGearOperatingTime
+
+namespace ControlGearStartCounter {
+static constexpr AttributeId Id = 0x00000001;
+} // namespace ControlGearStartCounter
+
+namespace ControlGearExternalSupplyVoltage {
+static constexpr AttributeId Id = 0x00000002;
+} // namespace ControlGearExternalSupplyVoltage
+
+namespace ControlGearExternalSupplyVoltageFrequency {
+static constexpr AttributeId Id = 0x00000003;
+} // namespace ControlGearExternalSupplyVoltageFrequency
+
+namespace ControlGearPowerFactor {
+static constexpr AttributeId Id = 0x00000004;
+} // namespace ControlGearPowerFactor
+
+namespace ControlGearOverallFailureCondition {
+static constexpr AttributeId Id = 0x00000005;
+} // namespace ControlGearOverallFailureCondition
+
+namespace ControlGearOverallFailureConditionCounter {
+static constexpr AttributeId Id = 0x00000006;
+} // namespace ControlGearOverallFailureConditionCounter
+
+namespace ControlGearExternalSupplyUndervoltage {
+static constexpr AttributeId Id = 0x00000007;
+} // namespace ControlGearExternalSupplyUndervoltage
+
+namespace ControlGearExternalSupplyUndervoltageCounter {
+static constexpr AttributeId Id = 0x00000008;
+} // namespace ControlGearExternalSupplyUndervoltageCounter
+
+namespace ControlGearExternalSupplyOvervoltage {
+static constexpr AttributeId Id = 0x00000009;
+} // namespace ControlGearExternalSupplyOvervoltage
+
+namespace ControlGearExternalSupplyOvervoltageCounter {
+static constexpr AttributeId Id = 0x0000000A;
+} // namespace ControlGearExternalSupplyOvervoltageCounter
+
+namespace ControlGearOutputPowerLimitation {
+static constexpr AttributeId Id = 0x0000000B;
+} // namespace ControlGearOutputPowerLimitation
+
+namespace ControlGearOutputPowerLimitationCounter {
+static constexpr AttributeId Id = 0x0000000C;
+} // namespace ControlGearOutputPowerLimitationCounter
+
+namespace ControlGearThermalDerating {
+static constexpr AttributeId Id = 0x0000000D;
+} // namespace ControlGearThermalDerating
+
+namespace ControlGearThermalDeratingCounter {
+static constexpr AttributeId Id = 0x0000000E;
+} // namespace ControlGearThermalDeratingCounter
+
+namespace ControlGearThermalShutdown {
+static constexpr AttributeId Id = 0x0000000F;
+} // namespace ControlGearThermalShutdown
+
+namespace ControlGearThermalShutdownCounter {
+static constexpr AttributeId Id = 0x00000010;
+} // namespace ControlGearThermalShutdownCounter
+
+namespace ControlGearTemperature {
+static constexpr AttributeId Id = 0x00000011;
+} // namespace ControlGearTemperature
+
+namespace ControlGearOutputCurrentPercentage {
+static constexpr AttributeId Id = 0x00000012;
+} // namespace ControlGearOutputCurrentPercentage
+
+namespace LightSourceStartCounterResettable {
+static constexpr AttributeId Id = 0x00000020;
+} // namespace LightSourceStartCounterResettable
+
+namespace LightSourceStartCounter {
+static constexpr AttributeId Id = 0x00000021;
+} // namespace LightSourceStartCounter
+
+namespace LightSourceOnTimeResettable {
+static constexpr AttributeId Id = 0x00000022;
+} // namespace LightSourceOnTimeResettable
+
+namespace LightSourceOnTime {
+static constexpr AttributeId Id = 0x00000023;
+} // namespace LightSourceOnTime
+
+namespace LightSourceVoltage {
+static constexpr AttributeId Id = 0x00000024;
+} // namespace LightSourceVoltage
+
+namespace LightSourceCurrent {
+static constexpr AttributeId Id = 0x00000025;
+} // namespace LightSourceCurrent
+
+namespace LightSourceOverallFailureCondition {
+static constexpr AttributeId Id = 0x00000026;
+} // namespace LightSourceOverallFailureCondition
+
+namespace LightSourceOverallFailureConditionCounter {
+static constexpr AttributeId Id = 0x00000027;
+} // namespace LightSourceOverallFailureConditionCounter
+
+namespace LightSourceShortCircuit {
+static constexpr AttributeId Id = 0x00000028;
+} // namespace LightSourceShortCircuit
+
+namespace LightSourceShortCircuitCounter {
+static constexpr AttributeId Id = 0x00000029;
+} // namespace LightSourceShortCircuitCounter
+
+namespace LightSourceOpenCircuit {
+static constexpr AttributeId Id = 0x0000002A;
+} // namespace LightSourceOpenCircuit
+
+namespace LightSourceOpenCircuitCounter {
+static constexpr AttributeId Id = 0x0000002B;
+} // namespace LightSourceOpenCircuitCounter
+
+namespace LightSourceThermalDerating {
+static constexpr AttributeId Id = 0x0000002C;
+} // namespace LightSourceThermalDerating
+
+namespace LightSourceThermalDeratingCounter {
+static constexpr AttributeId Id = 0x0000002D;
+} // namespace LightSourceThermalDeratingCounter
+
+namespace LightSourceThermalShutdown {
+static constexpr AttributeId Id = 0x0000002E;
+} // namespace LightSourceThermalShutdown
+
+namespace LightSourceThermalShutdownCounter {
+static constexpr AttributeId Id = 0x0000002F;
+} // namespace LightSourceThermalShutdownCounter
+
+namespace LightSourceTemperature {
+static constexpr AttributeId Id = 0x00000030;
+} // namespace LightSourceTemperature
+
+namespace RatedMedianUsefulLifeOfLuminaire {
+static constexpr AttributeId Id = 0x00000040;
+} // namespace RatedMedianUsefulLifeOfLuminaire
+
+namespace InternalControlGearReferenceTemperature {
+static constexpr AttributeId Id = 0x00000041;
+} // namespace InternalControlGearReferenceTemperature
+
+namespace RatedMedianUsefulLightSourceStarts {
+static constexpr AttributeId Id = 0x00000042;
+} // namespace RatedMedianUsefulLightSourceStarts
+
+namespace GeneratedCommandList {
+static constexpr AttributeId Id = Globals::Attributes::GeneratedCommandList::Id;
+} // namespace GeneratedCommandList
+
+namespace AcceptedCommandList {
+static constexpr AttributeId Id = Globals::Attributes::AcceptedCommandList::Id;
+} // namespace AcceptedCommandList
+
+namespace AttributeList {
+static constexpr AttributeId Id = Globals::Attributes::AttributeList::Id;
+} // namespace AttributeList
+
+namespace FeatureMap {
+static constexpr AttributeId Id = Globals::Attributes::FeatureMap::Id;
+} // namespace FeatureMap
+
+namespace ClusterRevision {
+static constexpr AttributeId Id = Globals::Attributes::ClusterRevision::Id;
+} // namespace ClusterRevision
+
+} // namespace Attributes
+} // namespace LuminaireDiagnosticsAndMaintenance
+
 namespace IlluminanceMeasurement {
 namespace Attributes {
 

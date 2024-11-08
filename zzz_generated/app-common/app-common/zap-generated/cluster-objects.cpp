@@ -23232,6 +23232,222 @@ CHIP_ERROR TypeInfo::DecodableType::Decode(TLV::TLVReader & reader, const Concre
 namespace Events {} // namespace Events
 
 } // namespace BallastConfiguration
+namespace LuminaireAssetManagement {
+
+namespace Commands {} // namespace Commands
+
+namespace Attributes {
+CHIP_ERROR TypeInfo::DecodableType::Decode(TLV::TLVReader & reader, const ConcreteAttributePath & path)
+{
+    switch (path.mAttributeId)
+    {
+    case Attributes::LuminaireManufacturerGTIN::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, luminaireManufacturerGTIN);
+    case Attributes::LuminaireIdentificationNumber::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, luminaireIdentificationNumber);
+    case Attributes::LuminaireYearOfManufacture::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, luminaireYearOfManufacture);
+    case Attributes::LuminaireWeekOfManufacture::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, luminaireWeekOfManufacture);
+    case Attributes::NominalInputPower::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, nominalInputPower);
+    case Attributes::PowerAtMinimumDimLevel::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, powerAtMinimumDimLevel);
+    case Attributes::NominalMinimumACMainsVoltage::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, nominalMinimumACMainsVoltage);
+    case Attributes::NominalMaximumACMainsVoltage::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, nominalMaximumACMainsVoltage);
+    case Attributes::NominalLightOutput::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, nominalLightOutput);
+    case Attributes::ColorRenderingIndex::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, colorRenderingIndex);
+    case Attributes::Cct::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, cct);
+    case Attributes::LightDistributionType::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, lightDistributionType);
+    case Attributes::LuminaireColor::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, luminaireColor);
+    case Attributes::LuminaireIdentification::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, luminaireIdentification);
+    case Attributes::LightSourceType::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, lightSourceType);
+    case Attributes::GeneratedCommandList::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, generatedCommandList);
+    case Attributes::AcceptedCommandList::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, acceptedCommandList);
+    case Attributes::AttributeList::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, attributeList);
+    case Attributes::FeatureMap::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, featureMap);
+    case Attributes::ClusterRevision::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, clusterRevision);
+    default:
+        return CHIP_NO_ERROR;
+    }
+}
+} // namespace Attributes
+
+namespace Events {} // namespace Events
+
+} // namespace LuminaireAssetManagement
+namespace LuminaireEnergyReporting {
+
+namespace Commands {} // namespace Commands
+
+namespace Attributes {
+CHIP_ERROR TypeInfo::DecodableType::Decode(TLV::TLVReader & reader, const ConcreteAttributePath & path)
+{
+    switch (path.mAttributeId)
+    {
+    case Attributes::ScaleFactorForActiveEnergy::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, scaleFactorForActiveEnergy);
+    case Attributes::ActiveEnergy::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, activeEnergy);
+    case Attributes::ScaleFactorForActivePower::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, scaleFactorForActivePower);
+    case Attributes::ActivePower::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, activePower);
+    case Attributes::ScaleFactorForApparentEnergy::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, scaleFactorForApparentEnergy);
+    case Attributes::ApparentEnergy::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, apparentEnergy);
+    case Attributes::ScaleFactorForApparentPower::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, scaleFactorForApparentPower);
+    case Attributes::ApparentPower::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, apparentPower);
+    case Attributes::ScaleFactorForLoadsideEnergy::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, scaleFactorForLoadsideEnergy);
+    case Attributes::ActiveEnergyLoadside::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, activeEnergyLoadside);
+    case Attributes::ScaleFactorForLoadsidePower::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, scaleFactorForLoadsidePower);
+    case Attributes::ActivePowerLoadside::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, activePowerLoadside);
+    case Attributes::GeneratedCommandList::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, generatedCommandList);
+    case Attributes::AcceptedCommandList::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, acceptedCommandList);
+    case Attributes::AttributeList::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, attributeList);
+    case Attributes::FeatureMap::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, featureMap);
+    case Attributes::ClusterRevision::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, clusterRevision);
+    default:
+        return CHIP_NO_ERROR;
+    }
+}
+} // namespace Attributes
+
+namespace Events {} // namespace Events
+
+} // namespace LuminaireEnergyReporting
+namespace LuminaireDiagnosticsAndMaintenance {
+
+namespace Commands {} // namespace Commands
+
+namespace Attributes {
+CHIP_ERROR TypeInfo::DecodableType::Decode(TLV::TLVReader & reader, const ConcreteAttributePath & path)
+{
+    switch (path.mAttributeId)
+    {
+    case Attributes::ControlGearOperatingTime::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, controlGearOperatingTime);
+    case Attributes::ControlGearStartCounter::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, controlGearStartCounter);
+    case Attributes::ControlGearExternalSupplyVoltage::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, controlGearExternalSupplyVoltage);
+    case Attributes::ControlGearExternalSupplyVoltageFrequency::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, controlGearExternalSupplyVoltageFrequency);
+    case Attributes::ControlGearPowerFactor::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, controlGearPowerFactor);
+    case Attributes::ControlGearOverallFailureCondition::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, controlGearOverallFailureCondition);
+    case Attributes::ControlGearOverallFailureConditionCounter::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, controlGearOverallFailureConditionCounter);
+    case Attributes::ControlGearExternalSupplyUndervoltage::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, controlGearExternalSupplyUndervoltage);
+    case Attributes::ControlGearExternalSupplyUndervoltageCounter::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, controlGearExternalSupplyUndervoltageCounter);
+    case Attributes::ControlGearExternalSupplyOvervoltage::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, controlGearExternalSupplyOvervoltage);
+    case Attributes::ControlGearExternalSupplyOvervoltageCounter::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, controlGearExternalSupplyOvervoltageCounter);
+    case Attributes::ControlGearOutputPowerLimitation::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, controlGearOutputPowerLimitation);
+    case Attributes::ControlGearOutputPowerLimitationCounter::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, controlGearOutputPowerLimitationCounter);
+    case Attributes::ControlGearThermalDerating::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, controlGearThermalDerating);
+    case Attributes::ControlGearThermalDeratingCounter::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, controlGearThermalDeratingCounter);
+    case Attributes::ControlGearThermalShutdown::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, controlGearThermalShutdown);
+    case Attributes::ControlGearThermalShutdownCounter::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, controlGearThermalShutdownCounter);
+    case Attributes::ControlGearTemperature::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, ControlGearTemperature);
+    case Attributes::ControlGearOutputCurrentPercentage::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, controlGearOutputCurrentPercentage);
+    case Attributes::LightSourceStartCounterResettable::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, lightSourceStartCounterResettable);
+    case Attributes::LightSourceStartCounter::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, lightSourceStartCounter);
+    case Attributes::LightSourceOnTimeResettable::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, lightSourceOnTimeResettable);
+    case Attributes::LightSourceOnTime::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, lightSourceOnTime);
+    case Attributes::LightSourceVoltage::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, LightSourceVoltage);
+    case Attributes::LightSourceCurrent::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, LightSourceCurrent);
+    case Attributes::LightSourceOverallFailureCondition::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, lightSourceOverallFailureCondition);
+    case Attributes::LightSourceOverallFailureConditionCounter::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, lightSourceOverallFailureConditionCounter);
+    case Attributes::LightSourceShortCircuit::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, lightSourceShortCircuit);
+    case Attributes::LightSourceShortCircuitCounter::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, lightSourceShortCircuitCounter);
+    case Attributes::LightSourceOpenCircuit::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, lightSourceOpenCircuit);
+    case Attributes::LightSourceOpenCircuitCounter::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, lightSourceOpenCircuitCounter);
+    case Attributes::LightSourceThermalDerating::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, lightSourceThermalDerating);
+    case Attributes::LightSourceThermalDeratingCounter::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, lightSourceThermalDeratingCounter);
+    case Attributes::LightSourceThermalShutdown::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, lightSourceThermalShutdown);
+    case Attributes::LightSourceThermalShutdownCounter::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, lightSourceThermalShutdownCounter);
+    case Attributes::LightSourceTemperature::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, lightSourceTemperature);
+    case Attributes::RatedMedianUsefulLifeOfLuminaire::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, ratedMedianUsefulLifeOfLuminaire);
+    case Attributes::InternalControlGearReferenceTemperature::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, internalControlGearReferenceTemperature);
+    case Attributes::RatedMedianUsefulLightSourceStarts::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, ratedMedianUsefulLightSourceStarts);
+    case Attributes::GeneratedCommandList::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, generatedCommandList);
+    case Attributes::AcceptedCommandList::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, acceptedCommandList);
+    case Attributes::AttributeList::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, attributeList);
+    case Attributes::FeatureMap::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, featureMap);
+    case Attributes::ClusterRevision::TypeInfo::GetAttributeId():
+        return DataModel::Decode(reader, clusterRevision);
+    default:
+        return CHIP_NO_ERROR;
+    }
+}
+} // namespace Attributes
+
+namespace Events {} // namespace Events
+
+} // namespace LuminaireDiagnosticsAndMaintenance
 namespace IlluminanceMeasurement {
 
 namespace Commands {} // namespace Commands

@@ -4154,6 +4154,276 @@ static BOOL AttributeIsSpecifiedInBallastConfigurationCluster(AttributeId aAttri
     }
     }
 }
+static BOOL AttributeIsSpecifiedInLuminaireAssetManagementCluster(AttributeId aAttributeId)
+{
+    using namespace Clusters::LuminaireAssetManagement;
+    switch (aAttributeId) {
+    case Attributes::LuminaireManufacturerGTIN::Id: {
+        return YES;
+    }
+    case Attributes::LuminaireIdentificationNumber::Id: {
+        return YES;
+    }
+    case Attributes::LuminaireYearOfManufacture::Id: {
+        return YES;
+    }
+    case Attributes::LuminaireWeekOfManufacture::Id: {
+        return YES;
+    }
+    case Attributes::NominalInputPower::Id: {
+        return YES;
+    }
+    case Attributes::PowerAtMinimumDimLevel::Id: {
+        return YES;
+    }
+    case Attributes::NominalMinimumACMainsVoltage::Id: {
+        return YES;
+    }
+    case Attributes::NominalMaximumACMainsVoltage::Id: {
+        return YES;
+    }
+    case Attributes::NominalLightOutput::Id: {
+        return YES;
+    }
+    case Attributes::ColorRenderingIndex::Id: {
+        return YES;
+    }
+    case Attributes::Cct::Id: {
+        return YES;
+    }
+    case Attributes::LightDistributionType::Id: {
+        return YES;
+    }
+    case Attributes::LuminaireColor::Id: {
+        return YES;
+    }
+    case Attributes::LuminaireIdentification::Id: {
+        return YES;
+    }
+    case Attributes::LightSourceType::Id: {
+        return YES;
+    }
+    case Attributes::GeneratedCommandList::Id: {
+        return YES;
+    }
+    case Attributes::AcceptedCommandList::Id: {
+        return YES;
+    }
+    case Attributes::AttributeList::Id: {
+        return YES;
+    }
+    case Attributes::FeatureMap::Id: {
+        return YES;
+    }
+    case Attributes::ClusterRevision::Id: {
+        return YES;
+    }
+    default: {
+        return NO;
+    }
+    }
+}
+static BOOL AttributeIsSpecifiedInLuminaireEnergyReportingCluster(AttributeId aAttributeId)
+{
+    using namespace Clusters::LuminaireEnergyReporting;
+    switch (aAttributeId) {
+    case Attributes::ScaleFactorForActiveEnergy::Id: {
+        return YES;
+    }
+    case Attributes::ActiveEnergy::Id: {
+        return YES;
+    }
+    case Attributes::ScaleFactorForActivePower::Id: {
+        return YES;
+    }
+    case Attributes::ActivePower::Id: {
+        return YES;
+    }
+    case Attributes::ScaleFactorForApparentEnergy::Id: {
+        return YES;
+    }
+    case Attributes::ApparentEnergy::Id: {
+        return YES;
+    }
+    case Attributes::ScaleFactorForApparentPower::Id: {
+        return YES;
+    }
+    case Attributes::ApparentPower::Id: {
+        return YES;
+    }
+    case Attributes::ScaleFactorForLoadsideEnergy::Id: {
+        return YES;
+    }
+    case Attributes::ActiveEnergyLoadside::Id: {
+        return YES;
+    }
+    case Attributes::ScaleFactorForLoadsidePower::Id: {
+        return YES;
+    }
+    case Attributes::ActivePowerLoadside::Id: {
+        return YES;
+    }
+    case Attributes::GeneratedCommandList::Id: {
+        return YES;
+    }
+    case Attributes::AcceptedCommandList::Id: {
+        return YES;
+    }
+    case Attributes::AttributeList::Id: {
+        return YES;
+    }
+    case Attributes::FeatureMap::Id: {
+        return YES;
+    }
+    case Attributes::ClusterRevision::Id: {
+        return YES;
+    }
+    default: {
+        return NO;
+    }
+    }
+}
+static BOOL AttributeIsSpecifiedInLuminaireDiagnosticsAndMaintenanceCluster(AttributeId aAttributeId)
+{
+    using namespace Clusters::LuminaireDiagnosticsAndMaintenance;
+    switch (aAttributeId) {
+    case Attributes::ControlGearOperatingTime::Id: {
+        return YES;
+    }
+    case Attributes::ControlGearStartCounter::Id: {
+        return YES;
+    }
+    case Attributes::ControlGearExternalSupplyVoltage::Id: {
+        return YES;
+    }
+    case Attributes::ControlGearExternalSupplyVoltageFrequency::Id: {
+        return YES;
+    }
+    case Attributes::ControlGearPowerFactor::Id: {
+        return YES;
+    }
+    case Attributes::ControlGearOverallFailureCondition::Id: {
+        return YES;
+    }
+    case Attributes::ControlGearOverallFailureConditionCounter::Id: {
+        return YES;
+    }
+    case Attributes::ControlGearExternalSupplyUndervoltage::Id: {
+        return YES;
+    }
+    case Attributes::ControlGearExternalSupplyUndervoltageCounter::Id: {
+        return YES;
+    }
+    case Attributes::ControlGearExternalSupplyOvervoltage::Id: {
+        return YES;
+    }
+    case Attributes::ControlGearExternalSupplyOvervoltageCounter::Id: {
+        return YES;
+    }
+    case Attributes::ControlGearOutputPowerLimitation::Id: {
+        return YES;
+    }
+    case Attributes::ControlGearOutputPowerLimitationCounter::Id: {
+        return YES;
+    }
+    case Attributes::ControlGearThermalDerating::Id: {
+        return YES;
+    }
+    case Attributes::ControlGearThermalDeratingCounter::Id: {
+        return YES;
+    }
+    case Attributes::ControlGearThermalShutdown::Id: {
+        return YES;
+    }
+    case Attributes::ControlGearThermalShutdownCounter::Id: {
+        return YES;
+    }
+    case Attributes::ControlGearTemperature::Id: {
+        return YES;
+    }
+    case Attributes::ControlGearOutputCurrentPercentage::Id: {
+        return YES;
+    }
+    case Attributes::LightSourceStartCounterResettable::Id: {
+        return YES;
+    }
+    case Attributes::LightSourceStartCounter::Id: {
+        return YES;
+    }
+    case Attributes::LightSourceOnTimeResettable::Id: {
+        return YES;
+    }
+    case Attributes::LightSourceOnTime::Id: {
+        return YES;
+    }
+    case Attributes::LightSourceVoltage::Id: {
+        return YES;
+    }
+    case Attributes::LightSourceCurrent::Id: {
+        return YES;
+    }
+    case Attributes::LightSourceOverallFailureCondition::Id: {
+        return YES;
+    }
+    case Attributes::LightSourceOverallFailureConditionCounter::Id: {
+        return YES;
+    }
+    case Attributes::LightSourceShortCircuit::Id: {
+        return YES;
+    }
+    case Attributes::LightSourceShortCircuitCounter::Id: {
+        return YES;
+    }
+    case Attributes::LightSourceOpenCircuit::Id: {
+        return YES;
+    }
+    case Attributes::LightSourceOpenCircuitCounter::Id: {
+        return YES;
+    }
+    case Attributes::LightSourceThermalDerating::Id: {
+        return YES;
+    }
+    case Attributes::LightSourceThermalDeratingCounter::Id: {
+        return YES;
+    }
+    case Attributes::LightSourceThermalShutdown::Id: {
+        return YES;
+    }
+    case Attributes::LightSourceThermalShutdownCounter::Id: {
+        return YES;
+    }
+    case Attributes::LightSourceTemperature::Id: {
+        return YES;
+    }
+    case Attributes::RatedMedianUsefulLifeOfLuminaire::Id: {
+        return YES;
+    }
+    case Attributes::InternalControlGearReferenceTemperature::Id: {
+        return YES;
+    }
+    case Attributes::RatedMedianUsefulLightSourceStarts::Id: {
+        return YES;
+    }
+    case Attributes::GeneratedCommandList::Id: {
+        return YES;
+    }
+    case Attributes::AcceptedCommandList::Id: {
+        return YES;
+    }
+    case Attributes::AttributeList::Id: {
+        return YES;
+    }
+    case Attributes::FeatureMap::Id: {
+        return YES;
+    }
+    case Attributes::ClusterRevision::Id: {
+        return YES;
+    }
+    default: {
+        return NO;
+    }
+    }
+}
 static BOOL AttributeIsSpecifiedInIlluminanceMeasurementCluster(AttributeId aAttributeId)
 {
     using namespace Clusters::IlluminanceMeasurement;
@@ -6464,6 +6734,15 @@ BOOL MTRAttributeIsSpecified(ClusterId aClusterId, AttributeId aAttributeId)
     }
     case Clusters::BallastConfiguration::Id: {
         return AttributeIsSpecifiedInBallastConfigurationCluster(aAttributeId);
+    }
+    case Clusters::LuminaireAssetManagement::Id: {
+        return AttributeIsSpecifiedInLuminaireAssetManagementCluster(aAttributeId);
+    }
+    case Clusters::LuminaireEnergyReporting::Id: {
+        return AttributeIsSpecifiedInLuminaireEnergyReportingCluster(aAttributeId);
+    }
+    case Clusters::LuminaireDiagnosticsAndMaintenance::Id: {
+        return AttributeIsSpecifiedInLuminaireDiagnosticsAndMaintenanceCluster(aAttributeId);
     }
     case Clusters::IlluminanceMeasurement::Id: {
         return AttributeIsSpecifiedInIlluminanceMeasurementCluster(aAttributeId);

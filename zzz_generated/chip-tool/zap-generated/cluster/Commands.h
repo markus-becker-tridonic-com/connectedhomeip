@@ -119,6 +119,9 @@
 | ThermostatUserInterfaceConfiguration                                | 0x0204 |
 | ColorControl                                                        | 0x0300 |
 | BallastConfiguration                                                | 0x0301 |
+| LuminaireAssetManagement                                            | 0x0302 |
+| LuminaireEnergyReporting                                            | 0x0303 |
+| LuminaireDiagnosticsAndMaintenance                                  | 0x0304 |
 | IlluminanceMeasurement                                              | 0x0400 |
 | TemperatureMeasurement                                              | 0x0402 |
 | PressureMeasurement                                                 | 0x0403 |
@@ -10617,6 +10620,117 @@ private:
 | * LampBurnHours                                                     | 0x0033 |
 | * LampAlarmMode                                                     | 0x0034 |
 | * LampBurnHoursTripPoint                                            | 0x0035 |
+| * GeneratedCommandList                                              | 0xFFF8 |
+| * AcceptedCommandList                                               | 0xFFF9 |
+| * AttributeList                                                     | 0xFFFB |
+| * FeatureMap                                                        | 0xFFFC |
+| * ClusterRevision                                                   | 0xFFFD |
+|------------------------------------------------------------------------------|
+| Events:                                                             |        |
+\*----------------------------------------------------------------------------*/
+
+/*----------------------------------------------------------------------------*\
+| Cluster LuminaireAssetManagement                                    | 0x0302 |
+|------------------------------------------------------------------------------|
+| Commands:                                                           |        |
+|------------------------------------------------------------------------------|
+| Attributes:                                                         |        |
+| * LuminaireManufacturerGTIN                                         | 0x0000 |
+| * LuminaireIdentificationNumber                                     | 0x0001 |
+| * LuminaireYearOfManufacture                                        | 0x0002 |
+| * LuminaireWeekOfManufacture                                        | 0x0003 |
+| * NominalInputPower                                                 | 0x0004 |
+| * PowerAtMinimumDimLevel                                            | 0x0005 |
+| * NominalMinimumACMainsVoltage                                      | 0x0006 |
+| * NominalMaximumACMainsVoltage                                      | 0x0007 |
+| * NominalLightOutput                                                | 0x0008 |
+| * ColorRenderingIndex                                               | 0x0009 |
+| * Cct                                                               | 0x000A |
+| * LightDistributionType                                             | 0x000B |
+| * LuminaireColor                                                    | 0x000C |
+| * LuminaireIdentification                                           | 0x000D |
+| * LightSourceType                                                   | 0x000E |
+| * GeneratedCommandList                                              | 0xFFF8 |
+| * AcceptedCommandList                                               | 0xFFF9 |
+| * AttributeList                                                     | 0xFFFB |
+| * FeatureMap                                                        | 0xFFFC |
+| * ClusterRevision                                                   | 0xFFFD |
+|------------------------------------------------------------------------------|
+| Events:                                                             |        |
+\*----------------------------------------------------------------------------*/
+
+/*----------------------------------------------------------------------------*\
+| Cluster LuminaireEnergyReporting                                    | 0x0303 |
+|------------------------------------------------------------------------------|
+| Commands:                                                           |        |
+|------------------------------------------------------------------------------|
+| Attributes:                                                         |        |
+| * ScaleFactorForActiveEnergy                                        | 0x0000 |
+| * ActiveEnergy                                                      | 0x0001 |
+| * ScaleFactorForActivePower                                         | 0x0002 |
+| * ActivePower                                                       | 0x0003 |
+| * ScaleFactorForApparentEnergy                                      | 0x0004 |
+| * ApparentEnergy                                                    | 0x0005 |
+| * ScaleFactorForApparentPower                                       | 0x0006 |
+| * ApparentPower                                                     | 0x0007 |
+| * ScaleFactorForLoadsideEnergy                                      | 0x0010 |
+| * ActiveEnergyLoadside                                              | 0x0011 |
+| * ScaleFactorForLoadsidePower                                       | 0x0012 |
+| * ActivePowerLoadside                                               | 0x0013 |
+| * GeneratedCommandList                                              | 0xFFF8 |
+| * AcceptedCommandList                                               | 0xFFF9 |
+| * AttributeList                                                     | 0xFFFB |
+| * FeatureMap                                                        | 0xFFFC |
+| * ClusterRevision                                                   | 0xFFFD |
+|------------------------------------------------------------------------------|
+| Events:                                                             |        |
+\*----------------------------------------------------------------------------*/
+
+/*----------------------------------------------------------------------------*\
+| Cluster LuminaireDiagnosticsAndMaintenance                          | 0x0304 |
+|------------------------------------------------------------------------------|
+| Commands:                                                           |        |
+|------------------------------------------------------------------------------|
+| Attributes:                                                         |        |
+| * ControlGearOperatingTime                                          | 0x0000 |
+| * ControlGearStartCounter                                           | 0x0001 |
+| * ControlGearExternalSupplyVoltage                                  | 0x0002 |
+| * ControlGearExternalSupplyVoltageFrequency                         | 0x0003 |
+| * ControlGearPowerFactor                                            | 0x0004 |
+| * ControlGearOverallFailureCondition                                | 0x0005 |
+| * ControlGearOverallFailureConditionCounter                         | 0x0006 |
+| * ControlGearExternalSupplyUndervoltage                             | 0x0007 |
+| * ControlGearExternalSupplyUndervoltageCounter                      | 0x0008 |
+| * ControlGearExternalSupplyOvervoltage                              | 0x0009 |
+| * ControlGearExternalSupplyOvervoltageCounter                       | 0x000A |
+| * ControlGearOutputPowerLimitation                                  | 0x000B |
+| * ControlGearOutputPowerLimitationCounter                           | 0x000C |
+| * ControlGearThermalDerating                                        | 0x000D |
+| * ControlGearThermalDeratingCounter                                 | 0x000E |
+| * ControlGearThermalShutdown                                        | 0x000F |
+| * ControlGearThermalShutdownCounter                                 | 0x0010 |
+| * ControlGearTemperature                                            | 0x0011 |
+| * ControlGearOutputCurrentPercentage                                | 0x0012 |
+| * LightSourceStartCounterResettable                                 | 0x0020 |
+| * LightSourceStartCounter                                           | 0x0021 |
+| * LightSourceOnTimeResettable                                       | 0x0022 |
+| * LightSourceOnTime                                                 | 0x0023 |
+| * LightSourceVoltage                                                | 0x0024 |
+| * LightSourceCurrent                                                | 0x0025 |
+| * LightSourceOverallFailureCondition                                | 0x0026 |
+| * LightSourceOverallFailureConditionCounter                         | 0x0027 |
+| * LightSourceShortCircuit                                           | 0x0028 |
+| * LightSourceShortCircuitCounter                                    | 0x0029 |
+| * LightSourceOpenCircuit                                            | 0x002A |
+| * LightSourceOpenCircuitCounter                                     | 0x002B |
+| * LightSourceThermalDerating                                        | 0x002C |
+| * LightSourceThermalDeratingCounter                                 | 0x002D |
+| * LightSourceThermalShutdown                                        | 0x002E |
+| * LightSourceThermalShutdownCounter                                 | 0x002F |
+| * LightSourceTemperature                                            | 0x0030 |
+| * RatedMedianUsefulLifeOfLuminaire                                  | 0x0040 |
+| * InternalControlGearReferenceTemperature                           | 0x0041 |
+| * RatedMedianUsefulLightSourceStarts                                | 0x0042 |
 | * GeneratedCommandList                                              | 0xFFF8 |
 | * AcceptedCommandList                                               | 0xFFF9 |
 | * AttributeList                                                     | 0xFFFB |
@@ -24166,6 +24280,549 @@ void registerClusterBallastConfiguration(Commands & commands, CredentialIssuerCo
 
     commands.RegisterCluster(clusterName, clusterCommands);
 }
+void registerClusterLuminaireAssetManagement(Commands & commands, CredentialIssuerCommands * credsIssuerConfig)
+{
+    using namespace chip::app::Clusters::LuminaireAssetManagement;
+
+    const char * clusterName = "LuminaireAssetManagement";
+
+    commands_list clusterCommands = {
+        //
+        // Commands
+        //
+        make_unique<ClusterCommand>(Id, credsIssuerConfig), //
+        //
+        // Attributes
+        //
+        make_unique<ReadAttribute>(Id, credsIssuerConfig), //
+        make_unique<ReadAttribute>(Id, "luminaire-manufacturer-gtin", Attributes::LuminaireManufacturerGTIN::Id,
+                                   credsIssuerConfig), //
+        make_unique<ReadAttribute>(Id, "luminaire-identification-number", Attributes::LuminaireIdentificationNumber::Id,
+                                   credsIssuerConfig), //
+        make_unique<ReadAttribute>(Id, "luminaire-year-of-manufacture", Attributes::LuminaireYearOfManufacture::Id,
+                                   credsIssuerConfig), //
+        make_unique<ReadAttribute>(Id, "luminaire-week-of-manufacture", Attributes::LuminaireWeekOfManufacture::Id,
+                                   credsIssuerConfig),                                                                           //
+        make_unique<ReadAttribute>(Id, "nominal-input-power", Attributes::NominalInputPower::Id, credsIssuerConfig),             //
+        make_unique<ReadAttribute>(Id, "power-at-minimum-dim-level", Attributes::PowerAtMinimumDimLevel::Id, credsIssuerConfig), //
+        make_unique<ReadAttribute>(Id, "nominal-minimum-acmains-voltage", Attributes::NominalMinimumACMainsVoltage::Id,
+                                   credsIssuerConfig), //
+        make_unique<ReadAttribute>(Id, "nominal-maximum-acmains-voltage", Attributes::NominalMaximumACMainsVoltage::Id,
+                                   credsIssuerConfig),                                                                          //
+        make_unique<ReadAttribute>(Id, "nominal-light-output", Attributes::NominalLightOutput::Id, credsIssuerConfig),          //
+        make_unique<ReadAttribute>(Id, "color-rendering-index", Attributes::ColorRenderingIndex::Id, credsIssuerConfig),        //
+        make_unique<ReadAttribute>(Id, "cct", Attributes::Cct::Id, credsIssuerConfig),                                          //
+        make_unique<ReadAttribute>(Id, "light-distribution-type", Attributes::LightDistributionType::Id, credsIssuerConfig),    //
+        make_unique<ReadAttribute>(Id, "luminaire-color", Attributes::LuminaireColor::Id, credsIssuerConfig),                   //
+        make_unique<ReadAttribute>(Id, "luminaire-identification", Attributes::LuminaireIdentification::Id, credsIssuerConfig), //
+        make_unique<ReadAttribute>(Id, "light-source-type", Attributes::LightSourceType::Id, credsIssuerConfig),                //
+        make_unique<ReadAttribute>(Id, "generated-command-list", Attributes::GeneratedCommandList::Id, credsIssuerConfig),      //
+        make_unique<ReadAttribute>(Id, "accepted-command-list", Attributes::AcceptedCommandList::Id, credsIssuerConfig),        //
+        make_unique<ReadAttribute>(Id, "attribute-list", Attributes::AttributeList::Id, credsIssuerConfig),                     //
+        make_unique<ReadAttribute>(Id, "feature-map", Attributes::FeatureMap::Id, credsIssuerConfig),                           //
+        make_unique<ReadAttribute>(Id, "cluster-revision", Attributes::ClusterRevision::Id, credsIssuerConfig),                 //
+        make_unique<WriteAttribute<>>(Id, credsIssuerConfig),                                                                   //
+        make_unique<WriteAttribute<chip::ByteSpan>>(Id, "luminaire-manufacturer-gtin", Attributes::LuminaireManufacturerGTIN::Id,
+                                                    WriteCommandType::kForceWrite, credsIssuerConfig), //
+        make_unique<WriteAttribute<chip::ByteSpan>>(Id, "luminaire-identification-number",
+                                                    Attributes::LuminaireIdentificationNumber::Id, WriteCommandType::kForceWrite,
+                                                    credsIssuerConfig), //
+        make_unique<WriteAttribute<uint8_t>>(Id, "luminaire-year-of-manufacture", 0, UINT8_MAX,
+                                             Attributes::LuminaireYearOfManufacture::Id, WriteCommandType::kForceWrite,
+                                             credsIssuerConfig), //
+        make_unique<WriteAttribute<uint8_t>>(Id, "luminaire-week-of-manufacture", 0, UINT8_MAX,
+                                             Attributes::LuminaireWeekOfManufacture::Id, WriteCommandType::kForceWrite,
+                                             credsIssuerConfig), //
+        make_unique<WriteAttribute<uint16_t>>(Id, "nominal-input-power", 0, UINT16_MAX, Attributes::NominalInputPower::Id,
+                                              WriteCommandType::kForceWrite, credsIssuerConfig), //
+        make_unique<WriteAttribute<uint16_t>>(Id, "power-at-minimum-dim-level", 0, UINT16_MAX,
+                                              Attributes::PowerAtMinimumDimLevel::Id, WriteCommandType::kForceWrite,
+                                              credsIssuerConfig), //
+        make_unique<WriteAttribute<uint16_t>>(Id, "nominal-minimum-acmains-voltage", 0, UINT16_MAX,
+                                              Attributes::NominalMinimumACMainsVoltage::Id, WriteCommandType::kForceWrite,
+                                              credsIssuerConfig), //
+        make_unique<WriteAttribute<uint16_t>>(Id, "nominal-maximum-acmains-voltage", 0, UINT16_MAX,
+                                              Attributes::NominalMaximumACMainsVoltage::Id, WriteCommandType::kForceWrite,
+                                              credsIssuerConfig), //
+        make_unique<WriteAttribute<uint32_t>>(Id, "nominal-light-output", 0, UINT32_MAX, Attributes::NominalLightOutput::Id,
+                                              WriteCommandType::kForceWrite, credsIssuerConfig), //
+        make_unique<WriteAttribute<uint8_t>>(Id, "color-rendering-index", 0, UINT8_MAX, Attributes::ColorRenderingIndex::Id,
+                                             WriteCommandType::kForceWrite, credsIssuerConfig), //
+        make_unique<WriteAttribute<uint16_t>>(Id, "cct", 0, UINT16_MAX, Attributes::Cct::Id, WriteCommandType::kForceWrite,
+                                              credsIssuerConfig), //
+        make_unique<WriteAttribute<chip::app::Clusters::LuminaireAssetManagement::LightDistributionTypeEnum>>(
+            Id, "light-distribution-type", 0, UINT8_MAX, Attributes::LightDistributionType::Id, WriteCommandType::kForceWrite,
+            credsIssuerConfig), //
+        make_unique<WriteAttribute<chip::app::DataModel::Nullable<chip::CharSpan>>>(
+            Id, "luminaire-color", Attributes::LuminaireColor::Id, WriteCommandType::kForceWrite, credsIssuerConfig), //
+        make_unique<WriteAttribute<chip::app::DataModel::Nullable<chip::CharSpan>>>(
+            Id, "luminaire-identification", Attributes::LuminaireIdentification::Id, WriteCommandType::kForceWrite,
+            credsIssuerConfig), //
+        make_unique<WriteAttribute<chip::app::Clusters::LuminaireAssetManagement::LightSourceTypeEnum>>(
+            Id, "light-source-type", 0, UINT8_MAX, Attributes::LightSourceType::Id, WriteCommandType::kForceWrite,
+            credsIssuerConfig), //
+        make_unique<WriteAttributeAsComplex<chip::app::DataModel::List<const chip::CommandId>>>(
+            Id, "generated-command-list", Attributes::GeneratedCommandList::Id, WriteCommandType::kForceWrite,
+            credsIssuerConfig), //
+        make_unique<WriteAttributeAsComplex<chip::app::DataModel::List<const chip::CommandId>>>(
+            Id, "accepted-command-list", Attributes::AcceptedCommandList::Id, WriteCommandType::kForceWrite, credsIssuerConfig), //
+        make_unique<WriteAttributeAsComplex<chip::app::DataModel::List<const chip::AttributeId>>>(
+            Id, "attribute-list", Attributes::AttributeList::Id, WriteCommandType::kForceWrite, credsIssuerConfig), //
+        make_unique<WriteAttribute<uint32_t>>(Id, "feature-map", 0, UINT32_MAX, Attributes::FeatureMap::Id,
+                                              WriteCommandType::kForceWrite, credsIssuerConfig), //
+        make_unique<WriteAttribute<uint16_t>>(Id, "cluster-revision", 0, UINT16_MAX, Attributes::ClusterRevision::Id,
+                                              WriteCommandType::kForceWrite, credsIssuerConfig), //
+        make_unique<SubscribeAttribute>(Id, credsIssuerConfig),                                  //
+        make_unique<SubscribeAttribute>(Id, "luminaire-manufacturer-gtin", Attributes::LuminaireManufacturerGTIN::Id,
+                                        credsIssuerConfig), //
+        make_unique<SubscribeAttribute>(Id, "luminaire-identification-number", Attributes::LuminaireIdentificationNumber::Id,
+                                        credsIssuerConfig), //
+        make_unique<SubscribeAttribute>(Id, "luminaire-year-of-manufacture", Attributes::LuminaireYearOfManufacture::Id,
+                                        credsIssuerConfig), //
+        make_unique<SubscribeAttribute>(Id, "luminaire-week-of-manufacture", Attributes::LuminaireWeekOfManufacture::Id,
+                                        credsIssuerConfig),                                                               //
+        make_unique<SubscribeAttribute>(Id, "nominal-input-power", Attributes::NominalInputPower::Id, credsIssuerConfig), //
+        make_unique<SubscribeAttribute>(Id, "power-at-minimum-dim-level", Attributes::PowerAtMinimumDimLevel::Id,
+                                        credsIssuerConfig), //
+        make_unique<SubscribeAttribute>(Id, "nominal-minimum-acmains-voltage", Attributes::NominalMinimumACMainsVoltage::Id,
+                                        credsIssuerConfig), //
+        make_unique<SubscribeAttribute>(Id, "nominal-maximum-acmains-voltage", Attributes::NominalMaximumACMainsVoltage::Id,
+                                        credsIssuerConfig),                                                                       //
+        make_unique<SubscribeAttribute>(Id, "nominal-light-output", Attributes::NominalLightOutput::Id, credsIssuerConfig),       //
+        make_unique<SubscribeAttribute>(Id, "color-rendering-index", Attributes::ColorRenderingIndex::Id, credsIssuerConfig),     //
+        make_unique<SubscribeAttribute>(Id, "cct", Attributes::Cct::Id, credsIssuerConfig),                                       //
+        make_unique<SubscribeAttribute>(Id, "light-distribution-type", Attributes::LightDistributionType::Id, credsIssuerConfig), //
+        make_unique<SubscribeAttribute>(Id, "luminaire-color", Attributes::LuminaireColor::Id, credsIssuerConfig),                //
+        make_unique<SubscribeAttribute>(Id, "luminaire-identification", Attributes::LuminaireIdentification::Id,
+                                        credsIssuerConfig),                                                                     //
+        make_unique<SubscribeAttribute>(Id, "light-source-type", Attributes::LightSourceType::Id, credsIssuerConfig),           //
+        make_unique<SubscribeAttribute>(Id, "generated-command-list", Attributes::GeneratedCommandList::Id, credsIssuerConfig), //
+        make_unique<SubscribeAttribute>(Id, "accepted-command-list", Attributes::AcceptedCommandList::Id, credsIssuerConfig),   //
+        make_unique<SubscribeAttribute>(Id, "attribute-list", Attributes::AttributeList::Id, credsIssuerConfig),                //
+        make_unique<SubscribeAttribute>(Id, "feature-map", Attributes::FeatureMap::Id, credsIssuerConfig),                      //
+        make_unique<SubscribeAttribute>(Id, "cluster-revision", Attributes::ClusterRevision::Id, credsIssuerConfig),            //
+        //
+        // Events
+        //
+        make_unique<ReadEvent>(Id, credsIssuerConfig),      //
+        make_unique<SubscribeEvent>(Id, credsIssuerConfig), //
+    };
+
+    commands.RegisterCluster(clusterName, clusterCommands);
+}
+void registerClusterLuminaireEnergyReporting(Commands & commands, CredentialIssuerCommands * credsIssuerConfig)
+{
+    using namespace chip::app::Clusters::LuminaireEnergyReporting;
+
+    const char * clusterName = "LuminaireEnergyReporting";
+
+    commands_list clusterCommands = {
+        //
+        // Commands
+        //
+        make_unique<ClusterCommand>(Id, credsIssuerConfig), //
+        //
+        // Attributes
+        //
+        make_unique<ReadAttribute>(Id, credsIssuerConfig), //
+        make_unique<ReadAttribute>(Id, "scale-factor-for-active-energy", Attributes::ScaleFactorForActiveEnergy::Id,
+                                   credsIssuerConfig),                                                    //
+        make_unique<ReadAttribute>(Id, "active-energy", Attributes::ActiveEnergy::Id, credsIssuerConfig), //
+        make_unique<ReadAttribute>(Id, "scale-factor-for-active-power", Attributes::ScaleFactorForActivePower::Id,
+                                   credsIssuerConfig),                                                  //
+        make_unique<ReadAttribute>(Id, "active-power", Attributes::ActivePower::Id, credsIssuerConfig), //
+        make_unique<ReadAttribute>(Id, "scale-factor-for-apparent-energy", Attributes::ScaleFactorForApparentEnergy::Id,
+                                   credsIssuerConfig),                                                        //
+        make_unique<ReadAttribute>(Id, "apparent-energy", Attributes::ApparentEnergy::Id, credsIssuerConfig), //
+        make_unique<ReadAttribute>(Id, "scale-factor-for-apparent-power", Attributes::ScaleFactorForApparentPower::Id,
+                                   credsIssuerConfig),                                                      //
+        make_unique<ReadAttribute>(Id, "apparent-power", Attributes::ApparentPower::Id, credsIssuerConfig), //
+        make_unique<ReadAttribute>(Id, "scale-factor-for-loadside-energy", Attributes::ScaleFactorForLoadsideEnergy::Id,
+                                   credsIssuerConfig),                                                                     //
+        make_unique<ReadAttribute>(Id, "active-energy-loadside", Attributes::ActiveEnergyLoadside::Id, credsIssuerConfig), //
+        make_unique<ReadAttribute>(Id, "scale-factor-for-loadside-power", Attributes::ScaleFactorForLoadsidePower::Id,
+                                   credsIssuerConfig),                                                                     //
+        make_unique<ReadAttribute>(Id, "active-power-loadside", Attributes::ActivePowerLoadside::Id, credsIssuerConfig),   //
+        make_unique<ReadAttribute>(Id, "generated-command-list", Attributes::GeneratedCommandList::Id, credsIssuerConfig), //
+        make_unique<ReadAttribute>(Id, "accepted-command-list", Attributes::AcceptedCommandList::Id, credsIssuerConfig),   //
+        make_unique<ReadAttribute>(Id, "attribute-list", Attributes::AttributeList::Id, credsIssuerConfig),                //
+        make_unique<ReadAttribute>(Id, "feature-map", Attributes::FeatureMap::Id, credsIssuerConfig),                      //
+        make_unique<ReadAttribute>(Id, "cluster-revision", Attributes::ClusterRevision::Id, credsIssuerConfig),            //
+        make_unique<WriteAttribute<>>(Id, credsIssuerConfig),                                                              //
+        make_unique<WriteAttribute<int8_t>>(Id, "scale-factor-for-active-energy", INT8_MIN, INT8_MAX,
+                                            Attributes::ScaleFactorForActiveEnergy::Id, WriteCommandType::kForceWrite,
+                                            credsIssuerConfig), //
+        make_unique<WriteAttribute<uint64_t>>(Id, "active-energy", 0, UINT64_MAX, Attributes::ActiveEnergy::Id,
+                                              WriteCommandType::kForceWrite, credsIssuerConfig), //
+        make_unique<WriteAttribute<int8_t>>(Id, "scale-factor-for-active-power", INT8_MIN, INT8_MAX,
+                                            Attributes::ScaleFactorForActivePower::Id, WriteCommandType::kForceWrite,
+                                            credsIssuerConfig), //
+        make_unique<WriteAttribute<uint32_t>>(Id, "active-power", 0, UINT32_MAX, Attributes::ActivePower::Id,
+                                              WriteCommandType::kForceWrite, credsIssuerConfig), //
+        make_unique<WriteAttribute<int8_t>>(Id, "scale-factor-for-apparent-energy", INT8_MIN, INT8_MAX,
+                                            Attributes::ScaleFactorForApparentEnergy::Id, WriteCommandType::kForceWrite,
+                                            credsIssuerConfig), //
+        make_unique<WriteAttribute<uint64_t>>(Id, "apparent-energy", 0, UINT64_MAX, Attributes::ApparentEnergy::Id,
+                                              WriteCommandType::kForceWrite, credsIssuerConfig), //
+        make_unique<WriteAttribute<int8_t>>(Id, "scale-factor-for-apparent-power", INT8_MIN, INT8_MAX,
+                                            Attributes::ScaleFactorForApparentPower::Id, WriteCommandType::kForceWrite,
+                                            credsIssuerConfig), //
+        make_unique<WriteAttribute<uint32_t>>(Id, "apparent-power", 0, UINT32_MAX, Attributes::ApparentPower::Id,
+                                              WriteCommandType::kForceWrite, credsIssuerConfig), //
+        make_unique<WriteAttribute<int8_t>>(Id, "scale-factor-for-loadside-energy", INT8_MIN, INT8_MAX,
+                                            Attributes::ScaleFactorForLoadsideEnergy::Id, WriteCommandType::kForceWrite,
+                                            credsIssuerConfig), //
+        make_unique<WriteAttribute<uint64_t>>(Id, "active-energy-loadside", 0, UINT64_MAX, Attributes::ActiveEnergyLoadside::Id,
+                                              WriteCommandType::kForceWrite, credsIssuerConfig), //
+        make_unique<WriteAttribute<int8_t>>(Id, "scale-factor-for-loadside-power", INT8_MIN, INT8_MAX,
+                                            Attributes::ScaleFactorForLoadsidePower::Id, WriteCommandType::kForceWrite,
+                                            credsIssuerConfig), //
+        make_unique<WriteAttribute<uint32_t>>(Id, "active-power-loadside", 0, UINT32_MAX, Attributes::ActivePowerLoadside::Id,
+                                              WriteCommandType::kForceWrite, credsIssuerConfig), //
+        make_unique<WriteAttributeAsComplex<chip::app::DataModel::List<const chip::CommandId>>>(
+            Id, "generated-command-list", Attributes::GeneratedCommandList::Id, WriteCommandType::kForceWrite,
+            credsIssuerConfig), //
+        make_unique<WriteAttributeAsComplex<chip::app::DataModel::List<const chip::CommandId>>>(
+            Id, "accepted-command-list", Attributes::AcceptedCommandList::Id, WriteCommandType::kForceWrite, credsIssuerConfig), //
+        make_unique<WriteAttributeAsComplex<chip::app::DataModel::List<const chip::AttributeId>>>(
+            Id, "attribute-list", Attributes::AttributeList::Id, WriteCommandType::kForceWrite, credsIssuerConfig), //
+        make_unique<WriteAttribute<uint32_t>>(Id, "feature-map", 0, UINT32_MAX, Attributes::FeatureMap::Id,
+                                              WriteCommandType::kForceWrite, credsIssuerConfig), //
+        make_unique<WriteAttribute<uint16_t>>(Id, "cluster-revision", 0, UINT16_MAX, Attributes::ClusterRevision::Id,
+                                              WriteCommandType::kForceWrite, credsIssuerConfig), //
+        make_unique<SubscribeAttribute>(Id, credsIssuerConfig),                                  //
+        make_unique<SubscribeAttribute>(Id, "scale-factor-for-active-energy", Attributes::ScaleFactorForActiveEnergy::Id,
+                                        credsIssuerConfig),                                                    //
+        make_unique<SubscribeAttribute>(Id, "active-energy", Attributes::ActiveEnergy::Id, credsIssuerConfig), //
+        make_unique<SubscribeAttribute>(Id, "scale-factor-for-active-power", Attributes::ScaleFactorForActivePower::Id,
+                                        credsIssuerConfig),                                                  //
+        make_unique<SubscribeAttribute>(Id, "active-power", Attributes::ActivePower::Id, credsIssuerConfig), //
+        make_unique<SubscribeAttribute>(Id, "scale-factor-for-apparent-energy", Attributes::ScaleFactorForApparentEnergy::Id,
+                                        credsIssuerConfig),                                                        //
+        make_unique<SubscribeAttribute>(Id, "apparent-energy", Attributes::ApparentEnergy::Id, credsIssuerConfig), //
+        make_unique<SubscribeAttribute>(Id, "scale-factor-for-apparent-power", Attributes::ScaleFactorForApparentPower::Id,
+                                        credsIssuerConfig),                                                      //
+        make_unique<SubscribeAttribute>(Id, "apparent-power", Attributes::ApparentPower::Id, credsIssuerConfig), //
+        make_unique<SubscribeAttribute>(Id, "scale-factor-for-loadside-energy", Attributes::ScaleFactorForLoadsideEnergy::Id,
+                                        credsIssuerConfig),                                                                     //
+        make_unique<SubscribeAttribute>(Id, "active-energy-loadside", Attributes::ActiveEnergyLoadside::Id, credsIssuerConfig), //
+        make_unique<SubscribeAttribute>(Id, "scale-factor-for-loadside-power", Attributes::ScaleFactorForLoadsidePower::Id,
+                                        credsIssuerConfig),                                                                     //
+        make_unique<SubscribeAttribute>(Id, "active-power-loadside", Attributes::ActivePowerLoadside::Id, credsIssuerConfig),   //
+        make_unique<SubscribeAttribute>(Id, "generated-command-list", Attributes::GeneratedCommandList::Id, credsIssuerConfig), //
+        make_unique<SubscribeAttribute>(Id, "accepted-command-list", Attributes::AcceptedCommandList::Id, credsIssuerConfig),   //
+        make_unique<SubscribeAttribute>(Id, "attribute-list", Attributes::AttributeList::Id, credsIssuerConfig),                //
+        make_unique<SubscribeAttribute>(Id, "feature-map", Attributes::FeatureMap::Id, credsIssuerConfig),                      //
+        make_unique<SubscribeAttribute>(Id, "cluster-revision", Attributes::ClusterRevision::Id, credsIssuerConfig),            //
+        //
+        // Events
+        //
+        make_unique<ReadEvent>(Id, credsIssuerConfig),      //
+        make_unique<SubscribeEvent>(Id, credsIssuerConfig), //
+    };
+
+    commands.RegisterCluster(clusterName, clusterCommands);
+}
+void registerClusterLuminaireDiagnosticsAndMaintenance(Commands & commands, CredentialIssuerCommands * credsIssuerConfig)
+{
+    using namespace chip::app::Clusters::LuminaireDiagnosticsAndMaintenance;
+
+    const char * clusterName = "LuminaireDiagnosticsAndMaintenance";
+
+    commands_list clusterCommands = {
+        //
+        // Commands
+        //
+        make_unique<ClusterCommand>(Id, credsIssuerConfig), //
+        //
+        // Attributes
+        //
+        make_unique<ReadAttribute>(Id, credsIssuerConfig), //
+        make_unique<ReadAttribute>(Id, "control-gear-operating-time", Attributes::ControlGearOperatingTime::Id,
+                                   credsIssuerConfig),                                                                            //
+        make_unique<ReadAttribute>(Id, "control-gear-start-counter", Attributes::ControlGearStartCounter::Id, credsIssuerConfig), //
+        make_unique<ReadAttribute>(Id, "control-gear-external-supply-voltage", Attributes::ControlGearExternalSupplyVoltage::Id,
+                                   credsIssuerConfig), //
+        make_unique<ReadAttribute>(Id, "control-gear-external-supply-voltage-frequency",
+                                   Attributes::ControlGearExternalSupplyVoltageFrequency::Id, credsIssuerConfig),               //
+        make_unique<ReadAttribute>(Id, "control-gear-power-factor", Attributes::ControlGearPowerFactor::Id, credsIssuerConfig), //
+        make_unique<ReadAttribute>(Id, "control-gear-overall-failure-condition", Attributes::ControlGearOverallFailureCondition::Id,
+                                   credsIssuerConfig), //
+        make_unique<ReadAttribute>(Id, "control-gear-overall-failure-condition-counter",
+                                   Attributes::ControlGearOverallFailureConditionCounter::Id, credsIssuerConfig), //
+        make_unique<ReadAttribute>(Id, "control-gear-external-supply-undervoltage",
+                                   Attributes::ControlGearExternalSupplyUndervoltage::Id, credsIssuerConfig), //
+        make_unique<ReadAttribute>(Id, "control-gear-external-supply-undervoltage-counter",
+                                   Attributes::ControlGearExternalSupplyUndervoltageCounter::Id, credsIssuerConfig), //
+        make_unique<ReadAttribute>(Id, "control-gear-external-supply-overvoltage",
+                                   Attributes::ControlGearExternalSupplyOvervoltage::Id, credsIssuerConfig), //
+        make_unique<ReadAttribute>(Id, "control-gear-external-supply-overvoltage-counter",
+                                   Attributes::ControlGearExternalSupplyOvervoltageCounter::Id, credsIssuerConfig), //
+        make_unique<ReadAttribute>(Id, "control-gear-output-power-limitation", Attributes::ControlGearOutputPowerLimitation::Id,
+                                   credsIssuerConfig), //
+        make_unique<ReadAttribute>(Id, "control-gear-output-power-limitation-counter",
+                                   Attributes::ControlGearOutputPowerLimitationCounter::Id, credsIssuerConfig), //
+        make_unique<ReadAttribute>(Id, "control-gear-thermal-derating", Attributes::ControlGearThermalDerating::Id,
+                                   credsIssuerConfig), //
+        make_unique<ReadAttribute>(Id, "control-gear-thermal-derating-counter", Attributes::ControlGearThermalDeratingCounter::Id,
+                                   credsIssuerConfig), //
+        make_unique<ReadAttribute>(Id, "control-gear-thermal-shutdown", Attributes::ControlGearThermalShutdown::Id,
+                                   credsIssuerConfig), //
+        make_unique<ReadAttribute>(Id, "control-gear-thermal-shutdown-counter", Attributes::ControlGearThermalShutdownCounter::Id,
+                                   credsIssuerConfig),                                                                         //
+        make_unique<ReadAttribute>(Id, "control-gear-temperature", Attributes::ControlGearTemperature::Id, credsIssuerConfig), //
+        make_unique<ReadAttribute>(Id, "control-gear-output-current-percentage", Attributes::ControlGearOutputCurrentPercentage::Id,
+                                   credsIssuerConfig), //
+        make_unique<ReadAttribute>(Id, "light-source-start-counter-resettable", Attributes::LightSourceStartCounterResettable::Id,
+                                   credsIssuerConfig),                                                                            //
+        make_unique<ReadAttribute>(Id, "light-source-start-counter", Attributes::LightSourceStartCounter::Id, credsIssuerConfig), //
+        make_unique<ReadAttribute>(Id, "light-source-on-time-resettable", Attributes::LightSourceOnTimeResettable::Id,
+                                   credsIssuerConfig),                                                                 //
+        make_unique<ReadAttribute>(Id, "light-source-on-time", Attributes::LightSourceOnTime::Id, credsIssuerConfig),  //
+        make_unique<ReadAttribute>(Id, "light-source-voltage", Attributes::LightSourceVoltage::Id, credsIssuerConfig), //
+        make_unique<ReadAttribute>(Id, "light-source-current", Attributes::LightSourceCurrent::Id, credsIssuerConfig), //
+        make_unique<ReadAttribute>(Id, "light-source-overall-failure-condition", Attributes::LightSourceOverallFailureCondition::Id,
+                                   credsIssuerConfig), //
+        make_unique<ReadAttribute>(Id, "light-source-overall-failure-condition-counter",
+                                   Attributes::LightSourceOverallFailureConditionCounter::Id, credsIssuerConfig),                 //
+        make_unique<ReadAttribute>(Id, "light-source-short-circuit", Attributes::LightSourceShortCircuit::Id, credsIssuerConfig), //
+        make_unique<ReadAttribute>(Id, "light-source-short-circuit-counter", Attributes::LightSourceShortCircuitCounter::Id,
+                                   credsIssuerConfig),                                                                          //
+        make_unique<ReadAttribute>(Id, "light-source-open-circuit", Attributes::LightSourceOpenCircuit::Id, credsIssuerConfig), //
+        make_unique<ReadAttribute>(Id, "light-source-open-circuit-counter", Attributes::LightSourceOpenCircuitCounter::Id,
+                                   credsIssuerConfig), //
+        make_unique<ReadAttribute>(Id, "light-source-thermal-derating", Attributes::LightSourceThermalDerating::Id,
+                                   credsIssuerConfig), //
+        make_unique<ReadAttribute>(Id, "light-source-thermal-derating-counter", Attributes::LightSourceThermalDeratingCounter::Id,
+                                   credsIssuerConfig), //
+        make_unique<ReadAttribute>(Id, "light-source-thermal-shutdown", Attributes::LightSourceThermalShutdown::Id,
+                                   credsIssuerConfig), //
+        make_unique<ReadAttribute>(Id, "light-source-thermal-shutdown-counter", Attributes::LightSourceThermalShutdownCounter::Id,
+                                   credsIssuerConfig),                                                                         //
+        make_unique<ReadAttribute>(Id, "light-source-temperature", Attributes::LightSourceTemperature::Id, credsIssuerConfig), //
+        make_unique<ReadAttribute>(Id, "rated-median-useful-life-of-luminaire", Attributes::RatedMedianUsefulLifeOfLuminaire::Id,
+                                   credsIssuerConfig), //
+        make_unique<ReadAttribute>(Id, "internal-control-gear-reference-temperature",
+                                   Attributes::InternalControlGearReferenceTemperature::Id, credsIssuerConfig), //
+        make_unique<ReadAttribute>(Id, "rated-median-useful-light-source-starts",
+                                   Attributes::RatedMedianUsefulLightSourceStarts::Id, credsIssuerConfig),                 //
+        make_unique<ReadAttribute>(Id, "generated-command-list", Attributes::GeneratedCommandList::Id, credsIssuerConfig), //
+        make_unique<ReadAttribute>(Id, "accepted-command-list", Attributes::AcceptedCommandList::Id, credsIssuerConfig),   //
+        make_unique<ReadAttribute>(Id, "attribute-list", Attributes::AttributeList::Id, credsIssuerConfig),                //
+        make_unique<ReadAttribute>(Id, "feature-map", Attributes::FeatureMap::Id, credsIssuerConfig),                      //
+        make_unique<ReadAttribute>(Id, "cluster-revision", Attributes::ClusterRevision::Id, credsIssuerConfig),            //
+        make_unique<WriteAttribute<>>(Id, credsIssuerConfig),                                                              //
+        make_unique<WriteAttribute<uint32_t>>(Id, "control-gear-operating-time", 0, UINT32_MAX,
+                                              Attributes::ControlGearOperatingTime::Id, WriteCommandType::kForceWrite,
+                                              credsIssuerConfig), //
+        make_unique<WriteAttribute<uint32_t>>(Id, "control-gear-start-counter", 0, UINT32_MAX,
+                                              Attributes::ControlGearStartCounter::Id, WriteCommandType::kForceWrite,
+                                              credsIssuerConfig), //
+        make_unique<WriteAttribute<uint16_t>>(Id, "control-gear-external-supply-voltage", 0, UINT16_MAX,
+                                              Attributes::ControlGearExternalSupplyVoltage::Id, WriteCommandType::kForceWrite,
+                                              credsIssuerConfig), //
+        make_unique<WriteAttribute<uint8_t>>(Id, "control-gear-external-supply-voltage-frequency", 0, UINT8_MAX,
+                                             Attributes::ControlGearExternalSupplyVoltageFrequency::Id,
+                                             WriteCommandType::kForceWrite, credsIssuerConfig), //
+        make_unique<WriteAttribute<uint8_t>>(Id, "control-gear-power-factor", 0, UINT8_MAX, Attributes::ControlGearPowerFactor::Id,
+                                             WriteCommandType::kForceWrite, credsIssuerConfig), //
+        make_unique<WriteAttribute<uint8_t>>(Id, "control-gear-overall-failure-condition", 0, UINT8_MAX,
+                                             Attributes::ControlGearOverallFailureCondition::Id, WriteCommandType::kForceWrite,
+                                             credsIssuerConfig), //
+        make_unique<WriteAttribute<uint8_t>>(Id, "control-gear-overall-failure-condition-counter", 0, UINT8_MAX,
+                                             Attributes::ControlGearOverallFailureConditionCounter::Id,
+                                             WriteCommandType::kForceWrite, credsIssuerConfig), //
+        make_unique<WriteAttribute<uint8_t>>(Id, "control-gear-external-supply-undervoltage", 0, UINT8_MAX,
+                                             Attributes::ControlGearExternalSupplyUndervoltage::Id, WriteCommandType::kForceWrite,
+                                             credsIssuerConfig), //
+        make_unique<WriteAttribute<uint8_t>>(Id, "control-gear-external-supply-undervoltage-counter", 0, UINT8_MAX,
+                                             Attributes::ControlGearExternalSupplyUndervoltageCounter::Id,
+                                             WriteCommandType::kForceWrite, credsIssuerConfig), //
+        make_unique<WriteAttribute<uint8_t>>(Id, "control-gear-external-supply-overvoltage", 0, UINT8_MAX,
+                                             Attributes::ControlGearExternalSupplyOvervoltage::Id, WriteCommandType::kForceWrite,
+                                             credsIssuerConfig), //
+        make_unique<WriteAttribute<uint8_t>>(Id, "control-gear-external-supply-overvoltage-counter", 0, UINT8_MAX,
+                                             Attributes::ControlGearExternalSupplyOvervoltageCounter::Id,
+                                             WriteCommandType::kForceWrite, credsIssuerConfig), //
+        make_unique<WriteAttribute<uint8_t>>(Id, "control-gear-output-power-limitation", 0, UINT8_MAX,
+                                             Attributes::ControlGearOutputPowerLimitation::Id, WriteCommandType::kForceWrite,
+                                             credsIssuerConfig), //
+        make_unique<WriteAttribute<uint8_t>>(Id, "control-gear-output-power-limitation-counter", 0, UINT8_MAX,
+                                             Attributes::ControlGearOutputPowerLimitationCounter::Id, WriteCommandType::kForceWrite,
+                                             credsIssuerConfig), //
+        make_unique<WriteAttribute<uint8_t>>(Id, "control-gear-thermal-derating", 0, UINT8_MAX,
+                                             Attributes::ControlGearThermalDerating::Id, WriteCommandType::kForceWrite,
+                                             credsIssuerConfig), //
+        make_unique<WriteAttribute<uint8_t>>(Id, "control-gear-thermal-derating-counter", 0, UINT8_MAX,
+                                             Attributes::ControlGearThermalDeratingCounter::Id, WriteCommandType::kForceWrite,
+                                             credsIssuerConfig), //
+        make_unique<WriteAttribute<uint8_t>>(Id, "control-gear-thermal-shutdown", 0, UINT8_MAX,
+                                             Attributes::ControlGearThermalShutdown::Id, WriteCommandType::kForceWrite,
+                                             credsIssuerConfig), //
+        make_unique<WriteAttribute<uint8_t>>(Id, "control-gear-thermal-shutdown-counter", 0, UINT8_MAX,
+                                             Attributes::ControlGearThermalShutdownCounter::Id, WriteCommandType::kForceWrite,
+                                             credsIssuerConfig), //
+        make_unique<WriteAttribute<uint8_t>>(Id, "control-gear-temperature", 0, UINT8_MAX, Attributes::ControlGearTemperature::Id,
+                                             WriteCommandType::kForceWrite, credsIssuerConfig), //
+        make_unique<WriteAttribute<uint8_t>>(Id, "control-gear-output-current-percentage", 0, UINT8_MAX,
+                                             Attributes::ControlGearOutputCurrentPercentage::Id, WriteCommandType::kForceWrite,
+                                             credsIssuerConfig), //
+        make_unique<WriteAttribute<uint32_t>>(Id, "light-source-start-counter-resettable", 0, UINT32_MAX,
+                                              Attributes::LightSourceStartCounterResettable::Id, WriteCommandType::kWrite,
+                                              credsIssuerConfig), //
+        make_unique<WriteAttribute<uint32_t>>(Id, "light-source-start-counter", 0, UINT32_MAX,
+                                              Attributes::LightSourceStartCounter::Id, WriteCommandType::kForceWrite,
+                                              credsIssuerConfig), //
+        make_unique<WriteAttribute<uint32_t>>(Id, "light-source-on-time-resettable", 0, UINT32_MAX,
+                                              Attributes::LightSourceOnTimeResettable::Id, WriteCommandType::kWrite,
+                                              credsIssuerConfig), //
+        make_unique<WriteAttribute<uint32_t>>(Id, "light-source-on-time", 0, UINT32_MAX, Attributes::LightSourceOnTime::Id,
+                                              WriteCommandType::kForceWrite, credsIssuerConfig), //
+        make_unique<WriteAttribute<uint16_t>>(Id, "light-source-voltage", 0, UINT16_MAX, Attributes::LightSourceVoltage::Id,
+                                              WriteCommandType::kForceWrite, credsIssuerConfig), //
+        make_unique<WriteAttribute<uint16_t>>(Id, "light-source-current", 0, UINT16_MAX, Attributes::LightSourceCurrent::Id,
+                                              WriteCommandType::kForceWrite, credsIssuerConfig), //
+        make_unique<WriteAttribute<uint8_t>>(Id, "light-source-overall-failure-condition", 0, UINT8_MAX,
+                                             Attributes::LightSourceOverallFailureCondition::Id, WriteCommandType::kForceWrite,
+                                             credsIssuerConfig), //
+        make_unique<WriteAttribute<uint8_t>>(Id, "light-source-overall-failure-condition-counter", 0, UINT8_MAX,
+                                             Attributes::LightSourceOverallFailureConditionCounter::Id,
+                                             WriteCommandType::kForceWrite, credsIssuerConfig), //
+        make_unique<WriteAttribute<uint8_t>>(Id, "light-source-short-circuit", 0, UINT8_MAX,
+                                             Attributes::LightSourceShortCircuit::Id, WriteCommandType::kForceWrite,
+                                             credsIssuerConfig), //
+        make_unique<WriteAttribute<uint8_t>>(Id, "light-source-short-circuit-counter", 0, UINT8_MAX,
+                                             Attributes::LightSourceShortCircuitCounter::Id, WriteCommandType::kForceWrite,
+                                             credsIssuerConfig), //
+        make_unique<WriteAttribute<uint8_t>>(Id, "light-source-open-circuit", 0, UINT8_MAX, Attributes::LightSourceOpenCircuit::Id,
+                                             WriteCommandType::kForceWrite, credsIssuerConfig), //
+        make_unique<WriteAttribute<uint8_t>>(Id, "light-source-open-circuit-counter", 0, UINT8_MAX,
+                                             Attributes::LightSourceOpenCircuitCounter::Id, WriteCommandType::kForceWrite,
+                                             credsIssuerConfig), //
+        make_unique<WriteAttribute<uint8_t>>(Id, "light-source-thermal-derating", 0, UINT8_MAX,
+                                             Attributes::LightSourceThermalDerating::Id, WriteCommandType::kForceWrite,
+                                             credsIssuerConfig), //
+        make_unique<WriteAttribute<uint8_t>>(Id, "light-source-thermal-derating-counter", 0, UINT8_MAX,
+                                             Attributes::LightSourceThermalDeratingCounter::Id, WriteCommandType::kForceWrite,
+                                             credsIssuerConfig), //
+        make_unique<WriteAttribute<uint8_t>>(Id, "light-source-thermal-shutdown", 0, UINT8_MAX,
+                                             Attributes::LightSourceThermalShutdown::Id, WriteCommandType::kForceWrite,
+                                             credsIssuerConfig), //
+        make_unique<WriteAttribute<uint8_t>>(Id, "light-source-thermal-shutdown-counter", 0, UINT8_MAX,
+                                             Attributes::LightSourceThermalShutdownCounter::Id, WriteCommandType::kForceWrite,
+                                             credsIssuerConfig), //
+        make_unique<WriteAttribute<uint8_t>>(Id, "light-source-temperature", 0, UINT8_MAX, Attributes::LightSourceTemperature::Id,
+                                             WriteCommandType::kForceWrite, credsIssuerConfig), //
+        make_unique<WriteAttribute<uint8_t>>(Id, "rated-median-useful-life-of-luminaire", 0, UINT8_MAX,
+                                             Attributes::RatedMedianUsefulLifeOfLuminaire::Id, WriteCommandType::kForceWrite,
+                                             credsIssuerConfig), //
+        make_unique<WriteAttribute<uint8_t>>(Id, "internal-control-gear-reference-temperature", 0, UINT8_MAX,
+                                             Attributes::InternalControlGearReferenceTemperature::Id, WriteCommandType::kForceWrite,
+                                             credsIssuerConfig), //
+        make_unique<WriteAttribute<uint16_t>>(Id, "rated-median-useful-light-source-starts", 0, UINT16_MAX,
+                                              Attributes::RatedMedianUsefulLightSourceStarts::Id, WriteCommandType::kForceWrite,
+                                              credsIssuerConfig), //
+        make_unique<WriteAttributeAsComplex<chip::app::DataModel::List<const chip::CommandId>>>(
+            Id, "generated-command-list", Attributes::GeneratedCommandList::Id, WriteCommandType::kForceWrite,
+            credsIssuerConfig), //
+        make_unique<WriteAttributeAsComplex<chip::app::DataModel::List<const chip::CommandId>>>(
+            Id, "accepted-command-list", Attributes::AcceptedCommandList::Id, WriteCommandType::kForceWrite, credsIssuerConfig), //
+        make_unique<WriteAttributeAsComplex<chip::app::DataModel::List<const chip::AttributeId>>>(
+            Id, "attribute-list", Attributes::AttributeList::Id, WriteCommandType::kForceWrite, credsIssuerConfig), //
+        make_unique<WriteAttribute<uint32_t>>(Id, "feature-map", 0, UINT32_MAX, Attributes::FeatureMap::Id,
+                                              WriteCommandType::kForceWrite, credsIssuerConfig), //
+        make_unique<WriteAttribute<uint16_t>>(Id, "cluster-revision", 0, UINT16_MAX, Attributes::ClusterRevision::Id,
+                                              WriteCommandType::kForceWrite, credsIssuerConfig), //
+        make_unique<SubscribeAttribute>(Id, credsIssuerConfig),                                  //
+        make_unique<SubscribeAttribute>(Id, "control-gear-operating-time", Attributes::ControlGearOperatingTime::Id,
+                                        credsIssuerConfig), //
+        make_unique<SubscribeAttribute>(Id, "control-gear-start-counter", Attributes::ControlGearStartCounter::Id,
+                                        credsIssuerConfig), //
+        make_unique<SubscribeAttribute>(Id, "control-gear-external-supply-voltage",
+                                        Attributes::ControlGearExternalSupplyVoltage::Id, credsIssuerConfig), //
+        make_unique<SubscribeAttribute>(Id, "control-gear-external-supply-voltage-frequency",
+                                        Attributes::ControlGearExternalSupplyVoltageFrequency::Id, credsIssuerConfig), //
+        make_unique<SubscribeAttribute>(Id, "control-gear-power-factor", Attributes::ControlGearPowerFactor::Id,
+                                        credsIssuerConfig), //
+        make_unique<SubscribeAttribute>(Id, "control-gear-overall-failure-condition",
+                                        Attributes::ControlGearOverallFailureCondition::Id, credsIssuerConfig), //
+        make_unique<SubscribeAttribute>(Id, "control-gear-overall-failure-condition-counter",
+                                        Attributes::ControlGearOverallFailureConditionCounter::Id, credsIssuerConfig), //
+        make_unique<SubscribeAttribute>(Id, "control-gear-external-supply-undervoltage",
+                                        Attributes::ControlGearExternalSupplyUndervoltage::Id, credsIssuerConfig), //
+        make_unique<SubscribeAttribute>(Id, "control-gear-external-supply-undervoltage-counter",
+                                        Attributes::ControlGearExternalSupplyUndervoltageCounter::Id, credsIssuerConfig), //
+        make_unique<SubscribeAttribute>(Id, "control-gear-external-supply-overvoltage",
+                                        Attributes::ControlGearExternalSupplyOvervoltage::Id, credsIssuerConfig), //
+        make_unique<SubscribeAttribute>(Id, "control-gear-external-supply-overvoltage-counter",
+                                        Attributes::ControlGearExternalSupplyOvervoltageCounter::Id, credsIssuerConfig), //
+        make_unique<SubscribeAttribute>(Id, "control-gear-output-power-limitation",
+                                        Attributes::ControlGearOutputPowerLimitation::Id, credsIssuerConfig), //
+        make_unique<SubscribeAttribute>(Id, "control-gear-output-power-limitation-counter",
+                                        Attributes::ControlGearOutputPowerLimitationCounter::Id, credsIssuerConfig), //
+        make_unique<SubscribeAttribute>(Id, "control-gear-thermal-derating", Attributes::ControlGearThermalDerating::Id,
+                                        credsIssuerConfig), //
+        make_unique<SubscribeAttribute>(Id, "control-gear-thermal-derating-counter",
+                                        Attributes::ControlGearThermalDeratingCounter::Id, credsIssuerConfig), //
+        make_unique<SubscribeAttribute>(Id, "control-gear-thermal-shutdown", Attributes::ControlGearThermalShutdown::Id,
+                                        credsIssuerConfig), //
+        make_unique<SubscribeAttribute>(Id, "control-gear-thermal-shutdown-counter",
+                                        Attributes::ControlGearThermalShutdownCounter::Id, credsIssuerConfig), //
+        make_unique<SubscribeAttribute>(Id, "control-gear-temperature", Attributes::ControlGearTemperature::Id,
+                                        credsIssuerConfig), //
+        make_unique<SubscribeAttribute>(Id, "control-gear-output-current-percentage",
+                                        Attributes::ControlGearOutputCurrentPercentage::Id, credsIssuerConfig), //
+        make_unique<SubscribeAttribute>(Id, "light-source-start-counter-resettable",
+                                        Attributes::LightSourceStartCounterResettable::Id, credsIssuerConfig), //
+        make_unique<SubscribeAttribute>(Id, "light-source-start-counter", Attributes::LightSourceStartCounter::Id,
+                                        credsIssuerConfig), //
+        make_unique<SubscribeAttribute>(Id, "light-source-on-time-resettable", Attributes::LightSourceOnTimeResettable::Id,
+                                        credsIssuerConfig),                                                                 //
+        make_unique<SubscribeAttribute>(Id, "light-source-on-time", Attributes::LightSourceOnTime::Id, credsIssuerConfig),  //
+        make_unique<SubscribeAttribute>(Id, "light-source-voltage", Attributes::LightSourceVoltage::Id, credsIssuerConfig), //
+        make_unique<SubscribeAttribute>(Id, "light-source-current", Attributes::LightSourceCurrent::Id, credsIssuerConfig), //
+        make_unique<SubscribeAttribute>(Id, "light-source-overall-failure-condition",
+                                        Attributes::LightSourceOverallFailureCondition::Id, credsIssuerConfig), //
+        make_unique<SubscribeAttribute>(Id, "light-source-overall-failure-condition-counter",
+                                        Attributes::LightSourceOverallFailureConditionCounter::Id, credsIssuerConfig), //
+        make_unique<SubscribeAttribute>(Id, "light-source-short-circuit", Attributes::LightSourceShortCircuit::Id,
+                                        credsIssuerConfig), //
+        make_unique<SubscribeAttribute>(Id, "light-source-short-circuit-counter", Attributes::LightSourceShortCircuitCounter::Id,
+                                        credsIssuerConfig), //
+        make_unique<SubscribeAttribute>(Id, "light-source-open-circuit", Attributes::LightSourceOpenCircuit::Id,
+                                        credsIssuerConfig), //
+        make_unique<SubscribeAttribute>(Id, "light-source-open-circuit-counter", Attributes::LightSourceOpenCircuitCounter::Id,
+                                        credsIssuerConfig), //
+        make_unique<SubscribeAttribute>(Id, "light-source-thermal-derating", Attributes::LightSourceThermalDerating::Id,
+                                        credsIssuerConfig), //
+        make_unique<SubscribeAttribute>(Id, "light-source-thermal-derating-counter",
+                                        Attributes::LightSourceThermalDeratingCounter::Id, credsIssuerConfig), //
+        make_unique<SubscribeAttribute>(Id, "light-source-thermal-shutdown", Attributes::LightSourceThermalShutdown::Id,
+                                        credsIssuerConfig), //
+        make_unique<SubscribeAttribute>(Id, "light-source-thermal-shutdown-counter",
+                                        Attributes::LightSourceThermalShutdownCounter::Id, credsIssuerConfig), //
+        make_unique<SubscribeAttribute>(Id, "light-source-temperature", Attributes::LightSourceTemperature::Id,
+                                        credsIssuerConfig), //
+        make_unique<SubscribeAttribute>(Id, "rated-median-useful-life-of-luminaire",
+                                        Attributes::RatedMedianUsefulLifeOfLuminaire::Id, credsIssuerConfig), //
+        make_unique<SubscribeAttribute>(Id, "internal-control-gear-reference-temperature",
+                                        Attributes::InternalControlGearReferenceTemperature::Id, credsIssuerConfig), //
+        make_unique<SubscribeAttribute>(Id, "rated-median-useful-light-source-starts",
+                                        Attributes::RatedMedianUsefulLightSourceStarts::Id, credsIssuerConfig),                 //
+        make_unique<SubscribeAttribute>(Id, "generated-command-list", Attributes::GeneratedCommandList::Id, credsIssuerConfig), //
+        make_unique<SubscribeAttribute>(Id, "accepted-command-list", Attributes::AcceptedCommandList::Id, credsIssuerConfig),   //
+        make_unique<SubscribeAttribute>(Id, "attribute-list", Attributes::AttributeList::Id, credsIssuerConfig),                //
+        make_unique<SubscribeAttribute>(Id, "feature-map", Attributes::FeatureMap::Id, credsIssuerConfig),                      //
+        make_unique<SubscribeAttribute>(Id, "cluster-revision", Attributes::ClusterRevision::Id, credsIssuerConfig),            //
+        //
+        // Events
+        //
+        make_unique<ReadEvent>(Id, credsIssuerConfig),      //
+        make_unique<SubscribeEvent>(Id, credsIssuerConfig), //
+    };
+
+    commands.RegisterCluster(clusterName, clusterCommands);
+}
 void registerClusterIlluminanceMeasurement(Commands & commands, CredentialIssuerCommands * credsIssuerConfig)
 {
     using namespace chip::app::Clusters::IlluminanceMeasurement;
@@ -28169,6 +28826,9 @@ void registerClusters(Commands & commands, CredentialIssuerCommands * credsIssue
     registerClusterThermostatUserInterfaceConfiguration(commands, credsIssuerConfig);
     registerClusterColorControl(commands, credsIssuerConfig);
     registerClusterBallastConfiguration(commands, credsIssuerConfig);
+    registerClusterLuminaireAssetManagement(commands, credsIssuerConfig);
+    registerClusterLuminaireEnergyReporting(commands, credsIssuerConfig);
+    registerClusterLuminaireDiagnosticsAndMaintenance(commands, credsIssuerConfig);
     registerClusterIlluminanceMeasurement(commands, credsIssuerConfig);
     registerClusterTemperatureMeasurement(commands, credsIssuerConfig);
     registerClusterPressureMeasurement(commands, credsIssuerConfig);

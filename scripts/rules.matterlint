@@ -59,6 +59,9 @@ load "../src/app/zap-templates/zcl/data-model/chip/laundry-dryer-controls-cluste
 load "../src/app/zap-templates/zcl/data-model/chip/level-control-cluster.xml";
 load "../src/app/zap-templates/zcl/data-model/chip/localization-configuration-cluster.xml";
 load "../src/app/zap-templates/zcl/data-model/chip/low-power-cluster.xml";
+load "../src/app/zap-templates/zcl/data-model/chip/luminaire-diagnostics-and-maintenance-cluster.xml";
+load "../src/app/zap-templates/zcl/data-model/chip/luminaire-energy-reporting-cluster.xml";
+load "../src/app/zap-templates/zcl/data-model/chip/luminaire-asset-management-cluster.xml";
 load "../src/app/zap-templates/zcl/data-model/chip/matter-devices.xml";
 load "../src/app/zap-templates/zcl/data-model/chip/media-input-cluster.xml";
 load "../src/app/zap-templates/zcl/data-model/chip/media-playback-cluster.xml";

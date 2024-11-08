@@ -121,6 +121,9 @@
 | ThermostatUserInterfaceConfiguration                                | 0x0204 |
 | ColorControl                                                        | 0x0300 |
 | BallastConfiguration                                                | 0x0301 |
+| LuminaireAssetManagement                                            | 0x0302 |
+| LuminaireEnergyReporting                                            | 0x0303 |
+| LuminaireDiagnosticsAndMaintenance                                  | 0x0304 |
 | IlluminanceMeasurement                                              | 0x0400 |
 | TemperatureMeasurement                                              | 0x0402 |
 | PressureMeasurement                                                 | 0x0403 |
@@ -114489,6 +114492,7090 @@ public:
     }
 };
 
+#if MTR_ENABLE_PROVISIONAL
+/*----------------------------------------------------------------------------*\
+| Cluster LuminaireAssetManagement                                    | 0x0302 |
+|------------------------------------------------------------------------------|
+| Commands:                                                           |        |
+|------------------------------------------------------------------------------|
+| Attributes:                                                         |        |
+| * LuminaireManufacturerGTIN                                         | 0x0000 |
+| * LuminaireIdentificationNumber                                     | 0x0001 |
+| * LuminaireYearOfManufacture                                        | 0x0002 |
+| * LuminaireWeekOfManufacture                                        | 0x0003 |
+| * NominalInputPower                                                 | 0x0004 |
+| * PowerAtMinimumDimLevel                                            | 0x0005 |
+| * NominalMinimumACMainsVoltage                                      | 0x0006 |
+| * NominalMaximumACMainsVoltage                                      | 0x0007 |
+| * NominalLightOutput                                                | 0x0008 |
+| * ColorRenderingIndex                                               | 0x0009 |
+| * Cct                                                               | 0x000A |
+| * LightDistributionType                                             | 0x000B |
+| * LuminaireColor                                                    | 0x000C |
+| * LuminaireIdentification                                           | 0x000D |
+| * LightSourceType                                                   | 0x000E |
+| * GeneratedCommandList                                              | 0xFFF8 |
+| * AcceptedCommandList                                               | 0xFFF9 |
+| * AttributeList                                                     | 0xFFFB |
+| * FeatureMap                                                        | 0xFFFC |
+| * ClusterRevision                                                   | 0xFFFD |
+|------------------------------------------------------------------------------|
+| Events:                                                             |        |
+\*----------------------------------------------------------------------------*/
+
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute LuminaireManufacturerGTIN
+ */
+class ReadLuminaireAssetManagementLuminaireManufacturerGTIN : public ReadAttribute {
+public:
+    ReadLuminaireAssetManagementLuminaireManufacturerGTIN()
+        : ReadAttribute("luminaire-manufacturer-gtin")
+    {
+    }
+
+    ~ReadLuminaireAssetManagementLuminaireManufacturerGTIN()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireAssetManagement::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::LuminaireAssetManagement::Attributes::LuminaireManufacturerGTIN::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireAssetManagement alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeLuminaireManufacturerGTINWithCompletion:^(NSData * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"LuminaireAssetManagement.LuminaireManufacturerGTIN response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("LuminaireAssetManagement LuminaireManufacturerGTIN read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeLuminaireAssetManagementLuminaireManufacturerGTIN : public SubscribeAttribute {
+public:
+    SubscribeAttributeLuminaireAssetManagementLuminaireManufacturerGTIN()
+        : SubscribeAttribute("luminaire-manufacturer-gtin")
+    {
+    }
+
+    ~SubscribeAttributeLuminaireAssetManagementLuminaireManufacturerGTIN()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireAssetManagement::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::LuminaireAssetManagement::Attributes::LuminaireManufacturerGTIN::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireAssetManagement alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeLuminaireManufacturerGTINWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSData * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"LuminaireAssetManagement.LuminaireManufacturerGTIN response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute LuminaireIdentificationNumber
+ */
+class ReadLuminaireAssetManagementLuminaireIdentificationNumber : public ReadAttribute {
+public:
+    ReadLuminaireAssetManagementLuminaireIdentificationNumber()
+        : ReadAttribute("luminaire-identification-number")
+    {
+    }
+
+    ~ReadLuminaireAssetManagementLuminaireIdentificationNumber()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireAssetManagement::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::LuminaireAssetManagement::Attributes::LuminaireIdentificationNumber::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireAssetManagement alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeLuminaireIdentificationNumberWithCompletion:^(NSData * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"LuminaireAssetManagement.LuminaireIdentificationNumber response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("LuminaireAssetManagement LuminaireIdentificationNumber read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeLuminaireAssetManagementLuminaireIdentificationNumber : public SubscribeAttribute {
+public:
+    SubscribeAttributeLuminaireAssetManagementLuminaireIdentificationNumber()
+        : SubscribeAttribute("luminaire-identification-number")
+    {
+    }
+
+    ~SubscribeAttributeLuminaireAssetManagementLuminaireIdentificationNumber()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireAssetManagement::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::LuminaireAssetManagement::Attributes::LuminaireIdentificationNumber::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireAssetManagement alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeLuminaireIdentificationNumberWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSData * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"LuminaireAssetManagement.LuminaireIdentificationNumber response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute LuminaireYearOfManufacture
+ */
+class ReadLuminaireAssetManagementLuminaireYearOfManufacture : public ReadAttribute {
+public:
+    ReadLuminaireAssetManagementLuminaireYearOfManufacture()
+        : ReadAttribute("luminaire-year-of-manufacture")
+    {
+    }
+
+    ~ReadLuminaireAssetManagementLuminaireYearOfManufacture()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireAssetManagement::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::LuminaireAssetManagement::Attributes::LuminaireYearOfManufacture::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireAssetManagement alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeLuminaireYearOfManufactureWithCompletion:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"LuminaireAssetManagement.LuminaireYearOfManufacture response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("LuminaireAssetManagement LuminaireYearOfManufacture read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeLuminaireAssetManagementLuminaireYearOfManufacture : public SubscribeAttribute {
+public:
+    SubscribeAttributeLuminaireAssetManagementLuminaireYearOfManufacture()
+        : SubscribeAttribute("luminaire-year-of-manufacture")
+    {
+    }
+
+    ~SubscribeAttributeLuminaireAssetManagementLuminaireYearOfManufacture()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireAssetManagement::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::LuminaireAssetManagement::Attributes::LuminaireYearOfManufacture::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireAssetManagement alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeLuminaireYearOfManufactureWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"LuminaireAssetManagement.LuminaireYearOfManufacture response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute LuminaireWeekOfManufacture
+ */
+class ReadLuminaireAssetManagementLuminaireWeekOfManufacture : public ReadAttribute {
+public:
+    ReadLuminaireAssetManagementLuminaireWeekOfManufacture()
+        : ReadAttribute("luminaire-week-of-manufacture")
+    {
+    }
+
+    ~ReadLuminaireAssetManagementLuminaireWeekOfManufacture()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireAssetManagement::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::LuminaireAssetManagement::Attributes::LuminaireWeekOfManufacture::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireAssetManagement alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeLuminaireWeekOfManufactureWithCompletion:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"LuminaireAssetManagement.LuminaireWeekOfManufacture response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("LuminaireAssetManagement LuminaireWeekOfManufacture read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeLuminaireAssetManagementLuminaireWeekOfManufacture : public SubscribeAttribute {
+public:
+    SubscribeAttributeLuminaireAssetManagementLuminaireWeekOfManufacture()
+        : SubscribeAttribute("luminaire-week-of-manufacture")
+    {
+    }
+
+    ~SubscribeAttributeLuminaireAssetManagementLuminaireWeekOfManufacture()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireAssetManagement::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::LuminaireAssetManagement::Attributes::LuminaireWeekOfManufacture::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireAssetManagement alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeLuminaireWeekOfManufactureWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"LuminaireAssetManagement.LuminaireWeekOfManufacture response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute NominalInputPower
+ */
+class ReadLuminaireAssetManagementNominalInputPower : public ReadAttribute {
+public:
+    ReadLuminaireAssetManagementNominalInputPower()
+        : ReadAttribute("nominal-input-power")
+    {
+    }
+
+    ~ReadLuminaireAssetManagementNominalInputPower()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireAssetManagement::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::LuminaireAssetManagement::Attributes::NominalInputPower::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireAssetManagement alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeNominalInputPowerWithCompletion:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"LuminaireAssetManagement.NominalInputPower response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("LuminaireAssetManagement NominalInputPower read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeLuminaireAssetManagementNominalInputPower : public SubscribeAttribute {
+public:
+    SubscribeAttributeLuminaireAssetManagementNominalInputPower()
+        : SubscribeAttribute("nominal-input-power")
+    {
+    }
+
+    ~SubscribeAttributeLuminaireAssetManagementNominalInputPower()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireAssetManagement::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::LuminaireAssetManagement::Attributes::NominalInputPower::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireAssetManagement alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeNominalInputPowerWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"LuminaireAssetManagement.NominalInputPower response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute PowerAtMinimumDimLevel
+ */
+class ReadLuminaireAssetManagementPowerAtMinimumDimLevel : public ReadAttribute {
+public:
+    ReadLuminaireAssetManagementPowerAtMinimumDimLevel()
+        : ReadAttribute("power-at-minimum-dim-level")
+    {
+    }
+
+    ~ReadLuminaireAssetManagementPowerAtMinimumDimLevel()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireAssetManagement::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::LuminaireAssetManagement::Attributes::PowerAtMinimumDimLevel::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireAssetManagement alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributePowerAtMinimumDimLevelWithCompletion:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"LuminaireAssetManagement.PowerAtMinimumDimLevel response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("LuminaireAssetManagement PowerAtMinimumDimLevel read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeLuminaireAssetManagementPowerAtMinimumDimLevel : public SubscribeAttribute {
+public:
+    SubscribeAttributeLuminaireAssetManagementPowerAtMinimumDimLevel()
+        : SubscribeAttribute("power-at-minimum-dim-level")
+    {
+    }
+
+    ~SubscribeAttributeLuminaireAssetManagementPowerAtMinimumDimLevel()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireAssetManagement::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::LuminaireAssetManagement::Attributes::PowerAtMinimumDimLevel::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireAssetManagement alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributePowerAtMinimumDimLevelWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"LuminaireAssetManagement.PowerAtMinimumDimLevel response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute NominalMinimumACMainsVoltage
+ */
+class ReadLuminaireAssetManagementNominalMinimumACMainsVoltage : public ReadAttribute {
+public:
+    ReadLuminaireAssetManagementNominalMinimumACMainsVoltage()
+        : ReadAttribute("nominal-minimum-acmains-voltage")
+    {
+    }
+
+    ~ReadLuminaireAssetManagementNominalMinimumACMainsVoltage()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireAssetManagement::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::LuminaireAssetManagement::Attributes::NominalMinimumACMainsVoltage::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireAssetManagement alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeNominalMinimumACMainsVoltageWithCompletion:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"LuminaireAssetManagement.NominalMinimumACMainsVoltage response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("LuminaireAssetManagement NominalMinimumACMainsVoltage read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeLuminaireAssetManagementNominalMinimumACMainsVoltage : public SubscribeAttribute {
+public:
+    SubscribeAttributeLuminaireAssetManagementNominalMinimumACMainsVoltage()
+        : SubscribeAttribute("nominal-minimum-acmains-voltage")
+    {
+    }
+
+    ~SubscribeAttributeLuminaireAssetManagementNominalMinimumACMainsVoltage()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireAssetManagement::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::LuminaireAssetManagement::Attributes::NominalMinimumACMainsVoltage::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireAssetManagement alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeNominalMinimumACMainsVoltageWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"LuminaireAssetManagement.NominalMinimumACMainsVoltage response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute NominalMaximumACMainsVoltage
+ */
+class ReadLuminaireAssetManagementNominalMaximumACMainsVoltage : public ReadAttribute {
+public:
+    ReadLuminaireAssetManagementNominalMaximumACMainsVoltage()
+        : ReadAttribute("nominal-maximum-acmains-voltage")
+    {
+    }
+
+    ~ReadLuminaireAssetManagementNominalMaximumACMainsVoltage()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireAssetManagement::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::LuminaireAssetManagement::Attributes::NominalMaximumACMainsVoltage::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireAssetManagement alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeNominalMaximumACMainsVoltageWithCompletion:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"LuminaireAssetManagement.NominalMaximumACMainsVoltage response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("LuminaireAssetManagement NominalMaximumACMainsVoltage read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeLuminaireAssetManagementNominalMaximumACMainsVoltage : public SubscribeAttribute {
+public:
+    SubscribeAttributeLuminaireAssetManagementNominalMaximumACMainsVoltage()
+        : SubscribeAttribute("nominal-maximum-acmains-voltage")
+    {
+    }
+
+    ~SubscribeAttributeLuminaireAssetManagementNominalMaximumACMainsVoltage()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireAssetManagement::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::LuminaireAssetManagement::Attributes::NominalMaximumACMainsVoltage::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireAssetManagement alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeNominalMaximumACMainsVoltageWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"LuminaireAssetManagement.NominalMaximumACMainsVoltage response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute NominalLightOutput
+ */
+class ReadLuminaireAssetManagementNominalLightOutput : public ReadAttribute {
+public:
+    ReadLuminaireAssetManagementNominalLightOutput()
+        : ReadAttribute("nominal-light-output")
+    {
+    }
+
+    ~ReadLuminaireAssetManagementNominalLightOutput()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireAssetManagement::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::LuminaireAssetManagement::Attributes::NominalLightOutput::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireAssetManagement alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeNominalLightOutputWithCompletion:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"LuminaireAssetManagement.NominalLightOutput response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("LuminaireAssetManagement NominalLightOutput read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeLuminaireAssetManagementNominalLightOutput : public SubscribeAttribute {
+public:
+    SubscribeAttributeLuminaireAssetManagementNominalLightOutput()
+        : SubscribeAttribute("nominal-light-output")
+    {
+    }
+
+    ~SubscribeAttributeLuminaireAssetManagementNominalLightOutput()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireAssetManagement::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::LuminaireAssetManagement::Attributes::NominalLightOutput::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireAssetManagement alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeNominalLightOutputWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"LuminaireAssetManagement.NominalLightOutput response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute ColorRenderingIndex
+ */
+class ReadLuminaireAssetManagementColorRenderingIndex : public ReadAttribute {
+public:
+    ReadLuminaireAssetManagementColorRenderingIndex()
+        : ReadAttribute("color-rendering-index")
+    {
+    }
+
+    ~ReadLuminaireAssetManagementColorRenderingIndex()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireAssetManagement::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::LuminaireAssetManagement::Attributes::ColorRenderingIndex::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireAssetManagement alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeColorRenderingIndexWithCompletion:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"LuminaireAssetManagement.ColorRenderingIndex response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("LuminaireAssetManagement ColorRenderingIndex read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeLuminaireAssetManagementColorRenderingIndex : public SubscribeAttribute {
+public:
+    SubscribeAttributeLuminaireAssetManagementColorRenderingIndex()
+        : SubscribeAttribute("color-rendering-index")
+    {
+    }
+
+    ~SubscribeAttributeLuminaireAssetManagementColorRenderingIndex()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireAssetManagement::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::LuminaireAssetManagement::Attributes::ColorRenderingIndex::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireAssetManagement alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeColorRenderingIndexWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"LuminaireAssetManagement.ColorRenderingIndex response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute Cct
+ */
+class ReadLuminaireAssetManagementCct : public ReadAttribute {
+public:
+    ReadLuminaireAssetManagementCct()
+        : ReadAttribute("cct")
+    {
+    }
+
+    ~ReadLuminaireAssetManagementCct()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireAssetManagement::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::LuminaireAssetManagement::Attributes::Cct::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireAssetManagement alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeCCTWithCompletion:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"LuminaireAssetManagement.CCT response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("LuminaireAssetManagement CCT read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeLuminaireAssetManagementCct : public SubscribeAttribute {
+public:
+    SubscribeAttributeLuminaireAssetManagementCct()
+        : SubscribeAttribute("cct")
+    {
+    }
+
+    ~SubscribeAttributeLuminaireAssetManagementCct()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireAssetManagement::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::LuminaireAssetManagement::Attributes::Cct::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireAssetManagement alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeCCTWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"LuminaireAssetManagement.CCT response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute LightDistributionType
+ */
+class ReadLuminaireAssetManagementLightDistributionType : public ReadAttribute {
+public:
+    ReadLuminaireAssetManagementLightDistributionType()
+        : ReadAttribute("light-distribution-type")
+    {
+    }
+
+    ~ReadLuminaireAssetManagementLightDistributionType()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireAssetManagement::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::LuminaireAssetManagement::Attributes::LightDistributionType::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireAssetManagement alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeLightDistributionTypeWithCompletion:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"LuminaireAssetManagement.LightDistributionType response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("LuminaireAssetManagement LightDistributionType read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeLuminaireAssetManagementLightDistributionType : public SubscribeAttribute {
+public:
+    SubscribeAttributeLuminaireAssetManagementLightDistributionType()
+        : SubscribeAttribute("light-distribution-type")
+    {
+    }
+
+    ~SubscribeAttributeLuminaireAssetManagementLightDistributionType()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireAssetManagement::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::LuminaireAssetManagement::Attributes::LightDistributionType::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireAssetManagement alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeLightDistributionTypeWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"LuminaireAssetManagement.LightDistributionType response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute LuminaireColor
+ */
+class ReadLuminaireAssetManagementLuminaireColor : public ReadAttribute {
+public:
+    ReadLuminaireAssetManagementLuminaireColor()
+        : ReadAttribute("luminaire-color")
+    {
+    }
+
+    ~ReadLuminaireAssetManagementLuminaireColor()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireAssetManagement::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::LuminaireAssetManagement::Attributes::LuminaireColor::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireAssetManagement alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeLuminaireColorWithCompletion:^(NSString * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"LuminaireAssetManagement.LuminaireColor response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("LuminaireAssetManagement LuminaireColor read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeLuminaireAssetManagementLuminaireColor : public SubscribeAttribute {
+public:
+    SubscribeAttributeLuminaireAssetManagementLuminaireColor()
+        : SubscribeAttribute("luminaire-color")
+    {
+    }
+
+    ~SubscribeAttributeLuminaireAssetManagementLuminaireColor()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireAssetManagement::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::LuminaireAssetManagement::Attributes::LuminaireColor::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireAssetManagement alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeLuminaireColorWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSString * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"LuminaireAssetManagement.LuminaireColor response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute LuminaireIdentification
+ */
+class ReadLuminaireAssetManagementLuminaireIdentification : public ReadAttribute {
+public:
+    ReadLuminaireAssetManagementLuminaireIdentification()
+        : ReadAttribute("luminaire-identification")
+    {
+    }
+
+    ~ReadLuminaireAssetManagementLuminaireIdentification()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireAssetManagement::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::LuminaireAssetManagement::Attributes::LuminaireIdentification::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireAssetManagement alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeLuminaireIdentificationWithCompletion:^(NSString * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"LuminaireAssetManagement.LuminaireIdentification response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("LuminaireAssetManagement LuminaireIdentification read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeLuminaireAssetManagementLuminaireIdentification : public SubscribeAttribute {
+public:
+    SubscribeAttributeLuminaireAssetManagementLuminaireIdentification()
+        : SubscribeAttribute("luminaire-identification")
+    {
+    }
+
+    ~SubscribeAttributeLuminaireAssetManagementLuminaireIdentification()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireAssetManagement::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::LuminaireAssetManagement::Attributes::LuminaireIdentification::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireAssetManagement alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeLuminaireIdentificationWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSString * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"LuminaireAssetManagement.LuminaireIdentification response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute LightSourceType
+ */
+class ReadLuminaireAssetManagementLightSourceType : public ReadAttribute {
+public:
+    ReadLuminaireAssetManagementLightSourceType()
+        : ReadAttribute("light-source-type")
+    {
+    }
+
+    ~ReadLuminaireAssetManagementLightSourceType()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireAssetManagement::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::LuminaireAssetManagement::Attributes::LightSourceType::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireAssetManagement alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeLightSourceTypeWithCompletion:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"LuminaireAssetManagement.LightSourceType response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("LuminaireAssetManagement LightSourceType read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeLuminaireAssetManagementLightSourceType : public SubscribeAttribute {
+public:
+    SubscribeAttributeLuminaireAssetManagementLightSourceType()
+        : SubscribeAttribute("light-source-type")
+    {
+    }
+
+    ~SubscribeAttributeLuminaireAssetManagementLightSourceType()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireAssetManagement::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::LuminaireAssetManagement::Attributes::LightSourceType::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireAssetManagement alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeLightSourceTypeWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"LuminaireAssetManagement.LightSourceType response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute GeneratedCommandList
+ */
+class ReadLuminaireAssetManagementGeneratedCommandList : public ReadAttribute {
+public:
+    ReadLuminaireAssetManagementGeneratedCommandList()
+        : ReadAttribute("generated-command-list")
+    {
+    }
+
+    ~ReadLuminaireAssetManagementGeneratedCommandList()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireAssetManagement::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::LuminaireAssetManagement::Attributes::GeneratedCommandList::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireAssetManagement alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeGeneratedCommandListWithCompletion:^(NSArray * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"LuminaireAssetManagement.GeneratedCommandList response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("LuminaireAssetManagement GeneratedCommandList read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeLuminaireAssetManagementGeneratedCommandList : public SubscribeAttribute {
+public:
+    SubscribeAttributeLuminaireAssetManagementGeneratedCommandList()
+        : SubscribeAttribute("generated-command-list")
+    {
+    }
+
+    ~SubscribeAttributeLuminaireAssetManagementGeneratedCommandList()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireAssetManagement::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::LuminaireAssetManagement::Attributes::GeneratedCommandList::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireAssetManagement alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeGeneratedCommandListWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSArray * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"LuminaireAssetManagement.GeneratedCommandList response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute AcceptedCommandList
+ */
+class ReadLuminaireAssetManagementAcceptedCommandList : public ReadAttribute {
+public:
+    ReadLuminaireAssetManagementAcceptedCommandList()
+        : ReadAttribute("accepted-command-list")
+    {
+    }
+
+    ~ReadLuminaireAssetManagementAcceptedCommandList()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireAssetManagement::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::LuminaireAssetManagement::Attributes::AcceptedCommandList::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireAssetManagement alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeAcceptedCommandListWithCompletion:^(NSArray * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"LuminaireAssetManagement.AcceptedCommandList response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("LuminaireAssetManagement AcceptedCommandList read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeLuminaireAssetManagementAcceptedCommandList : public SubscribeAttribute {
+public:
+    SubscribeAttributeLuminaireAssetManagementAcceptedCommandList()
+        : SubscribeAttribute("accepted-command-list")
+    {
+    }
+
+    ~SubscribeAttributeLuminaireAssetManagementAcceptedCommandList()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireAssetManagement::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::LuminaireAssetManagement::Attributes::AcceptedCommandList::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireAssetManagement alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeAcceptedCommandListWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSArray * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"LuminaireAssetManagement.AcceptedCommandList response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute AttributeList
+ */
+class ReadLuminaireAssetManagementAttributeList : public ReadAttribute {
+public:
+    ReadLuminaireAssetManagementAttributeList()
+        : ReadAttribute("attribute-list")
+    {
+    }
+
+    ~ReadLuminaireAssetManagementAttributeList()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireAssetManagement::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::LuminaireAssetManagement::Attributes::AttributeList::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireAssetManagement alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeAttributeListWithCompletion:^(NSArray * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"LuminaireAssetManagement.AttributeList response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("LuminaireAssetManagement AttributeList read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeLuminaireAssetManagementAttributeList : public SubscribeAttribute {
+public:
+    SubscribeAttributeLuminaireAssetManagementAttributeList()
+        : SubscribeAttribute("attribute-list")
+    {
+    }
+
+    ~SubscribeAttributeLuminaireAssetManagementAttributeList()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireAssetManagement::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::LuminaireAssetManagement::Attributes::AttributeList::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireAssetManagement alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeAttributeListWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSArray * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"LuminaireAssetManagement.AttributeList response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute FeatureMap
+ */
+class ReadLuminaireAssetManagementFeatureMap : public ReadAttribute {
+public:
+    ReadLuminaireAssetManagementFeatureMap()
+        : ReadAttribute("feature-map")
+    {
+    }
+
+    ~ReadLuminaireAssetManagementFeatureMap()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireAssetManagement::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::LuminaireAssetManagement::Attributes::FeatureMap::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireAssetManagement alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeFeatureMapWithCompletion:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"LuminaireAssetManagement.FeatureMap response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("LuminaireAssetManagement FeatureMap read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeLuminaireAssetManagementFeatureMap : public SubscribeAttribute {
+public:
+    SubscribeAttributeLuminaireAssetManagementFeatureMap()
+        : SubscribeAttribute("feature-map")
+    {
+    }
+
+    ~SubscribeAttributeLuminaireAssetManagementFeatureMap()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireAssetManagement::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::LuminaireAssetManagement::Attributes::FeatureMap::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireAssetManagement alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeFeatureMapWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"LuminaireAssetManagement.FeatureMap response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute ClusterRevision
+ */
+class ReadLuminaireAssetManagementClusterRevision : public ReadAttribute {
+public:
+    ReadLuminaireAssetManagementClusterRevision()
+        : ReadAttribute("cluster-revision")
+    {
+    }
+
+    ~ReadLuminaireAssetManagementClusterRevision()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireAssetManagement::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::LuminaireAssetManagement::Attributes::ClusterRevision::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireAssetManagement alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeClusterRevisionWithCompletion:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"LuminaireAssetManagement.ClusterRevision response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("LuminaireAssetManagement ClusterRevision read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeLuminaireAssetManagementClusterRevision : public SubscribeAttribute {
+public:
+    SubscribeAttributeLuminaireAssetManagementClusterRevision()
+        : SubscribeAttribute("cluster-revision")
+    {
+    }
+
+    ~SubscribeAttributeLuminaireAssetManagementClusterRevision()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireAssetManagement::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::LuminaireAssetManagement::Attributes::ClusterRevision::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireAssetManagement alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeClusterRevisionWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"LuminaireAssetManagement.ClusterRevision response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+/*----------------------------------------------------------------------------*\
+| Cluster LuminaireEnergyReporting                                    | 0x0303 |
+|------------------------------------------------------------------------------|
+| Commands:                                                           |        |
+|------------------------------------------------------------------------------|
+| Attributes:                                                         |        |
+| * ScaleFactorForActiveEnergy                                        | 0x0000 |
+| * ActiveEnergy                                                      | 0x0001 |
+| * ScaleFactorForActivePower                                         | 0x0002 |
+| * ActivePower                                                       | 0x0003 |
+| * ScaleFactorForApparentEnergy                                      | 0x0004 |
+| * ApparentEnergy                                                    | 0x0005 |
+| * ScaleFactorForApparentPower                                       | 0x0006 |
+| * ApparentPower                                                     | 0x0007 |
+| * ScaleFactorForLoadsideEnergy                                      | 0x0010 |
+| * ActiveEnergyLoadside                                              | 0x0011 |
+| * ScaleFactorForLoadsidePower                                       | 0x0012 |
+| * ActivePowerLoadside                                               | 0x0013 |
+| * GeneratedCommandList                                              | 0xFFF8 |
+| * AcceptedCommandList                                               | 0xFFF9 |
+| * AttributeList                                                     | 0xFFFB |
+| * FeatureMap                                                        | 0xFFFC |
+| * ClusterRevision                                                   | 0xFFFD |
+|------------------------------------------------------------------------------|
+| Events:                                                             |        |
+\*----------------------------------------------------------------------------*/
+
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute ScaleFactorForActiveEnergy
+ */
+class ReadLuminaireEnergyReportingScaleFactorForActiveEnergy : public ReadAttribute {
+public:
+    ReadLuminaireEnergyReportingScaleFactorForActiveEnergy()
+        : ReadAttribute("scale-factor-for-active-energy")
+    {
+    }
+
+    ~ReadLuminaireEnergyReportingScaleFactorForActiveEnergy()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireEnergyReporting::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::LuminaireEnergyReporting::Attributes::ScaleFactorForActiveEnergy::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireEnergyReporting alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeScaleFactorForActiveEnergyWithCompletion:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"LuminaireEnergyReporting.ScaleFactorForActiveEnergy response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("LuminaireEnergyReporting ScaleFactorForActiveEnergy read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeLuminaireEnergyReportingScaleFactorForActiveEnergy : public SubscribeAttribute {
+public:
+    SubscribeAttributeLuminaireEnergyReportingScaleFactorForActiveEnergy()
+        : SubscribeAttribute("scale-factor-for-active-energy")
+    {
+    }
+
+    ~SubscribeAttributeLuminaireEnergyReportingScaleFactorForActiveEnergy()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireEnergyReporting::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::LuminaireEnergyReporting::Attributes::ScaleFactorForActiveEnergy::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireEnergyReporting alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeScaleFactorForActiveEnergyWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"LuminaireEnergyReporting.ScaleFactorForActiveEnergy response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute ActiveEnergy
+ */
+class ReadLuminaireEnergyReportingActiveEnergy : public ReadAttribute {
+public:
+    ReadLuminaireEnergyReportingActiveEnergy()
+        : ReadAttribute("active-energy")
+    {
+    }
+
+    ~ReadLuminaireEnergyReportingActiveEnergy()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireEnergyReporting::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::LuminaireEnergyReporting::Attributes::ActiveEnergy::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireEnergyReporting alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeActiveEnergyWithCompletion:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"LuminaireEnergyReporting.ActiveEnergy response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("LuminaireEnergyReporting ActiveEnergy read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeLuminaireEnergyReportingActiveEnergy : public SubscribeAttribute {
+public:
+    SubscribeAttributeLuminaireEnergyReportingActiveEnergy()
+        : SubscribeAttribute("active-energy")
+    {
+    }
+
+    ~SubscribeAttributeLuminaireEnergyReportingActiveEnergy()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireEnergyReporting::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::LuminaireEnergyReporting::Attributes::ActiveEnergy::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireEnergyReporting alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeActiveEnergyWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"LuminaireEnergyReporting.ActiveEnergy response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute ScaleFactorForActivePower
+ */
+class ReadLuminaireEnergyReportingScaleFactorForActivePower : public ReadAttribute {
+public:
+    ReadLuminaireEnergyReportingScaleFactorForActivePower()
+        : ReadAttribute("scale-factor-for-active-power")
+    {
+    }
+
+    ~ReadLuminaireEnergyReportingScaleFactorForActivePower()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireEnergyReporting::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::LuminaireEnergyReporting::Attributes::ScaleFactorForActivePower::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireEnergyReporting alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeScaleFactorForActivePowerWithCompletion:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"LuminaireEnergyReporting.ScaleFactorForActivePower response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("LuminaireEnergyReporting ScaleFactorForActivePower read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeLuminaireEnergyReportingScaleFactorForActivePower : public SubscribeAttribute {
+public:
+    SubscribeAttributeLuminaireEnergyReportingScaleFactorForActivePower()
+        : SubscribeAttribute("scale-factor-for-active-power")
+    {
+    }
+
+    ~SubscribeAttributeLuminaireEnergyReportingScaleFactorForActivePower()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireEnergyReporting::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::LuminaireEnergyReporting::Attributes::ScaleFactorForActivePower::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireEnergyReporting alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeScaleFactorForActivePowerWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"LuminaireEnergyReporting.ScaleFactorForActivePower response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute ActivePower
+ */
+class ReadLuminaireEnergyReportingActivePower : public ReadAttribute {
+public:
+    ReadLuminaireEnergyReportingActivePower()
+        : ReadAttribute("active-power")
+    {
+    }
+
+    ~ReadLuminaireEnergyReportingActivePower()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireEnergyReporting::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::LuminaireEnergyReporting::Attributes::ActivePower::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireEnergyReporting alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeActivePowerWithCompletion:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"LuminaireEnergyReporting.ActivePower response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("LuminaireEnergyReporting ActivePower read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeLuminaireEnergyReportingActivePower : public SubscribeAttribute {
+public:
+    SubscribeAttributeLuminaireEnergyReportingActivePower()
+        : SubscribeAttribute("active-power")
+    {
+    }
+
+    ~SubscribeAttributeLuminaireEnergyReportingActivePower()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireEnergyReporting::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::LuminaireEnergyReporting::Attributes::ActivePower::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireEnergyReporting alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeActivePowerWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"LuminaireEnergyReporting.ActivePower response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute ScaleFactorForApparentEnergy
+ */
+class ReadLuminaireEnergyReportingScaleFactorForApparentEnergy : public ReadAttribute {
+public:
+    ReadLuminaireEnergyReportingScaleFactorForApparentEnergy()
+        : ReadAttribute("scale-factor-for-apparent-energy")
+    {
+    }
+
+    ~ReadLuminaireEnergyReportingScaleFactorForApparentEnergy()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireEnergyReporting::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::LuminaireEnergyReporting::Attributes::ScaleFactorForApparentEnergy::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireEnergyReporting alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeScaleFactorForApparentEnergyWithCompletion:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"LuminaireEnergyReporting.ScaleFactorForApparentEnergy response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("LuminaireEnergyReporting ScaleFactorForApparentEnergy read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeLuminaireEnergyReportingScaleFactorForApparentEnergy : public SubscribeAttribute {
+public:
+    SubscribeAttributeLuminaireEnergyReportingScaleFactorForApparentEnergy()
+        : SubscribeAttribute("scale-factor-for-apparent-energy")
+    {
+    }
+
+    ~SubscribeAttributeLuminaireEnergyReportingScaleFactorForApparentEnergy()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireEnergyReporting::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::LuminaireEnergyReporting::Attributes::ScaleFactorForApparentEnergy::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireEnergyReporting alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeScaleFactorForApparentEnergyWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"LuminaireEnergyReporting.ScaleFactorForApparentEnergy response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute ApparentEnergy
+ */
+class ReadLuminaireEnergyReportingApparentEnergy : public ReadAttribute {
+public:
+    ReadLuminaireEnergyReportingApparentEnergy()
+        : ReadAttribute("apparent-energy")
+    {
+    }
+
+    ~ReadLuminaireEnergyReportingApparentEnergy()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireEnergyReporting::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::LuminaireEnergyReporting::Attributes::ApparentEnergy::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireEnergyReporting alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeApparentEnergyWithCompletion:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"LuminaireEnergyReporting.ApparentEnergy response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("LuminaireEnergyReporting ApparentEnergy read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeLuminaireEnergyReportingApparentEnergy : public SubscribeAttribute {
+public:
+    SubscribeAttributeLuminaireEnergyReportingApparentEnergy()
+        : SubscribeAttribute("apparent-energy")
+    {
+    }
+
+    ~SubscribeAttributeLuminaireEnergyReportingApparentEnergy()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireEnergyReporting::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::LuminaireEnergyReporting::Attributes::ApparentEnergy::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireEnergyReporting alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeApparentEnergyWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"LuminaireEnergyReporting.ApparentEnergy response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute ScaleFactorForApparentPower
+ */
+class ReadLuminaireEnergyReportingScaleFactorForApparentPower : public ReadAttribute {
+public:
+    ReadLuminaireEnergyReportingScaleFactorForApparentPower()
+        : ReadAttribute("scale-factor-for-apparent-power")
+    {
+    }
+
+    ~ReadLuminaireEnergyReportingScaleFactorForApparentPower()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireEnergyReporting::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::LuminaireEnergyReporting::Attributes::ScaleFactorForApparentPower::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireEnergyReporting alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeScaleFactorForApparentPowerWithCompletion:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"LuminaireEnergyReporting.ScaleFactorForApparentPower response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("LuminaireEnergyReporting ScaleFactorForApparentPower read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeLuminaireEnergyReportingScaleFactorForApparentPower : public SubscribeAttribute {
+public:
+    SubscribeAttributeLuminaireEnergyReportingScaleFactorForApparentPower()
+        : SubscribeAttribute("scale-factor-for-apparent-power")
+    {
+    }
+
+    ~SubscribeAttributeLuminaireEnergyReportingScaleFactorForApparentPower()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireEnergyReporting::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::LuminaireEnergyReporting::Attributes::ScaleFactorForApparentPower::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireEnergyReporting alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeScaleFactorForApparentPowerWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"LuminaireEnergyReporting.ScaleFactorForApparentPower response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute ApparentPower
+ */
+class ReadLuminaireEnergyReportingApparentPower : public ReadAttribute {
+public:
+    ReadLuminaireEnergyReportingApparentPower()
+        : ReadAttribute("apparent-power")
+    {
+    }
+
+    ~ReadLuminaireEnergyReportingApparentPower()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireEnergyReporting::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::LuminaireEnergyReporting::Attributes::ApparentPower::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireEnergyReporting alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeApparentPowerWithCompletion:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"LuminaireEnergyReporting.ApparentPower response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("LuminaireEnergyReporting ApparentPower read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeLuminaireEnergyReportingApparentPower : public SubscribeAttribute {
+public:
+    SubscribeAttributeLuminaireEnergyReportingApparentPower()
+        : SubscribeAttribute("apparent-power")
+    {
+    }
+
+    ~SubscribeAttributeLuminaireEnergyReportingApparentPower()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireEnergyReporting::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::LuminaireEnergyReporting::Attributes::ApparentPower::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireEnergyReporting alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeApparentPowerWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"LuminaireEnergyReporting.ApparentPower response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute ScaleFactorForLoadsideEnergy
+ */
+class ReadLuminaireEnergyReportingScaleFactorForLoadsideEnergy : public ReadAttribute {
+public:
+    ReadLuminaireEnergyReportingScaleFactorForLoadsideEnergy()
+        : ReadAttribute("scale-factor-for-loadside-energy")
+    {
+    }
+
+    ~ReadLuminaireEnergyReportingScaleFactorForLoadsideEnergy()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireEnergyReporting::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::LuminaireEnergyReporting::Attributes::ScaleFactorForLoadsideEnergy::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireEnergyReporting alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeScaleFactorForLoadsideEnergyWithCompletion:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"LuminaireEnergyReporting.ScaleFactorForLoadsideEnergy response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("LuminaireEnergyReporting ScaleFactorForLoadsideEnergy read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeLuminaireEnergyReportingScaleFactorForLoadsideEnergy : public SubscribeAttribute {
+public:
+    SubscribeAttributeLuminaireEnergyReportingScaleFactorForLoadsideEnergy()
+        : SubscribeAttribute("scale-factor-for-loadside-energy")
+    {
+    }
+
+    ~SubscribeAttributeLuminaireEnergyReportingScaleFactorForLoadsideEnergy()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireEnergyReporting::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::LuminaireEnergyReporting::Attributes::ScaleFactorForLoadsideEnergy::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireEnergyReporting alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeScaleFactorForLoadsideEnergyWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"LuminaireEnergyReporting.ScaleFactorForLoadsideEnergy response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute ActiveEnergyLoadside
+ */
+class ReadLuminaireEnergyReportingActiveEnergyLoadside : public ReadAttribute {
+public:
+    ReadLuminaireEnergyReportingActiveEnergyLoadside()
+        : ReadAttribute("active-energy-loadside")
+    {
+    }
+
+    ~ReadLuminaireEnergyReportingActiveEnergyLoadside()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireEnergyReporting::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::LuminaireEnergyReporting::Attributes::ActiveEnergyLoadside::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireEnergyReporting alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeActiveEnergyLoadsideWithCompletion:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"LuminaireEnergyReporting.ActiveEnergyLoadside response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("LuminaireEnergyReporting ActiveEnergyLoadside read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeLuminaireEnergyReportingActiveEnergyLoadside : public SubscribeAttribute {
+public:
+    SubscribeAttributeLuminaireEnergyReportingActiveEnergyLoadside()
+        : SubscribeAttribute("active-energy-loadside")
+    {
+    }
+
+    ~SubscribeAttributeLuminaireEnergyReportingActiveEnergyLoadside()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireEnergyReporting::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::LuminaireEnergyReporting::Attributes::ActiveEnergyLoadside::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireEnergyReporting alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeActiveEnergyLoadsideWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"LuminaireEnergyReporting.ActiveEnergyLoadside response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute ScaleFactorForLoadsidePower
+ */
+class ReadLuminaireEnergyReportingScaleFactorForLoadsidePower : public ReadAttribute {
+public:
+    ReadLuminaireEnergyReportingScaleFactorForLoadsidePower()
+        : ReadAttribute("scale-factor-for-loadside-power")
+    {
+    }
+
+    ~ReadLuminaireEnergyReportingScaleFactorForLoadsidePower()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireEnergyReporting::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::LuminaireEnergyReporting::Attributes::ScaleFactorForLoadsidePower::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireEnergyReporting alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeScaleFactorForLoadsidePowerWithCompletion:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"LuminaireEnergyReporting.ScaleFactorForLoadsidePower response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("LuminaireEnergyReporting ScaleFactorForLoadsidePower read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeLuminaireEnergyReportingScaleFactorForLoadsidePower : public SubscribeAttribute {
+public:
+    SubscribeAttributeLuminaireEnergyReportingScaleFactorForLoadsidePower()
+        : SubscribeAttribute("scale-factor-for-loadside-power")
+    {
+    }
+
+    ~SubscribeAttributeLuminaireEnergyReportingScaleFactorForLoadsidePower()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireEnergyReporting::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::LuminaireEnergyReporting::Attributes::ScaleFactorForLoadsidePower::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireEnergyReporting alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeScaleFactorForLoadsidePowerWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"LuminaireEnergyReporting.ScaleFactorForLoadsidePower response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute ActivePowerLoadside
+ */
+class ReadLuminaireEnergyReportingActivePowerLoadside : public ReadAttribute {
+public:
+    ReadLuminaireEnergyReportingActivePowerLoadside()
+        : ReadAttribute("active-power-loadside")
+    {
+    }
+
+    ~ReadLuminaireEnergyReportingActivePowerLoadside()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireEnergyReporting::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::LuminaireEnergyReporting::Attributes::ActivePowerLoadside::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireEnergyReporting alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeActivePowerLoadsideWithCompletion:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"LuminaireEnergyReporting.ActivePowerLoadside response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("LuminaireEnergyReporting ActivePowerLoadside read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeLuminaireEnergyReportingActivePowerLoadside : public SubscribeAttribute {
+public:
+    SubscribeAttributeLuminaireEnergyReportingActivePowerLoadside()
+        : SubscribeAttribute("active-power-loadside")
+    {
+    }
+
+    ~SubscribeAttributeLuminaireEnergyReportingActivePowerLoadside()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireEnergyReporting::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::LuminaireEnergyReporting::Attributes::ActivePowerLoadside::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireEnergyReporting alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeActivePowerLoadsideWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"LuminaireEnergyReporting.ActivePowerLoadside response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute GeneratedCommandList
+ */
+class ReadLuminaireEnergyReportingGeneratedCommandList : public ReadAttribute {
+public:
+    ReadLuminaireEnergyReportingGeneratedCommandList()
+        : ReadAttribute("generated-command-list")
+    {
+    }
+
+    ~ReadLuminaireEnergyReportingGeneratedCommandList()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireEnergyReporting::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::LuminaireEnergyReporting::Attributes::GeneratedCommandList::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireEnergyReporting alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeGeneratedCommandListWithCompletion:^(NSArray * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"LuminaireEnergyReporting.GeneratedCommandList response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("LuminaireEnergyReporting GeneratedCommandList read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeLuminaireEnergyReportingGeneratedCommandList : public SubscribeAttribute {
+public:
+    SubscribeAttributeLuminaireEnergyReportingGeneratedCommandList()
+        : SubscribeAttribute("generated-command-list")
+    {
+    }
+
+    ~SubscribeAttributeLuminaireEnergyReportingGeneratedCommandList()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireEnergyReporting::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::LuminaireEnergyReporting::Attributes::GeneratedCommandList::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireEnergyReporting alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeGeneratedCommandListWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSArray * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"LuminaireEnergyReporting.GeneratedCommandList response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute AcceptedCommandList
+ */
+class ReadLuminaireEnergyReportingAcceptedCommandList : public ReadAttribute {
+public:
+    ReadLuminaireEnergyReportingAcceptedCommandList()
+        : ReadAttribute("accepted-command-list")
+    {
+    }
+
+    ~ReadLuminaireEnergyReportingAcceptedCommandList()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireEnergyReporting::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::LuminaireEnergyReporting::Attributes::AcceptedCommandList::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireEnergyReporting alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeAcceptedCommandListWithCompletion:^(NSArray * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"LuminaireEnergyReporting.AcceptedCommandList response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("LuminaireEnergyReporting AcceptedCommandList read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeLuminaireEnergyReportingAcceptedCommandList : public SubscribeAttribute {
+public:
+    SubscribeAttributeLuminaireEnergyReportingAcceptedCommandList()
+        : SubscribeAttribute("accepted-command-list")
+    {
+    }
+
+    ~SubscribeAttributeLuminaireEnergyReportingAcceptedCommandList()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireEnergyReporting::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::LuminaireEnergyReporting::Attributes::AcceptedCommandList::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireEnergyReporting alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeAcceptedCommandListWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSArray * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"LuminaireEnergyReporting.AcceptedCommandList response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute AttributeList
+ */
+class ReadLuminaireEnergyReportingAttributeList : public ReadAttribute {
+public:
+    ReadLuminaireEnergyReportingAttributeList()
+        : ReadAttribute("attribute-list")
+    {
+    }
+
+    ~ReadLuminaireEnergyReportingAttributeList()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireEnergyReporting::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::LuminaireEnergyReporting::Attributes::AttributeList::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireEnergyReporting alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeAttributeListWithCompletion:^(NSArray * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"LuminaireEnergyReporting.AttributeList response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("LuminaireEnergyReporting AttributeList read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeLuminaireEnergyReportingAttributeList : public SubscribeAttribute {
+public:
+    SubscribeAttributeLuminaireEnergyReportingAttributeList()
+        : SubscribeAttribute("attribute-list")
+    {
+    }
+
+    ~SubscribeAttributeLuminaireEnergyReportingAttributeList()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireEnergyReporting::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::LuminaireEnergyReporting::Attributes::AttributeList::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireEnergyReporting alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeAttributeListWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSArray * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"LuminaireEnergyReporting.AttributeList response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute FeatureMap
+ */
+class ReadLuminaireEnergyReportingFeatureMap : public ReadAttribute {
+public:
+    ReadLuminaireEnergyReportingFeatureMap()
+        : ReadAttribute("feature-map")
+    {
+    }
+
+    ~ReadLuminaireEnergyReportingFeatureMap()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireEnergyReporting::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::LuminaireEnergyReporting::Attributes::FeatureMap::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireEnergyReporting alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeFeatureMapWithCompletion:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"LuminaireEnergyReporting.FeatureMap response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("LuminaireEnergyReporting FeatureMap read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeLuminaireEnergyReportingFeatureMap : public SubscribeAttribute {
+public:
+    SubscribeAttributeLuminaireEnergyReportingFeatureMap()
+        : SubscribeAttribute("feature-map")
+    {
+    }
+
+    ~SubscribeAttributeLuminaireEnergyReportingFeatureMap()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireEnergyReporting::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::LuminaireEnergyReporting::Attributes::FeatureMap::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireEnergyReporting alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeFeatureMapWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"LuminaireEnergyReporting.FeatureMap response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute ClusterRevision
+ */
+class ReadLuminaireEnergyReportingClusterRevision : public ReadAttribute {
+public:
+    ReadLuminaireEnergyReportingClusterRevision()
+        : ReadAttribute("cluster-revision")
+    {
+    }
+
+    ~ReadLuminaireEnergyReportingClusterRevision()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireEnergyReporting::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::LuminaireEnergyReporting::Attributes::ClusterRevision::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireEnergyReporting alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeClusterRevisionWithCompletion:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"LuminaireEnergyReporting.ClusterRevision response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("LuminaireEnergyReporting ClusterRevision read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeLuminaireEnergyReportingClusterRevision : public SubscribeAttribute {
+public:
+    SubscribeAttributeLuminaireEnergyReportingClusterRevision()
+        : SubscribeAttribute("cluster-revision")
+    {
+    }
+
+    ~SubscribeAttributeLuminaireEnergyReportingClusterRevision()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireEnergyReporting::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::LuminaireEnergyReporting::Attributes::ClusterRevision::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireEnergyReporting alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeClusterRevisionWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"LuminaireEnergyReporting.ClusterRevision response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+/*----------------------------------------------------------------------------*\
+| Cluster LuminaireDiagnosticsAndMaintenance                          | 0x0304 |
+|------------------------------------------------------------------------------|
+| Commands:                                                           |        |
+|------------------------------------------------------------------------------|
+| Attributes:                                                         |        |
+| * ControlGearOperatingTime                                          | 0x0000 |
+| * ControlGearStartCounter                                           | 0x0001 |
+| * ControlGearExternalSupplyVoltage                                  | 0x0002 |
+| * ControlGearExternalSupplyVoltageFrequency                         | 0x0003 |
+| * ControlGearPowerFactor                                            | 0x0004 |
+| * ControlGearOverallFailureCondition                                | 0x0005 |
+| * ControlGearOverallFailureConditionCounter                         | 0x0006 |
+| * ControlGearExternalSupplyUndervoltage                             | 0x0007 |
+| * ControlGearExternalSupplyUndervoltageCounter                      | 0x0008 |
+| * ControlGearExternalSupplyOvervoltage                              | 0x0009 |
+| * ControlGearExternalSupplyOvervoltageCounter                       | 0x000A |
+| * ControlGearOutputPowerLimitation                                  | 0x000B |
+| * ControlGearOutputPowerLimitationCounter                           | 0x000C |
+| * ControlGearThermalDerating                                        | 0x000D |
+| * ControlGearThermalDeratingCounter                                 | 0x000E |
+| * ControlGearThermalShutdown                                        | 0x000F |
+| * ControlGearThermalShutdownCounter                                 | 0x0010 |
+| * ControlGearTemperature                                            | 0x0011 |
+| * ControlGearOutputCurrentPercentage                                | 0x0012 |
+| * LightSourceStartCounterResettable                                 | 0x0020 |
+| * LightSourceStartCounter                                           | 0x0021 |
+| * LightSourceOnTimeResettable                                       | 0x0022 |
+| * LightSourceOnTime                                                 | 0x0023 |
+| * LightSourceVoltage                                                | 0x0024 |
+| * LightSourceCurrent                                                | 0x0025 |
+| * LightSourceOverallFailureCondition                                | 0x0026 |
+| * LightSourceOverallFailureConditionCounter                         | 0x0027 |
+| * LightSourceShortCircuit                                           | 0x0028 |
+| * LightSourceShortCircuitCounter                                    | 0x0029 |
+| * LightSourceOpenCircuit                                            | 0x002A |
+| * LightSourceOpenCircuitCounter                                     | 0x002B |
+| * LightSourceThermalDerating                                        | 0x002C |
+| * LightSourceThermalDeratingCounter                                 | 0x002D |
+| * LightSourceThermalShutdown                                        | 0x002E |
+| * LightSourceThermalShutdownCounter                                 | 0x002F |
+| * LightSourceTemperature                                            | 0x0030 |
+| * RatedMedianUsefulLifeOfLuminaire                                  | 0x0040 |
+| * InternalControlGearReferenceTemperature                           | 0x0041 |
+| * RatedMedianUsefulLightSourceStarts                                | 0x0042 |
+| * GeneratedCommandList                                              | 0xFFF8 |
+| * AcceptedCommandList                                               | 0xFFF9 |
+| * AttributeList                                                     | 0xFFFB |
+| * FeatureMap                                                        | 0xFFFC |
+| * ClusterRevision                                                   | 0xFFFD |
+|------------------------------------------------------------------------------|
+| Events:                                                             |        |
+\*----------------------------------------------------------------------------*/
+
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute ControlGearOperatingTime
+ */
+class ReadLuminaireDiagnosticsAndMaintenanceControlGearOperatingTime : public ReadAttribute {
+public:
+    ReadLuminaireDiagnosticsAndMaintenanceControlGearOperatingTime()
+        : ReadAttribute("control-gear-operating-time")
+    {
+    }
+
+    ~ReadLuminaireDiagnosticsAndMaintenanceControlGearOperatingTime()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::ControlGearOperatingTime::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeControlGearOperatingTimeWithCompletion:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"LuminaireDiagnosticsAndMaintenance.ControlGearOperatingTime response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("LuminaireDiagnosticsAndMaintenance ControlGearOperatingTime read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeLuminaireDiagnosticsAndMaintenanceControlGearOperatingTime : public SubscribeAttribute {
+public:
+    SubscribeAttributeLuminaireDiagnosticsAndMaintenanceControlGearOperatingTime()
+        : SubscribeAttribute("control-gear-operating-time")
+    {
+    }
+
+    ~SubscribeAttributeLuminaireDiagnosticsAndMaintenanceControlGearOperatingTime()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::ControlGearOperatingTime::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeControlGearOperatingTimeWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"LuminaireDiagnosticsAndMaintenance.ControlGearOperatingTime response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute ControlGearStartCounter
+ */
+class ReadLuminaireDiagnosticsAndMaintenanceControlGearStartCounter : public ReadAttribute {
+public:
+    ReadLuminaireDiagnosticsAndMaintenanceControlGearStartCounter()
+        : ReadAttribute("control-gear-start-counter")
+    {
+    }
+
+    ~ReadLuminaireDiagnosticsAndMaintenanceControlGearStartCounter()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::ControlGearStartCounter::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeControlGearStartCounterWithCompletion:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"LuminaireDiagnosticsAndMaintenance.ControlGearStartCounter response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("LuminaireDiagnosticsAndMaintenance ControlGearStartCounter read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeLuminaireDiagnosticsAndMaintenanceControlGearStartCounter : public SubscribeAttribute {
+public:
+    SubscribeAttributeLuminaireDiagnosticsAndMaintenanceControlGearStartCounter()
+        : SubscribeAttribute("control-gear-start-counter")
+    {
+    }
+
+    ~SubscribeAttributeLuminaireDiagnosticsAndMaintenanceControlGearStartCounter()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::ControlGearStartCounter::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeControlGearStartCounterWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"LuminaireDiagnosticsAndMaintenance.ControlGearStartCounter response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute ControlGearExternalSupplyVoltage
+ */
+class ReadLuminaireDiagnosticsAndMaintenanceControlGearExternalSupplyVoltage : public ReadAttribute {
+public:
+    ReadLuminaireDiagnosticsAndMaintenanceControlGearExternalSupplyVoltage()
+        : ReadAttribute("control-gear-external-supply-voltage")
+    {
+    }
+
+    ~ReadLuminaireDiagnosticsAndMaintenanceControlGearExternalSupplyVoltage()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::ControlGearExternalSupplyVoltage::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeControlGearExternalSupplyVoltageWithCompletion:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"LuminaireDiagnosticsAndMaintenance.ControlGearExternalSupplyVoltage response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("LuminaireDiagnosticsAndMaintenance ControlGearExternalSupplyVoltage read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeLuminaireDiagnosticsAndMaintenanceControlGearExternalSupplyVoltage : public SubscribeAttribute {
+public:
+    SubscribeAttributeLuminaireDiagnosticsAndMaintenanceControlGearExternalSupplyVoltage()
+        : SubscribeAttribute("control-gear-external-supply-voltage")
+    {
+    }
+
+    ~SubscribeAttributeLuminaireDiagnosticsAndMaintenanceControlGearExternalSupplyVoltage()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::ControlGearExternalSupplyVoltage::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeControlGearExternalSupplyVoltageWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"LuminaireDiagnosticsAndMaintenance.ControlGearExternalSupplyVoltage response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute ControlGearExternalSupplyVoltageFrequency
+ */
+class ReadLuminaireDiagnosticsAndMaintenanceControlGearExternalSupplyVoltageFrequency : public ReadAttribute {
+public:
+    ReadLuminaireDiagnosticsAndMaintenanceControlGearExternalSupplyVoltageFrequency()
+        : ReadAttribute("control-gear-external-supply-voltage-frequency")
+    {
+    }
+
+    ~ReadLuminaireDiagnosticsAndMaintenanceControlGearExternalSupplyVoltageFrequency()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::ControlGearExternalSupplyVoltageFrequency::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeControlGearExternalSupplyVoltageFrequencyWithCompletion:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"LuminaireDiagnosticsAndMaintenance.ControlGearExternalSupplyVoltageFrequency response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("LuminaireDiagnosticsAndMaintenance ControlGearExternalSupplyVoltageFrequency read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeLuminaireDiagnosticsAndMaintenanceControlGearExternalSupplyVoltageFrequency : public SubscribeAttribute {
+public:
+    SubscribeAttributeLuminaireDiagnosticsAndMaintenanceControlGearExternalSupplyVoltageFrequency()
+        : SubscribeAttribute("control-gear-external-supply-voltage-frequency")
+    {
+    }
+
+    ~SubscribeAttributeLuminaireDiagnosticsAndMaintenanceControlGearExternalSupplyVoltageFrequency()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::ControlGearExternalSupplyVoltageFrequency::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeControlGearExternalSupplyVoltageFrequencyWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"LuminaireDiagnosticsAndMaintenance.ControlGearExternalSupplyVoltageFrequency response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute ControlGearPowerFactor
+ */
+class ReadLuminaireDiagnosticsAndMaintenanceControlGearPowerFactor : public ReadAttribute {
+public:
+    ReadLuminaireDiagnosticsAndMaintenanceControlGearPowerFactor()
+        : ReadAttribute("control-gear-power-factor")
+    {
+    }
+
+    ~ReadLuminaireDiagnosticsAndMaintenanceControlGearPowerFactor()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::ControlGearPowerFactor::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeControlGearPowerFactorWithCompletion:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"LuminaireDiagnosticsAndMaintenance.ControlGearPowerFactor response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("LuminaireDiagnosticsAndMaintenance ControlGearPowerFactor read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeLuminaireDiagnosticsAndMaintenanceControlGearPowerFactor : public SubscribeAttribute {
+public:
+    SubscribeAttributeLuminaireDiagnosticsAndMaintenanceControlGearPowerFactor()
+        : SubscribeAttribute("control-gear-power-factor")
+    {
+    }
+
+    ~SubscribeAttributeLuminaireDiagnosticsAndMaintenanceControlGearPowerFactor()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::ControlGearPowerFactor::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeControlGearPowerFactorWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"LuminaireDiagnosticsAndMaintenance.ControlGearPowerFactor response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute ControlGearOverallFailureCondition
+ */
+class ReadLuminaireDiagnosticsAndMaintenanceControlGearOverallFailureCondition : public ReadAttribute {
+public:
+    ReadLuminaireDiagnosticsAndMaintenanceControlGearOverallFailureCondition()
+        : ReadAttribute("control-gear-overall-failure-condition")
+    {
+    }
+
+    ~ReadLuminaireDiagnosticsAndMaintenanceControlGearOverallFailureCondition()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::ControlGearOverallFailureCondition::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeControlGearOverallFailureConditionWithCompletion:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"LuminaireDiagnosticsAndMaintenance.ControlGearOverallFailureCondition response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("LuminaireDiagnosticsAndMaintenance ControlGearOverallFailureCondition read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeLuminaireDiagnosticsAndMaintenanceControlGearOverallFailureCondition : public SubscribeAttribute {
+public:
+    SubscribeAttributeLuminaireDiagnosticsAndMaintenanceControlGearOverallFailureCondition()
+        : SubscribeAttribute("control-gear-overall-failure-condition")
+    {
+    }
+
+    ~SubscribeAttributeLuminaireDiagnosticsAndMaintenanceControlGearOverallFailureCondition()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::ControlGearOverallFailureCondition::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeControlGearOverallFailureConditionWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"LuminaireDiagnosticsAndMaintenance.ControlGearOverallFailureCondition response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute ControlGearOverallFailureConditionCounter
+ */
+class ReadLuminaireDiagnosticsAndMaintenanceControlGearOverallFailureConditionCounter : public ReadAttribute {
+public:
+    ReadLuminaireDiagnosticsAndMaintenanceControlGearOverallFailureConditionCounter()
+        : ReadAttribute("control-gear-overall-failure-condition-counter")
+    {
+    }
+
+    ~ReadLuminaireDiagnosticsAndMaintenanceControlGearOverallFailureConditionCounter()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::ControlGearOverallFailureConditionCounter::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeControlGearOverallFailureConditionCounterWithCompletion:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"LuminaireDiagnosticsAndMaintenance.ControlGearOverallFailureConditionCounter response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("LuminaireDiagnosticsAndMaintenance ControlGearOverallFailureConditionCounter read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeLuminaireDiagnosticsAndMaintenanceControlGearOverallFailureConditionCounter : public SubscribeAttribute {
+public:
+    SubscribeAttributeLuminaireDiagnosticsAndMaintenanceControlGearOverallFailureConditionCounter()
+        : SubscribeAttribute("control-gear-overall-failure-condition-counter")
+    {
+    }
+
+    ~SubscribeAttributeLuminaireDiagnosticsAndMaintenanceControlGearOverallFailureConditionCounter()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::ControlGearOverallFailureConditionCounter::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeControlGearOverallFailureConditionCounterWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"LuminaireDiagnosticsAndMaintenance.ControlGearOverallFailureConditionCounter response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute ControlGearExternalSupplyUndervoltage
+ */
+class ReadLuminaireDiagnosticsAndMaintenanceControlGearExternalSupplyUndervoltage : public ReadAttribute {
+public:
+    ReadLuminaireDiagnosticsAndMaintenanceControlGearExternalSupplyUndervoltage()
+        : ReadAttribute("control-gear-external-supply-undervoltage")
+    {
+    }
+
+    ~ReadLuminaireDiagnosticsAndMaintenanceControlGearExternalSupplyUndervoltage()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::ControlGearExternalSupplyUndervoltage::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeControlGearExternalSupplyUndervoltageWithCompletion:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"LuminaireDiagnosticsAndMaintenance.ControlGearExternalSupplyUndervoltage response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("LuminaireDiagnosticsAndMaintenance ControlGearExternalSupplyUndervoltage read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeLuminaireDiagnosticsAndMaintenanceControlGearExternalSupplyUndervoltage : public SubscribeAttribute {
+public:
+    SubscribeAttributeLuminaireDiagnosticsAndMaintenanceControlGearExternalSupplyUndervoltage()
+        : SubscribeAttribute("control-gear-external-supply-undervoltage")
+    {
+    }
+
+    ~SubscribeAttributeLuminaireDiagnosticsAndMaintenanceControlGearExternalSupplyUndervoltage()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::ControlGearExternalSupplyUndervoltage::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeControlGearExternalSupplyUndervoltageWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"LuminaireDiagnosticsAndMaintenance.ControlGearExternalSupplyUndervoltage response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute ControlGearExternalSupplyUndervoltageCounter
+ */
+class ReadLuminaireDiagnosticsAndMaintenanceControlGearExternalSupplyUndervoltageCounter : public ReadAttribute {
+public:
+    ReadLuminaireDiagnosticsAndMaintenanceControlGearExternalSupplyUndervoltageCounter()
+        : ReadAttribute("control-gear-external-supply-undervoltage-counter")
+    {
+    }
+
+    ~ReadLuminaireDiagnosticsAndMaintenanceControlGearExternalSupplyUndervoltageCounter()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::ControlGearExternalSupplyUndervoltageCounter::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeControlGearExternalSupplyUndervoltageCounterWithCompletion:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"LuminaireDiagnosticsAndMaintenance.ControlGearExternalSupplyUndervoltageCounter response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("LuminaireDiagnosticsAndMaintenance ControlGearExternalSupplyUndervoltageCounter read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeLuminaireDiagnosticsAndMaintenanceControlGearExternalSupplyUndervoltageCounter : public SubscribeAttribute {
+public:
+    SubscribeAttributeLuminaireDiagnosticsAndMaintenanceControlGearExternalSupplyUndervoltageCounter()
+        : SubscribeAttribute("control-gear-external-supply-undervoltage-counter")
+    {
+    }
+
+    ~SubscribeAttributeLuminaireDiagnosticsAndMaintenanceControlGearExternalSupplyUndervoltageCounter()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::ControlGearExternalSupplyUndervoltageCounter::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeControlGearExternalSupplyUndervoltageCounterWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"LuminaireDiagnosticsAndMaintenance.ControlGearExternalSupplyUndervoltageCounter response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute ControlGearExternalSupplyOvervoltage
+ */
+class ReadLuminaireDiagnosticsAndMaintenanceControlGearExternalSupplyOvervoltage : public ReadAttribute {
+public:
+    ReadLuminaireDiagnosticsAndMaintenanceControlGearExternalSupplyOvervoltage()
+        : ReadAttribute("control-gear-external-supply-overvoltage")
+    {
+    }
+
+    ~ReadLuminaireDiagnosticsAndMaintenanceControlGearExternalSupplyOvervoltage()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::ControlGearExternalSupplyOvervoltage::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeControlGearExternalSupplyOvervoltageWithCompletion:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"LuminaireDiagnosticsAndMaintenance.ControlGearExternalSupplyOvervoltage response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("LuminaireDiagnosticsAndMaintenance ControlGearExternalSupplyOvervoltage read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeLuminaireDiagnosticsAndMaintenanceControlGearExternalSupplyOvervoltage : public SubscribeAttribute {
+public:
+    SubscribeAttributeLuminaireDiagnosticsAndMaintenanceControlGearExternalSupplyOvervoltage()
+        : SubscribeAttribute("control-gear-external-supply-overvoltage")
+    {
+    }
+
+    ~SubscribeAttributeLuminaireDiagnosticsAndMaintenanceControlGearExternalSupplyOvervoltage()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::ControlGearExternalSupplyOvervoltage::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeControlGearExternalSupplyOvervoltageWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"LuminaireDiagnosticsAndMaintenance.ControlGearExternalSupplyOvervoltage response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute ControlGearExternalSupplyOvervoltageCounter
+ */
+class ReadLuminaireDiagnosticsAndMaintenanceControlGearExternalSupplyOvervoltageCounter : public ReadAttribute {
+public:
+    ReadLuminaireDiagnosticsAndMaintenanceControlGearExternalSupplyOvervoltageCounter()
+        : ReadAttribute("control-gear-external-supply-overvoltage-counter")
+    {
+    }
+
+    ~ReadLuminaireDiagnosticsAndMaintenanceControlGearExternalSupplyOvervoltageCounter()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::ControlGearExternalSupplyOvervoltageCounter::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeControlGearExternalSupplyOvervoltageCounterWithCompletion:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"LuminaireDiagnosticsAndMaintenance.ControlGearExternalSupplyOvervoltageCounter response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("LuminaireDiagnosticsAndMaintenance ControlGearExternalSupplyOvervoltageCounter read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeLuminaireDiagnosticsAndMaintenanceControlGearExternalSupplyOvervoltageCounter : public SubscribeAttribute {
+public:
+    SubscribeAttributeLuminaireDiagnosticsAndMaintenanceControlGearExternalSupplyOvervoltageCounter()
+        : SubscribeAttribute("control-gear-external-supply-overvoltage-counter")
+    {
+    }
+
+    ~SubscribeAttributeLuminaireDiagnosticsAndMaintenanceControlGearExternalSupplyOvervoltageCounter()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::ControlGearExternalSupplyOvervoltageCounter::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeControlGearExternalSupplyOvervoltageCounterWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"LuminaireDiagnosticsAndMaintenance.ControlGearExternalSupplyOvervoltageCounter response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute ControlGearOutputPowerLimitation
+ */
+class ReadLuminaireDiagnosticsAndMaintenanceControlGearOutputPowerLimitation : public ReadAttribute {
+public:
+    ReadLuminaireDiagnosticsAndMaintenanceControlGearOutputPowerLimitation()
+        : ReadAttribute("control-gear-output-power-limitation")
+    {
+    }
+
+    ~ReadLuminaireDiagnosticsAndMaintenanceControlGearOutputPowerLimitation()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::ControlGearOutputPowerLimitation::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeControlGearOutputPowerLimitationWithCompletion:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"LuminaireDiagnosticsAndMaintenance.ControlGearOutputPowerLimitation response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("LuminaireDiagnosticsAndMaintenance ControlGearOutputPowerLimitation read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeLuminaireDiagnosticsAndMaintenanceControlGearOutputPowerLimitation : public SubscribeAttribute {
+public:
+    SubscribeAttributeLuminaireDiagnosticsAndMaintenanceControlGearOutputPowerLimitation()
+        : SubscribeAttribute("control-gear-output-power-limitation")
+    {
+    }
+
+    ~SubscribeAttributeLuminaireDiagnosticsAndMaintenanceControlGearOutputPowerLimitation()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::ControlGearOutputPowerLimitation::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeControlGearOutputPowerLimitationWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"LuminaireDiagnosticsAndMaintenance.ControlGearOutputPowerLimitation response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute ControlGearOutputPowerLimitationCounter
+ */
+class ReadLuminaireDiagnosticsAndMaintenanceControlGearOutputPowerLimitationCounter : public ReadAttribute {
+public:
+    ReadLuminaireDiagnosticsAndMaintenanceControlGearOutputPowerLimitationCounter()
+        : ReadAttribute("control-gear-output-power-limitation-counter")
+    {
+    }
+
+    ~ReadLuminaireDiagnosticsAndMaintenanceControlGearOutputPowerLimitationCounter()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::ControlGearOutputPowerLimitationCounter::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeControlGearOutputPowerLimitationCounterWithCompletion:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"LuminaireDiagnosticsAndMaintenance.ControlGearOutputPowerLimitationCounter response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("LuminaireDiagnosticsAndMaintenance ControlGearOutputPowerLimitationCounter read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeLuminaireDiagnosticsAndMaintenanceControlGearOutputPowerLimitationCounter : public SubscribeAttribute {
+public:
+    SubscribeAttributeLuminaireDiagnosticsAndMaintenanceControlGearOutputPowerLimitationCounter()
+        : SubscribeAttribute("control-gear-output-power-limitation-counter")
+    {
+    }
+
+    ~SubscribeAttributeLuminaireDiagnosticsAndMaintenanceControlGearOutputPowerLimitationCounter()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::ControlGearOutputPowerLimitationCounter::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeControlGearOutputPowerLimitationCounterWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"LuminaireDiagnosticsAndMaintenance.ControlGearOutputPowerLimitationCounter response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute ControlGearThermalDerating
+ */
+class ReadLuminaireDiagnosticsAndMaintenanceControlGearThermalDerating : public ReadAttribute {
+public:
+    ReadLuminaireDiagnosticsAndMaintenanceControlGearThermalDerating()
+        : ReadAttribute("control-gear-thermal-derating")
+    {
+    }
+
+    ~ReadLuminaireDiagnosticsAndMaintenanceControlGearThermalDerating()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::ControlGearThermalDerating::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeControlGearThermalDeratingWithCompletion:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"LuminaireDiagnosticsAndMaintenance.ControlGearThermalDerating response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("LuminaireDiagnosticsAndMaintenance ControlGearThermalDerating read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeLuminaireDiagnosticsAndMaintenanceControlGearThermalDerating : public SubscribeAttribute {
+public:
+    SubscribeAttributeLuminaireDiagnosticsAndMaintenanceControlGearThermalDerating()
+        : SubscribeAttribute("control-gear-thermal-derating")
+    {
+    }
+
+    ~SubscribeAttributeLuminaireDiagnosticsAndMaintenanceControlGearThermalDerating()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::ControlGearThermalDerating::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeControlGearThermalDeratingWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"LuminaireDiagnosticsAndMaintenance.ControlGearThermalDerating response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute ControlGearThermalDeratingCounter
+ */
+class ReadLuminaireDiagnosticsAndMaintenanceControlGearThermalDeratingCounter : public ReadAttribute {
+public:
+    ReadLuminaireDiagnosticsAndMaintenanceControlGearThermalDeratingCounter()
+        : ReadAttribute("control-gear-thermal-derating-counter")
+    {
+    }
+
+    ~ReadLuminaireDiagnosticsAndMaintenanceControlGearThermalDeratingCounter()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::ControlGearThermalDeratingCounter::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeControlGearThermalDeratingCounterWithCompletion:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"LuminaireDiagnosticsAndMaintenance.ControlGearThermalDeratingCounter response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("LuminaireDiagnosticsAndMaintenance ControlGearThermalDeratingCounter read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeLuminaireDiagnosticsAndMaintenanceControlGearThermalDeratingCounter : public SubscribeAttribute {
+public:
+    SubscribeAttributeLuminaireDiagnosticsAndMaintenanceControlGearThermalDeratingCounter()
+        : SubscribeAttribute("control-gear-thermal-derating-counter")
+    {
+    }
+
+    ~SubscribeAttributeLuminaireDiagnosticsAndMaintenanceControlGearThermalDeratingCounter()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::ControlGearThermalDeratingCounter::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeControlGearThermalDeratingCounterWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"LuminaireDiagnosticsAndMaintenance.ControlGearThermalDeratingCounter response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute ControlGearThermalShutdown
+ */
+class ReadLuminaireDiagnosticsAndMaintenanceControlGearThermalShutdown : public ReadAttribute {
+public:
+    ReadLuminaireDiagnosticsAndMaintenanceControlGearThermalShutdown()
+        : ReadAttribute("control-gear-thermal-shutdown")
+    {
+    }
+
+    ~ReadLuminaireDiagnosticsAndMaintenanceControlGearThermalShutdown()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::ControlGearThermalShutdown::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeControlGearThermalShutdownWithCompletion:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"LuminaireDiagnosticsAndMaintenance.ControlGearThermalShutdown response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("LuminaireDiagnosticsAndMaintenance ControlGearThermalShutdown read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeLuminaireDiagnosticsAndMaintenanceControlGearThermalShutdown : public SubscribeAttribute {
+public:
+    SubscribeAttributeLuminaireDiagnosticsAndMaintenanceControlGearThermalShutdown()
+        : SubscribeAttribute("control-gear-thermal-shutdown")
+    {
+    }
+
+    ~SubscribeAttributeLuminaireDiagnosticsAndMaintenanceControlGearThermalShutdown()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::ControlGearThermalShutdown::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeControlGearThermalShutdownWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"LuminaireDiagnosticsAndMaintenance.ControlGearThermalShutdown response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute ControlGearThermalShutdownCounter
+ */
+class ReadLuminaireDiagnosticsAndMaintenanceControlGearThermalShutdownCounter : public ReadAttribute {
+public:
+    ReadLuminaireDiagnosticsAndMaintenanceControlGearThermalShutdownCounter()
+        : ReadAttribute("control-gear-thermal-shutdown-counter")
+    {
+    }
+
+    ~ReadLuminaireDiagnosticsAndMaintenanceControlGearThermalShutdownCounter()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::ControlGearThermalShutdownCounter::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeControlGearThermalShutdownCounterWithCompletion:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"LuminaireDiagnosticsAndMaintenance.ControlGearThermalShutdownCounter response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("LuminaireDiagnosticsAndMaintenance ControlGearThermalShutdownCounter read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeLuminaireDiagnosticsAndMaintenanceControlGearThermalShutdownCounter : public SubscribeAttribute {
+public:
+    SubscribeAttributeLuminaireDiagnosticsAndMaintenanceControlGearThermalShutdownCounter()
+        : SubscribeAttribute("control-gear-thermal-shutdown-counter")
+    {
+    }
+
+    ~SubscribeAttributeLuminaireDiagnosticsAndMaintenanceControlGearThermalShutdownCounter()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::ControlGearThermalShutdownCounter::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeControlGearThermalShutdownCounterWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"LuminaireDiagnosticsAndMaintenance.ControlGearThermalShutdownCounter response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute ControlGearTemperature
+ */
+class ReadLuminaireDiagnosticsAndMaintenanceControlGearTemperature : public ReadAttribute {
+public:
+    ReadLuminaireDiagnosticsAndMaintenanceControlGearTemperature()
+        : ReadAttribute("control-gear-temperature")
+    {
+    }
+
+    ~ReadLuminaireDiagnosticsAndMaintenanceControlGearTemperature()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::ControlGearTemperature::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeControlGearTemperatureWithCompletion:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"LuminaireDiagnosticsAndMaintenance.ControlGearTemperature response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("LuminaireDiagnosticsAndMaintenance ControlGearTemperature read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeLuminaireDiagnosticsAndMaintenanceControlGearTemperature : public SubscribeAttribute {
+public:
+    SubscribeAttributeLuminaireDiagnosticsAndMaintenanceControlGearTemperature()
+        : SubscribeAttribute("control-gear-temperature")
+    {
+    }
+
+    ~SubscribeAttributeLuminaireDiagnosticsAndMaintenanceControlGearTemperature()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::ControlGearTemperature::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeControlGearTemperatureWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"LuminaireDiagnosticsAndMaintenance.ControlGearTemperature response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute ControlGearOutputCurrentPercentage
+ */
+class ReadLuminaireDiagnosticsAndMaintenanceControlGearOutputCurrentPercentage : public ReadAttribute {
+public:
+    ReadLuminaireDiagnosticsAndMaintenanceControlGearOutputCurrentPercentage()
+        : ReadAttribute("control-gear-output-current-percentage")
+    {
+    }
+
+    ~ReadLuminaireDiagnosticsAndMaintenanceControlGearOutputCurrentPercentage()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::ControlGearOutputCurrentPercentage::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeControlGearOutputCurrentPercentageWithCompletion:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"LuminaireDiagnosticsAndMaintenance.ControlGearOutputCurrentPercentage response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("LuminaireDiagnosticsAndMaintenance ControlGearOutputCurrentPercentage read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeLuminaireDiagnosticsAndMaintenanceControlGearOutputCurrentPercentage : public SubscribeAttribute {
+public:
+    SubscribeAttributeLuminaireDiagnosticsAndMaintenanceControlGearOutputCurrentPercentage()
+        : SubscribeAttribute("control-gear-output-current-percentage")
+    {
+    }
+
+    ~SubscribeAttributeLuminaireDiagnosticsAndMaintenanceControlGearOutputCurrentPercentage()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::ControlGearOutputCurrentPercentage::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeControlGearOutputCurrentPercentageWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"LuminaireDiagnosticsAndMaintenance.ControlGearOutputCurrentPercentage response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute LightSourceStartCounterResettable
+ */
+class ReadLuminaireDiagnosticsAndMaintenanceLightSourceStartCounterResettable : public ReadAttribute {
+public:
+    ReadLuminaireDiagnosticsAndMaintenanceLightSourceStartCounterResettable()
+        : ReadAttribute("light-source-start-counter-resettable")
+    {
+    }
+
+    ~ReadLuminaireDiagnosticsAndMaintenanceLightSourceStartCounterResettable()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::LightSourceStartCounterResettable::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeLightSourceStartCounterResettableWithCompletion:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"LuminaireDiagnosticsAndMaintenance.LightSourceStartCounterResettable response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("LuminaireDiagnosticsAndMaintenance LightSourceStartCounterResettable read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class WriteLuminaireDiagnosticsAndMaintenanceLightSourceStartCounterResettable : public WriteAttribute {
+public:
+    WriteLuminaireDiagnosticsAndMaintenanceLightSourceStartCounterResettable()
+        : WriteAttribute("light-source-start-counter-resettable")
+    {
+        AddArgument("attr-name", "light-source-start-counter-resettable");
+        AddArgument("attr-value", 0, UINT32_MAX, &mValue);
+        WriteAttribute::AddArguments();
+    }
+
+    ~WriteLuminaireDiagnosticsAndMaintenanceLightSourceStartCounterResettable()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::LightSourceStartCounterResettable::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") WriteAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRWriteParams alloc] init];
+        params.timedWriteTimeout = mTimedInteractionTimeoutMs.HasValue() ? [NSNumber numberWithUnsignedShort:mTimedInteractionTimeoutMs.Value()] : nil;
+        params.dataVersion = mDataVersion.HasValue() ? [NSNumber numberWithUnsignedInt:mDataVersion.Value()] : nil;
+        NSNumber * _Nonnull value = [NSNumber numberWithUnsignedInt:mValue];
+
+        [cluster writeAttributeLightSourceStartCounterResettableWithValue:value params:params completion:^(NSError * _Nullable error) {
+            if (error != nil) {
+                LogNSError("LuminaireDiagnosticsAndMaintenance LightSourceStartCounterResettable write Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+
+private:
+    uint32_t mValue;
+};
+
+class SubscribeAttributeLuminaireDiagnosticsAndMaintenanceLightSourceStartCounterResettable : public SubscribeAttribute {
+public:
+    SubscribeAttributeLuminaireDiagnosticsAndMaintenanceLightSourceStartCounterResettable()
+        : SubscribeAttribute("light-source-start-counter-resettable")
+    {
+    }
+
+    ~SubscribeAttributeLuminaireDiagnosticsAndMaintenanceLightSourceStartCounterResettable()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::LightSourceStartCounterResettable::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeLightSourceStartCounterResettableWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"LuminaireDiagnosticsAndMaintenance.LightSourceStartCounterResettable response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute LightSourceStartCounter
+ */
+class ReadLuminaireDiagnosticsAndMaintenanceLightSourceStartCounter : public ReadAttribute {
+public:
+    ReadLuminaireDiagnosticsAndMaintenanceLightSourceStartCounter()
+        : ReadAttribute("light-source-start-counter")
+    {
+    }
+
+    ~ReadLuminaireDiagnosticsAndMaintenanceLightSourceStartCounter()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::LightSourceStartCounter::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeLightSourceStartCounterWithCompletion:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"LuminaireDiagnosticsAndMaintenance.LightSourceStartCounter response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("LuminaireDiagnosticsAndMaintenance LightSourceStartCounter read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeLuminaireDiagnosticsAndMaintenanceLightSourceStartCounter : public SubscribeAttribute {
+public:
+    SubscribeAttributeLuminaireDiagnosticsAndMaintenanceLightSourceStartCounter()
+        : SubscribeAttribute("light-source-start-counter")
+    {
+    }
+
+    ~SubscribeAttributeLuminaireDiagnosticsAndMaintenanceLightSourceStartCounter()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::LightSourceStartCounter::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeLightSourceStartCounterWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"LuminaireDiagnosticsAndMaintenance.LightSourceStartCounter response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute LightSourceOnTimeResettable
+ */
+class ReadLuminaireDiagnosticsAndMaintenanceLightSourceOnTimeResettable : public ReadAttribute {
+public:
+    ReadLuminaireDiagnosticsAndMaintenanceLightSourceOnTimeResettable()
+        : ReadAttribute("light-source-on-time-resettable")
+    {
+    }
+
+    ~ReadLuminaireDiagnosticsAndMaintenanceLightSourceOnTimeResettable()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::LightSourceOnTimeResettable::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeLightSourceOnTimeResettableWithCompletion:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"LuminaireDiagnosticsAndMaintenance.LightSourceOnTimeResettable response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("LuminaireDiagnosticsAndMaintenance LightSourceOnTimeResettable read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class WriteLuminaireDiagnosticsAndMaintenanceLightSourceOnTimeResettable : public WriteAttribute {
+public:
+    WriteLuminaireDiagnosticsAndMaintenanceLightSourceOnTimeResettable()
+        : WriteAttribute("light-source-on-time-resettable")
+    {
+        AddArgument("attr-name", "light-source-on-time-resettable");
+        AddArgument("attr-value", 0, UINT32_MAX, &mValue);
+        WriteAttribute::AddArguments();
+    }
+
+    ~WriteLuminaireDiagnosticsAndMaintenanceLightSourceOnTimeResettable()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::LightSourceOnTimeResettable::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") WriteAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRWriteParams alloc] init];
+        params.timedWriteTimeout = mTimedInteractionTimeoutMs.HasValue() ? [NSNumber numberWithUnsignedShort:mTimedInteractionTimeoutMs.Value()] : nil;
+        params.dataVersion = mDataVersion.HasValue() ? [NSNumber numberWithUnsignedInt:mDataVersion.Value()] : nil;
+        NSNumber * _Nonnull value = [NSNumber numberWithUnsignedInt:mValue];
+
+        [cluster writeAttributeLightSourceOnTimeResettableWithValue:value params:params completion:^(NSError * _Nullable error) {
+            if (error != nil) {
+                LogNSError("LuminaireDiagnosticsAndMaintenance LightSourceOnTimeResettable write Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+
+private:
+    uint32_t mValue;
+};
+
+class SubscribeAttributeLuminaireDiagnosticsAndMaintenanceLightSourceOnTimeResettable : public SubscribeAttribute {
+public:
+    SubscribeAttributeLuminaireDiagnosticsAndMaintenanceLightSourceOnTimeResettable()
+        : SubscribeAttribute("light-source-on-time-resettable")
+    {
+    }
+
+    ~SubscribeAttributeLuminaireDiagnosticsAndMaintenanceLightSourceOnTimeResettable()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::LightSourceOnTimeResettable::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeLightSourceOnTimeResettableWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"LuminaireDiagnosticsAndMaintenance.LightSourceOnTimeResettable response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute LightSourceOnTime
+ */
+class ReadLuminaireDiagnosticsAndMaintenanceLightSourceOnTime : public ReadAttribute {
+public:
+    ReadLuminaireDiagnosticsAndMaintenanceLightSourceOnTime()
+        : ReadAttribute("light-source-on-time")
+    {
+    }
+
+    ~ReadLuminaireDiagnosticsAndMaintenanceLightSourceOnTime()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::LightSourceOnTime::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeLightSourceOnTimeWithCompletion:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"LuminaireDiagnosticsAndMaintenance.LightSourceOnTime response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("LuminaireDiagnosticsAndMaintenance LightSourceOnTime read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeLuminaireDiagnosticsAndMaintenanceLightSourceOnTime : public SubscribeAttribute {
+public:
+    SubscribeAttributeLuminaireDiagnosticsAndMaintenanceLightSourceOnTime()
+        : SubscribeAttribute("light-source-on-time")
+    {
+    }
+
+    ~SubscribeAttributeLuminaireDiagnosticsAndMaintenanceLightSourceOnTime()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::LightSourceOnTime::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeLightSourceOnTimeWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"LuminaireDiagnosticsAndMaintenance.LightSourceOnTime response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute LightSourceVoltage
+ */
+class ReadLuminaireDiagnosticsAndMaintenanceLightSourceVoltage : public ReadAttribute {
+public:
+    ReadLuminaireDiagnosticsAndMaintenanceLightSourceVoltage()
+        : ReadAttribute("light-source-voltage")
+    {
+    }
+
+    ~ReadLuminaireDiagnosticsAndMaintenanceLightSourceVoltage()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::LightSourceVoltage::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeLightSourceVoltageWithCompletion:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"LuminaireDiagnosticsAndMaintenance.LightSourceVoltage response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("LuminaireDiagnosticsAndMaintenance LightSourceVoltage read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeLuminaireDiagnosticsAndMaintenanceLightSourceVoltage : public SubscribeAttribute {
+public:
+    SubscribeAttributeLuminaireDiagnosticsAndMaintenanceLightSourceVoltage()
+        : SubscribeAttribute("light-source-voltage")
+    {
+    }
+
+    ~SubscribeAttributeLuminaireDiagnosticsAndMaintenanceLightSourceVoltage()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::LightSourceVoltage::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeLightSourceVoltageWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"LuminaireDiagnosticsAndMaintenance.LightSourceVoltage response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute LightSourceCurrent
+ */
+class ReadLuminaireDiagnosticsAndMaintenanceLightSourceCurrent : public ReadAttribute {
+public:
+    ReadLuminaireDiagnosticsAndMaintenanceLightSourceCurrent()
+        : ReadAttribute("light-source-current")
+    {
+    }
+
+    ~ReadLuminaireDiagnosticsAndMaintenanceLightSourceCurrent()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::LightSourceCurrent::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeLightSourceCurrentWithCompletion:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"LuminaireDiagnosticsAndMaintenance.LightSourceCurrent response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("LuminaireDiagnosticsAndMaintenance LightSourceCurrent read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeLuminaireDiagnosticsAndMaintenanceLightSourceCurrent : public SubscribeAttribute {
+public:
+    SubscribeAttributeLuminaireDiagnosticsAndMaintenanceLightSourceCurrent()
+        : SubscribeAttribute("light-source-current")
+    {
+    }
+
+    ~SubscribeAttributeLuminaireDiagnosticsAndMaintenanceLightSourceCurrent()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::LightSourceCurrent::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeLightSourceCurrentWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"LuminaireDiagnosticsAndMaintenance.LightSourceCurrent response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute LightSourceOverallFailureCondition
+ */
+class ReadLuminaireDiagnosticsAndMaintenanceLightSourceOverallFailureCondition : public ReadAttribute {
+public:
+    ReadLuminaireDiagnosticsAndMaintenanceLightSourceOverallFailureCondition()
+        : ReadAttribute("light-source-overall-failure-condition")
+    {
+    }
+
+    ~ReadLuminaireDiagnosticsAndMaintenanceLightSourceOverallFailureCondition()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::LightSourceOverallFailureCondition::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeLightSourceOverallFailureConditionWithCompletion:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"LuminaireDiagnosticsAndMaintenance.LightSourceOverallFailureCondition response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("LuminaireDiagnosticsAndMaintenance LightSourceOverallFailureCondition read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeLuminaireDiagnosticsAndMaintenanceLightSourceOverallFailureCondition : public SubscribeAttribute {
+public:
+    SubscribeAttributeLuminaireDiagnosticsAndMaintenanceLightSourceOverallFailureCondition()
+        : SubscribeAttribute("light-source-overall-failure-condition")
+    {
+    }
+
+    ~SubscribeAttributeLuminaireDiagnosticsAndMaintenanceLightSourceOverallFailureCondition()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::LightSourceOverallFailureCondition::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeLightSourceOverallFailureConditionWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"LuminaireDiagnosticsAndMaintenance.LightSourceOverallFailureCondition response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute LightSourceOverallFailureConditionCounter
+ */
+class ReadLuminaireDiagnosticsAndMaintenanceLightSourceOverallFailureConditionCounter : public ReadAttribute {
+public:
+    ReadLuminaireDiagnosticsAndMaintenanceLightSourceOverallFailureConditionCounter()
+        : ReadAttribute("light-source-overall-failure-condition-counter")
+    {
+    }
+
+    ~ReadLuminaireDiagnosticsAndMaintenanceLightSourceOverallFailureConditionCounter()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::LightSourceOverallFailureConditionCounter::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeLightSourceOverallFailureConditionCounterWithCompletion:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"LuminaireDiagnosticsAndMaintenance.LightSourceOverallFailureConditionCounter response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("LuminaireDiagnosticsAndMaintenance LightSourceOverallFailureConditionCounter read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeLuminaireDiagnosticsAndMaintenanceLightSourceOverallFailureConditionCounter : public SubscribeAttribute {
+public:
+    SubscribeAttributeLuminaireDiagnosticsAndMaintenanceLightSourceOverallFailureConditionCounter()
+        : SubscribeAttribute("light-source-overall-failure-condition-counter")
+    {
+    }
+
+    ~SubscribeAttributeLuminaireDiagnosticsAndMaintenanceLightSourceOverallFailureConditionCounter()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::LightSourceOverallFailureConditionCounter::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeLightSourceOverallFailureConditionCounterWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"LuminaireDiagnosticsAndMaintenance.LightSourceOverallFailureConditionCounter response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute LightSourceShortCircuit
+ */
+class ReadLuminaireDiagnosticsAndMaintenanceLightSourceShortCircuit : public ReadAttribute {
+public:
+    ReadLuminaireDiagnosticsAndMaintenanceLightSourceShortCircuit()
+        : ReadAttribute("light-source-short-circuit")
+    {
+    }
+
+    ~ReadLuminaireDiagnosticsAndMaintenanceLightSourceShortCircuit()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::LightSourceShortCircuit::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeLightSourceShortCircuitWithCompletion:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"LuminaireDiagnosticsAndMaintenance.LightSourceShortCircuit response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("LuminaireDiagnosticsAndMaintenance LightSourceShortCircuit read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeLuminaireDiagnosticsAndMaintenanceLightSourceShortCircuit : public SubscribeAttribute {
+public:
+    SubscribeAttributeLuminaireDiagnosticsAndMaintenanceLightSourceShortCircuit()
+        : SubscribeAttribute("light-source-short-circuit")
+    {
+    }
+
+    ~SubscribeAttributeLuminaireDiagnosticsAndMaintenanceLightSourceShortCircuit()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::LightSourceShortCircuit::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeLightSourceShortCircuitWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"LuminaireDiagnosticsAndMaintenance.LightSourceShortCircuit response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute LightSourceShortCircuitCounter
+ */
+class ReadLuminaireDiagnosticsAndMaintenanceLightSourceShortCircuitCounter : public ReadAttribute {
+public:
+    ReadLuminaireDiagnosticsAndMaintenanceLightSourceShortCircuitCounter()
+        : ReadAttribute("light-source-short-circuit-counter")
+    {
+    }
+
+    ~ReadLuminaireDiagnosticsAndMaintenanceLightSourceShortCircuitCounter()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::LightSourceShortCircuitCounter::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeLightSourceShortCircuitCounterWithCompletion:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"LuminaireDiagnosticsAndMaintenance.LightSourceShortCircuitCounter response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("LuminaireDiagnosticsAndMaintenance LightSourceShortCircuitCounter read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeLuminaireDiagnosticsAndMaintenanceLightSourceShortCircuitCounter : public SubscribeAttribute {
+public:
+    SubscribeAttributeLuminaireDiagnosticsAndMaintenanceLightSourceShortCircuitCounter()
+        : SubscribeAttribute("light-source-short-circuit-counter")
+    {
+    }
+
+    ~SubscribeAttributeLuminaireDiagnosticsAndMaintenanceLightSourceShortCircuitCounter()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::LightSourceShortCircuitCounter::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeLightSourceShortCircuitCounterWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"LuminaireDiagnosticsAndMaintenance.LightSourceShortCircuitCounter response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute LightSourceOpenCircuit
+ */
+class ReadLuminaireDiagnosticsAndMaintenanceLightSourceOpenCircuit : public ReadAttribute {
+public:
+    ReadLuminaireDiagnosticsAndMaintenanceLightSourceOpenCircuit()
+        : ReadAttribute("light-source-open-circuit")
+    {
+    }
+
+    ~ReadLuminaireDiagnosticsAndMaintenanceLightSourceOpenCircuit()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::LightSourceOpenCircuit::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeLightSourceOpenCircuitWithCompletion:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"LuminaireDiagnosticsAndMaintenance.LightSourceOpenCircuit response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("LuminaireDiagnosticsAndMaintenance LightSourceOpenCircuit read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeLuminaireDiagnosticsAndMaintenanceLightSourceOpenCircuit : public SubscribeAttribute {
+public:
+    SubscribeAttributeLuminaireDiagnosticsAndMaintenanceLightSourceOpenCircuit()
+        : SubscribeAttribute("light-source-open-circuit")
+    {
+    }
+
+    ~SubscribeAttributeLuminaireDiagnosticsAndMaintenanceLightSourceOpenCircuit()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::LightSourceOpenCircuit::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeLightSourceOpenCircuitWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"LuminaireDiagnosticsAndMaintenance.LightSourceOpenCircuit response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute LightSourceOpenCircuitCounter
+ */
+class ReadLuminaireDiagnosticsAndMaintenanceLightSourceOpenCircuitCounter : public ReadAttribute {
+public:
+    ReadLuminaireDiagnosticsAndMaintenanceLightSourceOpenCircuitCounter()
+        : ReadAttribute("light-source-open-circuit-counter")
+    {
+    }
+
+    ~ReadLuminaireDiagnosticsAndMaintenanceLightSourceOpenCircuitCounter()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::LightSourceOpenCircuitCounter::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeLightSourceOpenCircuitCounterWithCompletion:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"LuminaireDiagnosticsAndMaintenance.LightSourceOpenCircuitCounter response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("LuminaireDiagnosticsAndMaintenance LightSourceOpenCircuitCounter read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeLuminaireDiagnosticsAndMaintenanceLightSourceOpenCircuitCounter : public SubscribeAttribute {
+public:
+    SubscribeAttributeLuminaireDiagnosticsAndMaintenanceLightSourceOpenCircuitCounter()
+        : SubscribeAttribute("light-source-open-circuit-counter")
+    {
+    }
+
+    ~SubscribeAttributeLuminaireDiagnosticsAndMaintenanceLightSourceOpenCircuitCounter()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::LightSourceOpenCircuitCounter::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeLightSourceOpenCircuitCounterWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"LuminaireDiagnosticsAndMaintenance.LightSourceOpenCircuitCounter response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute LightSourceThermalDerating
+ */
+class ReadLuminaireDiagnosticsAndMaintenanceLightSourceThermalDerating : public ReadAttribute {
+public:
+    ReadLuminaireDiagnosticsAndMaintenanceLightSourceThermalDerating()
+        : ReadAttribute("light-source-thermal-derating")
+    {
+    }
+
+    ~ReadLuminaireDiagnosticsAndMaintenanceLightSourceThermalDerating()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::LightSourceThermalDerating::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeLightSourceThermalDeratingWithCompletion:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"LuminaireDiagnosticsAndMaintenance.LightSourceThermalDerating response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("LuminaireDiagnosticsAndMaintenance LightSourceThermalDerating read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeLuminaireDiagnosticsAndMaintenanceLightSourceThermalDerating : public SubscribeAttribute {
+public:
+    SubscribeAttributeLuminaireDiagnosticsAndMaintenanceLightSourceThermalDerating()
+        : SubscribeAttribute("light-source-thermal-derating")
+    {
+    }
+
+    ~SubscribeAttributeLuminaireDiagnosticsAndMaintenanceLightSourceThermalDerating()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::LightSourceThermalDerating::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeLightSourceThermalDeratingWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"LuminaireDiagnosticsAndMaintenance.LightSourceThermalDerating response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute LightSourceThermalDeratingCounter
+ */
+class ReadLuminaireDiagnosticsAndMaintenanceLightSourceThermalDeratingCounter : public ReadAttribute {
+public:
+    ReadLuminaireDiagnosticsAndMaintenanceLightSourceThermalDeratingCounter()
+        : ReadAttribute("light-source-thermal-derating-counter")
+    {
+    }
+
+    ~ReadLuminaireDiagnosticsAndMaintenanceLightSourceThermalDeratingCounter()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::LightSourceThermalDeratingCounter::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeLightSourceThermalDeratingCounterWithCompletion:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"LuminaireDiagnosticsAndMaintenance.LightSourceThermalDeratingCounter response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("LuminaireDiagnosticsAndMaintenance LightSourceThermalDeratingCounter read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeLuminaireDiagnosticsAndMaintenanceLightSourceThermalDeratingCounter : public SubscribeAttribute {
+public:
+    SubscribeAttributeLuminaireDiagnosticsAndMaintenanceLightSourceThermalDeratingCounter()
+        : SubscribeAttribute("light-source-thermal-derating-counter")
+    {
+    }
+
+    ~SubscribeAttributeLuminaireDiagnosticsAndMaintenanceLightSourceThermalDeratingCounter()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::LightSourceThermalDeratingCounter::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeLightSourceThermalDeratingCounterWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"LuminaireDiagnosticsAndMaintenance.LightSourceThermalDeratingCounter response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute LightSourceThermalShutdown
+ */
+class ReadLuminaireDiagnosticsAndMaintenanceLightSourceThermalShutdown : public ReadAttribute {
+public:
+    ReadLuminaireDiagnosticsAndMaintenanceLightSourceThermalShutdown()
+        : ReadAttribute("light-source-thermal-shutdown")
+    {
+    }
+
+    ~ReadLuminaireDiagnosticsAndMaintenanceLightSourceThermalShutdown()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::LightSourceThermalShutdown::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeLightSourceThermalShutdownWithCompletion:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"LuminaireDiagnosticsAndMaintenance.LightSourceThermalShutdown response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("LuminaireDiagnosticsAndMaintenance LightSourceThermalShutdown read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeLuminaireDiagnosticsAndMaintenanceLightSourceThermalShutdown : public SubscribeAttribute {
+public:
+    SubscribeAttributeLuminaireDiagnosticsAndMaintenanceLightSourceThermalShutdown()
+        : SubscribeAttribute("light-source-thermal-shutdown")
+    {
+    }
+
+    ~SubscribeAttributeLuminaireDiagnosticsAndMaintenanceLightSourceThermalShutdown()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::LightSourceThermalShutdown::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeLightSourceThermalShutdownWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"LuminaireDiagnosticsAndMaintenance.LightSourceThermalShutdown response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute LightSourceThermalShutdownCounter
+ */
+class ReadLuminaireDiagnosticsAndMaintenanceLightSourceThermalShutdownCounter : public ReadAttribute {
+public:
+    ReadLuminaireDiagnosticsAndMaintenanceLightSourceThermalShutdownCounter()
+        : ReadAttribute("light-source-thermal-shutdown-counter")
+    {
+    }
+
+    ~ReadLuminaireDiagnosticsAndMaintenanceLightSourceThermalShutdownCounter()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::LightSourceThermalShutdownCounter::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeLightSourceThermalShutdownCounterWithCompletion:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"LuminaireDiagnosticsAndMaintenance.LightSourceThermalShutdownCounter response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("LuminaireDiagnosticsAndMaintenance LightSourceThermalShutdownCounter read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeLuminaireDiagnosticsAndMaintenanceLightSourceThermalShutdownCounter : public SubscribeAttribute {
+public:
+    SubscribeAttributeLuminaireDiagnosticsAndMaintenanceLightSourceThermalShutdownCounter()
+        : SubscribeAttribute("light-source-thermal-shutdown-counter")
+    {
+    }
+
+    ~SubscribeAttributeLuminaireDiagnosticsAndMaintenanceLightSourceThermalShutdownCounter()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::LightSourceThermalShutdownCounter::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeLightSourceThermalShutdownCounterWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"LuminaireDiagnosticsAndMaintenance.LightSourceThermalShutdownCounter response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute LightSourceTemperature
+ */
+class ReadLuminaireDiagnosticsAndMaintenanceLightSourceTemperature : public ReadAttribute {
+public:
+    ReadLuminaireDiagnosticsAndMaintenanceLightSourceTemperature()
+        : ReadAttribute("light-source-temperature")
+    {
+    }
+
+    ~ReadLuminaireDiagnosticsAndMaintenanceLightSourceTemperature()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::LightSourceTemperature::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeLightSourceTemperatureWithCompletion:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"LuminaireDiagnosticsAndMaintenance.LightSourceTemperature response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("LuminaireDiagnosticsAndMaintenance LightSourceTemperature read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeLuminaireDiagnosticsAndMaintenanceLightSourceTemperature : public SubscribeAttribute {
+public:
+    SubscribeAttributeLuminaireDiagnosticsAndMaintenanceLightSourceTemperature()
+        : SubscribeAttribute("light-source-temperature")
+    {
+    }
+
+    ~SubscribeAttributeLuminaireDiagnosticsAndMaintenanceLightSourceTemperature()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::LightSourceTemperature::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeLightSourceTemperatureWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"LuminaireDiagnosticsAndMaintenance.LightSourceTemperature response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute RatedMedianUsefulLifeOfLuminaire
+ */
+class ReadLuminaireDiagnosticsAndMaintenanceRatedMedianUsefulLifeOfLuminaire : public ReadAttribute {
+public:
+    ReadLuminaireDiagnosticsAndMaintenanceRatedMedianUsefulLifeOfLuminaire()
+        : ReadAttribute("rated-median-useful-life-of-luminaire")
+    {
+    }
+
+    ~ReadLuminaireDiagnosticsAndMaintenanceRatedMedianUsefulLifeOfLuminaire()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::RatedMedianUsefulLifeOfLuminaire::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeRatedMedianUsefulLifeOfLuminaireWithCompletion:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"LuminaireDiagnosticsAndMaintenance.RatedMedianUsefulLifeOfLuminaire response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("LuminaireDiagnosticsAndMaintenance RatedMedianUsefulLifeOfLuminaire read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeLuminaireDiagnosticsAndMaintenanceRatedMedianUsefulLifeOfLuminaire : public SubscribeAttribute {
+public:
+    SubscribeAttributeLuminaireDiagnosticsAndMaintenanceRatedMedianUsefulLifeOfLuminaire()
+        : SubscribeAttribute("rated-median-useful-life-of-luminaire")
+    {
+    }
+
+    ~SubscribeAttributeLuminaireDiagnosticsAndMaintenanceRatedMedianUsefulLifeOfLuminaire()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::RatedMedianUsefulLifeOfLuminaire::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeRatedMedianUsefulLifeOfLuminaireWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"LuminaireDiagnosticsAndMaintenance.RatedMedianUsefulLifeOfLuminaire response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute InternalControlGearReferenceTemperature
+ */
+class ReadLuminaireDiagnosticsAndMaintenanceInternalControlGearReferenceTemperature : public ReadAttribute {
+public:
+    ReadLuminaireDiagnosticsAndMaintenanceInternalControlGearReferenceTemperature()
+        : ReadAttribute("internal-control-gear-reference-temperature")
+    {
+    }
+
+    ~ReadLuminaireDiagnosticsAndMaintenanceInternalControlGearReferenceTemperature()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::InternalControlGearReferenceTemperature::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeInternalControlGearReferenceTemperatureWithCompletion:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"LuminaireDiagnosticsAndMaintenance.InternalControlGearReferenceTemperature response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("LuminaireDiagnosticsAndMaintenance InternalControlGearReferenceTemperature read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeLuminaireDiagnosticsAndMaintenanceInternalControlGearReferenceTemperature : public SubscribeAttribute {
+public:
+    SubscribeAttributeLuminaireDiagnosticsAndMaintenanceInternalControlGearReferenceTemperature()
+        : SubscribeAttribute("internal-control-gear-reference-temperature")
+    {
+    }
+
+    ~SubscribeAttributeLuminaireDiagnosticsAndMaintenanceInternalControlGearReferenceTemperature()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::InternalControlGearReferenceTemperature::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeInternalControlGearReferenceTemperatureWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"LuminaireDiagnosticsAndMaintenance.InternalControlGearReferenceTemperature response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute RatedMedianUsefulLightSourceStarts
+ */
+class ReadLuminaireDiagnosticsAndMaintenanceRatedMedianUsefulLightSourceStarts : public ReadAttribute {
+public:
+    ReadLuminaireDiagnosticsAndMaintenanceRatedMedianUsefulLightSourceStarts()
+        : ReadAttribute("rated-median-useful-light-source-starts")
+    {
+    }
+
+    ~ReadLuminaireDiagnosticsAndMaintenanceRatedMedianUsefulLightSourceStarts()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::RatedMedianUsefulLightSourceStarts::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeRatedMedianUsefulLightSourceStartsWithCompletion:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"LuminaireDiagnosticsAndMaintenance.RatedMedianUsefulLightSourceStarts response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("LuminaireDiagnosticsAndMaintenance RatedMedianUsefulLightSourceStarts read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeLuminaireDiagnosticsAndMaintenanceRatedMedianUsefulLightSourceStarts : public SubscribeAttribute {
+public:
+    SubscribeAttributeLuminaireDiagnosticsAndMaintenanceRatedMedianUsefulLightSourceStarts()
+        : SubscribeAttribute("rated-median-useful-light-source-starts")
+    {
+    }
+
+    ~SubscribeAttributeLuminaireDiagnosticsAndMaintenanceRatedMedianUsefulLightSourceStarts()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::RatedMedianUsefulLightSourceStarts::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeRatedMedianUsefulLightSourceStartsWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"LuminaireDiagnosticsAndMaintenance.RatedMedianUsefulLightSourceStarts response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute GeneratedCommandList
+ */
+class ReadLuminaireDiagnosticsAndMaintenanceGeneratedCommandList : public ReadAttribute {
+public:
+    ReadLuminaireDiagnosticsAndMaintenanceGeneratedCommandList()
+        : ReadAttribute("generated-command-list")
+    {
+    }
+
+    ~ReadLuminaireDiagnosticsAndMaintenanceGeneratedCommandList()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::GeneratedCommandList::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeGeneratedCommandListWithCompletion:^(NSArray * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"LuminaireDiagnosticsAndMaintenance.GeneratedCommandList response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("LuminaireDiagnosticsAndMaintenance GeneratedCommandList read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeLuminaireDiagnosticsAndMaintenanceGeneratedCommandList : public SubscribeAttribute {
+public:
+    SubscribeAttributeLuminaireDiagnosticsAndMaintenanceGeneratedCommandList()
+        : SubscribeAttribute("generated-command-list")
+    {
+    }
+
+    ~SubscribeAttributeLuminaireDiagnosticsAndMaintenanceGeneratedCommandList()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::GeneratedCommandList::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeGeneratedCommandListWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSArray * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"LuminaireDiagnosticsAndMaintenance.GeneratedCommandList response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute AcceptedCommandList
+ */
+class ReadLuminaireDiagnosticsAndMaintenanceAcceptedCommandList : public ReadAttribute {
+public:
+    ReadLuminaireDiagnosticsAndMaintenanceAcceptedCommandList()
+        : ReadAttribute("accepted-command-list")
+    {
+    }
+
+    ~ReadLuminaireDiagnosticsAndMaintenanceAcceptedCommandList()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::AcceptedCommandList::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeAcceptedCommandListWithCompletion:^(NSArray * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"LuminaireDiagnosticsAndMaintenance.AcceptedCommandList response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("LuminaireDiagnosticsAndMaintenance AcceptedCommandList read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeLuminaireDiagnosticsAndMaintenanceAcceptedCommandList : public SubscribeAttribute {
+public:
+    SubscribeAttributeLuminaireDiagnosticsAndMaintenanceAcceptedCommandList()
+        : SubscribeAttribute("accepted-command-list")
+    {
+    }
+
+    ~SubscribeAttributeLuminaireDiagnosticsAndMaintenanceAcceptedCommandList()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::AcceptedCommandList::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeAcceptedCommandListWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSArray * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"LuminaireDiagnosticsAndMaintenance.AcceptedCommandList response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute AttributeList
+ */
+class ReadLuminaireDiagnosticsAndMaintenanceAttributeList : public ReadAttribute {
+public:
+    ReadLuminaireDiagnosticsAndMaintenanceAttributeList()
+        : ReadAttribute("attribute-list")
+    {
+    }
+
+    ~ReadLuminaireDiagnosticsAndMaintenanceAttributeList()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::AttributeList::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeAttributeListWithCompletion:^(NSArray * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"LuminaireDiagnosticsAndMaintenance.AttributeList response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("LuminaireDiagnosticsAndMaintenance AttributeList read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeLuminaireDiagnosticsAndMaintenanceAttributeList : public SubscribeAttribute {
+public:
+    SubscribeAttributeLuminaireDiagnosticsAndMaintenanceAttributeList()
+        : SubscribeAttribute("attribute-list")
+    {
+    }
+
+    ~SubscribeAttributeLuminaireDiagnosticsAndMaintenanceAttributeList()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::AttributeList::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeAttributeListWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSArray * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"LuminaireDiagnosticsAndMaintenance.AttributeList response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute FeatureMap
+ */
+class ReadLuminaireDiagnosticsAndMaintenanceFeatureMap : public ReadAttribute {
+public:
+    ReadLuminaireDiagnosticsAndMaintenanceFeatureMap()
+        : ReadAttribute("feature-map")
+    {
+    }
+
+    ~ReadLuminaireDiagnosticsAndMaintenanceFeatureMap()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::FeatureMap::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeFeatureMapWithCompletion:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"LuminaireDiagnosticsAndMaintenance.FeatureMap response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("LuminaireDiagnosticsAndMaintenance FeatureMap read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeLuminaireDiagnosticsAndMaintenanceFeatureMap : public SubscribeAttribute {
+public:
+    SubscribeAttributeLuminaireDiagnosticsAndMaintenanceFeatureMap()
+        : SubscribeAttribute("feature-map")
+    {
+    }
+
+    ~SubscribeAttributeLuminaireDiagnosticsAndMaintenanceFeatureMap()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::FeatureMap::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeFeatureMapWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"LuminaireDiagnosticsAndMaintenance.FeatureMap response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+
+/*
+ * Attribute ClusterRevision
+ */
+class ReadLuminaireDiagnosticsAndMaintenanceClusterRevision : public ReadAttribute {
+public:
+    ReadLuminaireDiagnosticsAndMaintenanceClusterRevision()
+        : ReadAttribute("cluster-revision")
+    {
+    }
+
+    ~ReadLuminaireDiagnosticsAndMaintenanceClusterRevision()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::AttributeId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::ClusterRevision::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReadAttribute (0x%08" PRIX32 ") on endpoint %u", endpointId, clusterId, attributeId);
+
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        [cluster readAttributeClusterRevisionWithCompletion:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+            NSLog(@"LuminaireDiagnosticsAndMaintenance.ClusterRevision response %@", [value description]);
+            if (error == nil) {
+                RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+            } else {
+                LogNSError("LuminaireDiagnosticsAndMaintenance ClusterRevision read Error", error);
+                RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+            }
+            SetCommandExitStatus(error);
+        }];
+        return CHIP_NO_ERROR;
+    }
+};
+
+class SubscribeAttributeLuminaireDiagnosticsAndMaintenanceClusterRevision : public SubscribeAttribute {
+public:
+    SubscribeAttributeLuminaireDiagnosticsAndMaintenanceClusterRevision()
+        : SubscribeAttribute("cluster-revision")
+    {
+    }
+
+    ~SubscribeAttributeLuminaireDiagnosticsAndMaintenanceClusterRevision()
+    {
+    }
+
+    CHIP_ERROR SendCommand(MTRBaseDevice * device, chip::EndpointId endpointId) override
+    {
+        constexpr chip::ClusterId clusterId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Id;
+        constexpr chip::CommandId attributeId = chip::app::Clusters::LuminaireDiagnosticsAndMaintenance::Attributes::ClusterRevision::Id;
+
+        ChipLogProgress(chipTool, "Sending cluster (0x%08" PRIX32 ") ReportAttribute (0x%08" PRIX32 ") on endpoint %u", clusterId, attributeId, endpointId);
+        dispatch_queue_t callbackQueue = dispatch_queue_create("com.chip.command", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+        __auto_type * cluster = [[MTRBaseClusterLuminaireDiagnosticsAndMaintenance alloc] initWithDevice:device endpointID:@(endpointId) queue:callbackQueue];
+        __auto_type * params = [[MTRSubscribeParams alloc] initWithMinInterval:@(mMinInterval) maxInterval:@(mMaxInterval)];
+        if (mKeepSubscriptions.HasValue()) {
+            params.replaceExistingSubscriptions = !mKeepSubscriptions.Value();
+        }
+        if (mFabricFiltered.HasValue()) {
+            params.filterByFabric = mFabricFiltered.Value();
+        }
+        if (mAutoResubscribe.HasValue()) {
+            params.resubscribeAutomatically = mAutoResubscribe.Value();
+        }
+        [cluster subscribeAttributeClusterRevisionWithParams:params
+            subscriptionEstablished:^() { mSubscriptionEstablished = YES; }
+            reportHandler:^(NSNumber * _Nullable value, NSError * _Nullable error) {
+                NSLog(@"LuminaireDiagnosticsAndMaintenance.ClusterRevision response %@", [value description]);
+                if (error == nil) {
+                    RemoteDataModelLogger::LogAttributeAsJSON(@(endpointId), @(clusterId), @(attributeId), value);
+                } else {
+                    RemoteDataModelLogger::LogAttributeErrorAsJSON(@(endpointId), @(clusterId), @(attributeId), error);
+                }
+                SetCommandExitStatus(error);
+            }];
+
+        return CHIP_NO_ERROR;
+    }
+};
+
+#endif // MTR_ENABLE_PROVISIONAL
+#endif // MTR_ENABLE_PROVISIONAL
 /*----------------------------------------------------------------------------*\
 | Cluster IlluminanceMeasurement                                      | 0x0400 |
 |------------------------------------------------------------------------------|
@@ -180369,6 +187456,383 @@ void registerClusterBallastConfiguration(Commands & commands)
 
     commands.RegisterCluster(clusterName, clusterCommands);
 }
+void registerClusterLuminaireAssetManagement(Commands & commands)
+{
+#if MTR_ENABLE_PROVISIONAL
+    using namespace chip::app::Clusters::LuminaireAssetManagement;
+
+    const char * clusterName = "LuminaireAssetManagement";
+
+    commands_list clusterCommands = {
+        make_unique<ClusterCommand>(Id), //
+        make_unique<ReadAttribute>(Id), //
+        make_unique<WriteAttribute>(Id), //
+        make_unique<SubscribeAttribute>(Id), //
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadLuminaireAssetManagementLuminaireManufacturerGTIN>(), //
+        make_unique<SubscribeAttributeLuminaireAssetManagementLuminaireManufacturerGTIN>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadLuminaireAssetManagementLuminaireIdentificationNumber>(), //
+        make_unique<SubscribeAttributeLuminaireAssetManagementLuminaireIdentificationNumber>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadLuminaireAssetManagementLuminaireYearOfManufacture>(), //
+        make_unique<SubscribeAttributeLuminaireAssetManagementLuminaireYearOfManufacture>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadLuminaireAssetManagementLuminaireWeekOfManufacture>(), //
+        make_unique<SubscribeAttributeLuminaireAssetManagementLuminaireWeekOfManufacture>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadLuminaireAssetManagementNominalInputPower>(), //
+        make_unique<SubscribeAttributeLuminaireAssetManagementNominalInputPower>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadLuminaireAssetManagementPowerAtMinimumDimLevel>(), //
+        make_unique<SubscribeAttributeLuminaireAssetManagementPowerAtMinimumDimLevel>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadLuminaireAssetManagementNominalMinimumACMainsVoltage>(), //
+        make_unique<SubscribeAttributeLuminaireAssetManagementNominalMinimumACMainsVoltage>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadLuminaireAssetManagementNominalMaximumACMainsVoltage>(), //
+        make_unique<SubscribeAttributeLuminaireAssetManagementNominalMaximumACMainsVoltage>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadLuminaireAssetManagementNominalLightOutput>(), //
+        make_unique<SubscribeAttributeLuminaireAssetManagementNominalLightOutput>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadLuminaireAssetManagementColorRenderingIndex>(), //
+        make_unique<SubscribeAttributeLuminaireAssetManagementColorRenderingIndex>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadLuminaireAssetManagementCct>(), //
+        make_unique<SubscribeAttributeLuminaireAssetManagementCct>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadLuminaireAssetManagementLightDistributionType>(), //
+        make_unique<SubscribeAttributeLuminaireAssetManagementLightDistributionType>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadLuminaireAssetManagementLuminaireColor>(), //
+        make_unique<SubscribeAttributeLuminaireAssetManagementLuminaireColor>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadLuminaireAssetManagementLuminaireIdentification>(), //
+        make_unique<SubscribeAttributeLuminaireAssetManagementLuminaireIdentification>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadLuminaireAssetManagementLightSourceType>(), //
+        make_unique<SubscribeAttributeLuminaireAssetManagementLightSourceType>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadLuminaireAssetManagementGeneratedCommandList>(), //
+        make_unique<SubscribeAttributeLuminaireAssetManagementGeneratedCommandList>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadLuminaireAssetManagementAcceptedCommandList>(), //
+        make_unique<SubscribeAttributeLuminaireAssetManagementAcceptedCommandList>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadLuminaireAssetManagementAttributeList>(), //
+        make_unique<SubscribeAttributeLuminaireAssetManagementAttributeList>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadLuminaireAssetManagementFeatureMap>(), //
+        make_unique<SubscribeAttributeLuminaireAssetManagementFeatureMap>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadLuminaireAssetManagementClusterRevision>(), //
+        make_unique<SubscribeAttributeLuminaireAssetManagementClusterRevision>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+    };
+
+    commands.RegisterCluster(clusterName, clusterCommands);
+#endif // MTR_ENABLE_PROVISIONAL
+}
+void registerClusterLuminaireEnergyReporting(Commands & commands)
+{
+#if MTR_ENABLE_PROVISIONAL
+    using namespace chip::app::Clusters::LuminaireEnergyReporting;
+
+    const char * clusterName = "LuminaireEnergyReporting";
+
+    commands_list clusterCommands = {
+        make_unique<ClusterCommand>(Id), //
+        make_unique<ReadAttribute>(Id), //
+        make_unique<WriteAttribute>(Id), //
+        make_unique<SubscribeAttribute>(Id), //
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadLuminaireEnergyReportingScaleFactorForActiveEnergy>(), //
+        make_unique<SubscribeAttributeLuminaireEnergyReportingScaleFactorForActiveEnergy>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadLuminaireEnergyReportingActiveEnergy>(), //
+        make_unique<SubscribeAttributeLuminaireEnergyReportingActiveEnergy>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadLuminaireEnergyReportingScaleFactorForActivePower>(), //
+        make_unique<SubscribeAttributeLuminaireEnergyReportingScaleFactorForActivePower>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadLuminaireEnergyReportingActivePower>(), //
+        make_unique<SubscribeAttributeLuminaireEnergyReportingActivePower>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadLuminaireEnergyReportingScaleFactorForApparentEnergy>(), //
+        make_unique<SubscribeAttributeLuminaireEnergyReportingScaleFactorForApparentEnergy>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadLuminaireEnergyReportingApparentEnergy>(), //
+        make_unique<SubscribeAttributeLuminaireEnergyReportingApparentEnergy>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadLuminaireEnergyReportingScaleFactorForApparentPower>(), //
+        make_unique<SubscribeAttributeLuminaireEnergyReportingScaleFactorForApparentPower>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadLuminaireEnergyReportingApparentPower>(), //
+        make_unique<SubscribeAttributeLuminaireEnergyReportingApparentPower>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadLuminaireEnergyReportingScaleFactorForLoadsideEnergy>(), //
+        make_unique<SubscribeAttributeLuminaireEnergyReportingScaleFactorForLoadsideEnergy>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadLuminaireEnergyReportingActiveEnergyLoadside>(), //
+        make_unique<SubscribeAttributeLuminaireEnergyReportingActiveEnergyLoadside>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadLuminaireEnergyReportingScaleFactorForLoadsidePower>(), //
+        make_unique<SubscribeAttributeLuminaireEnergyReportingScaleFactorForLoadsidePower>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadLuminaireEnergyReportingActivePowerLoadside>(), //
+        make_unique<SubscribeAttributeLuminaireEnergyReportingActivePowerLoadside>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadLuminaireEnergyReportingGeneratedCommandList>(), //
+        make_unique<SubscribeAttributeLuminaireEnergyReportingGeneratedCommandList>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadLuminaireEnergyReportingAcceptedCommandList>(), //
+        make_unique<SubscribeAttributeLuminaireEnergyReportingAcceptedCommandList>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadLuminaireEnergyReportingAttributeList>(), //
+        make_unique<SubscribeAttributeLuminaireEnergyReportingAttributeList>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadLuminaireEnergyReportingFeatureMap>(), //
+        make_unique<SubscribeAttributeLuminaireEnergyReportingFeatureMap>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadLuminaireEnergyReportingClusterRevision>(), //
+        make_unique<SubscribeAttributeLuminaireEnergyReportingClusterRevision>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+    };
+
+    commands.RegisterCluster(clusterName, clusterCommands);
+#endif // MTR_ENABLE_PROVISIONAL
+}
+void registerClusterLuminaireDiagnosticsAndMaintenance(Commands & commands)
+{
+#if MTR_ENABLE_PROVISIONAL
+    using namespace chip::app::Clusters::LuminaireDiagnosticsAndMaintenance;
+
+    const char * clusterName = "LuminaireDiagnosticsAndMaintenance";
+
+    commands_list clusterCommands = {
+        make_unique<ClusterCommand>(Id), //
+        make_unique<ReadAttribute>(Id), //
+        make_unique<WriteAttribute>(Id), //
+        make_unique<SubscribeAttribute>(Id), //
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadLuminaireDiagnosticsAndMaintenanceControlGearOperatingTime>(), //
+        make_unique<SubscribeAttributeLuminaireDiagnosticsAndMaintenanceControlGearOperatingTime>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadLuminaireDiagnosticsAndMaintenanceControlGearStartCounter>(), //
+        make_unique<SubscribeAttributeLuminaireDiagnosticsAndMaintenanceControlGearStartCounter>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadLuminaireDiagnosticsAndMaintenanceControlGearExternalSupplyVoltage>(), //
+        make_unique<SubscribeAttributeLuminaireDiagnosticsAndMaintenanceControlGearExternalSupplyVoltage>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadLuminaireDiagnosticsAndMaintenanceControlGearExternalSupplyVoltageFrequency>(), //
+        make_unique<SubscribeAttributeLuminaireDiagnosticsAndMaintenanceControlGearExternalSupplyVoltageFrequency>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadLuminaireDiagnosticsAndMaintenanceControlGearPowerFactor>(), //
+        make_unique<SubscribeAttributeLuminaireDiagnosticsAndMaintenanceControlGearPowerFactor>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadLuminaireDiagnosticsAndMaintenanceControlGearOverallFailureCondition>(), //
+        make_unique<SubscribeAttributeLuminaireDiagnosticsAndMaintenanceControlGearOverallFailureCondition>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadLuminaireDiagnosticsAndMaintenanceControlGearOverallFailureConditionCounter>(), //
+        make_unique<SubscribeAttributeLuminaireDiagnosticsAndMaintenanceControlGearOverallFailureConditionCounter>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadLuminaireDiagnosticsAndMaintenanceControlGearExternalSupplyUndervoltage>(), //
+        make_unique<SubscribeAttributeLuminaireDiagnosticsAndMaintenanceControlGearExternalSupplyUndervoltage>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadLuminaireDiagnosticsAndMaintenanceControlGearExternalSupplyUndervoltageCounter>(), //
+        make_unique<SubscribeAttributeLuminaireDiagnosticsAndMaintenanceControlGearExternalSupplyUndervoltageCounter>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadLuminaireDiagnosticsAndMaintenanceControlGearExternalSupplyOvervoltage>(), //
+        make_unique<SubscribeAttributeLuminaireDiagnosticsAndMaintenanceControlGearExternalSupplyOvervoltage>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadLuminaireDiagnosticsAndMaintenanceControlGearExternalSupplyOvervoltageCounter>(), //
+        make_unique<SubscribeAttributeLuminaireDiagnosticsAndMaintenanceControlGearExternalSupplyOvervoltageCounter>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadLuminaireDiagnosticsAndMaintenanceControlGearOutputPowerLimitation>(), //
+        make_unique<SubscribeAttributeLuminaireDiagnosticsAndMaintenanceControlGearOutputPowerLimitation>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadLuminaireDiagnosticsAndMaintenanceControlGearOutputPowerLimitationCounter>(), //
+        make_unique<SubscribeAttributeLuminaireDiagnosticsAndMaintenanceControlGearOutputPowerLimitationCounter>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadLuminaireDiagnosticsAndMaintenanceControlGearThermalDerating>(), //
+        make_unique<SubscribeAttributeLuminaireDiagnosticsAndMaintenanceControlGearThermalDerating>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadLuminaireDiagnosticsAndMaintenanceControlGearThermalDeratingCounter>(), //
+        make_unique<SubscribeAttributeLuminaireDiagnosticsAndMaintenanceControlGearThermalDeratingCounter>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadLuminaireDiagnosticsAndMaintenanceControlGearThermalShutdown>(), //
+        make_unique<SubscribeAttributeLuminaireDiagnosticsAndMaintenanceControlGearThermalShutdown>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadLuminaireDiagnosticsAndMaintenanceControlGearThermalShutdownCounter>(), //
+        make_unique<SubscribeAttributeLuminaireDiagnosticsAndMaintenanceControlGearThermalShutdownCounter>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadLuminaireDiagnosticsAndMaintenanceControlGearTemperature>(), //
+        make_unique<SubscribeAttributeLuminaireDiagnosticsAndMaintenanceControlGearTemperature>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadLuminaireDiagnosticsAndMaintenanceControlGearOutputCurrentPercentage>(), //
+        make_unique<SubscribeAttributeLuminaireDiagnosticsAndMaintenanceControlGearOutputCurrentPercentage>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadLuminaireDiagnosticsAndMaintenanceLightSourceStartCounterResettable>(), //
+        make_unique<WriteLuminaireDiagnosticsAndMaintenanceLightSourceStartCounterResettable>(), //
+        make_unique<SubscribeAttributeLuminaireDiagnosticsAndMaintenanceLightSourceStartCounterResettable>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadLuminaireDiagnosticsAndMaintenanceLightSourceStartCounter>(), //
+        make_unique<SubscribeAttributeLuminaireDiagnosticsAndMaintenanceLightSourceStartCounter>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadLuminaireDiagnosticsAndMaintenanceLightSourceOnTimeResettable>(), //
+        make_unique<WriteLuminaireDiagnosticsAndMaintenanceLightSourceOnTimeResettable>(), //
+        make_unique<SubscribeAttributeLuminaireDiagnosticsAndMaintenanceLightSourceOnTimeResettable>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadLuminaireDiagnosticsAndMaintenanceLightSourceOnTime>(), //
+        make_unique<SubscribeAttributeLuminaireDiagnosticsAndMaintenanceLightSourceOnTime>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadLuminaireDiagnosticsAndMaintenanceLightSourceVoltage>(), //
+        make_unique<SubscribeAttributeLuminaireDiagnosticsAndMaintenanceLightSourceVoltage>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadLuminaireDiagnosticsAndMaintenanceLightSourceCurrent>(), //
+        make_unique<SubscribeAttributeLuminaireDiagnosticsAndMaintenanceLightSourceCurrent>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadLuminaireDiagnosticsAndMaintenanceLightSourceOverallFailureCondition>(), //
+        make_unique<SubscribeAttributeLuminaireDiagnosticsAndMaintenanceLightSourceOverallFailureCondition>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadLuminaireDiagnosticsAndMaintenanceLightSourceOverallFailureConditionCounter>(), //
+        make_unique<SubscribeAttributeLuminaireDiagnosticsAndMaintenanceLightSourceOverallFailureConditionCounter>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadLuminaireDiagnosticsAndMaintenanceLightSourceShortCircuit>(), //
+        make_unique<SubscribeAttributeLuminaireDiagnosticsAndMaintenanceLightSourceShortCircuit>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadLuminaireDiagnosticsAndMaintenanceLightSourceShortCircuitCounter>(), //
+        make_unique<SubscribeAttributeLuminaireDiagnosticsAndMaintenanceLightSourceShortCircuitCounter>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadLuminaireDiagnosticsAndMaintenanceLightSourceOpenCircuit>(), //
+        make_unique<SubscribeAttributeLuminaireDiagnosticsAndMaintenanceLightSourceOpenCircuit>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadLuminaireDiagnosticsAndMaintenanceLightSourceOpenCircuitCounter>(), //
+        make_unique<SubscribeAttributeLuminaireDiagnosticsAndMaintenanceLightSourceOpenCircuitCounter>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadLuminaireDiagnosticsAndMaintenanceLightSourceThermalDerating>(), //
+        make_unique<SubscribeAttributeLuminaireDiagnosticsAndMaintenanceLightSourceThermalDerating>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadLuminaireDiagnosticsAndMaintenanceLightSourceThermalDeratingCounter>(), //
+        make_unique<SubscribeAttributeLuminaireDiagnosticsAndMaintenanceLightSourceThermalDeratingCounter>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadLuminaireDiagnosticsAndMaintenanceLightSourceThermalShutdown>(), //
+        make_unique<SubscribeAttributeLuminaireDiagnosticsAndMaintenanceLightSourceThermalShutdown>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadLuminaireDiagnosticsAndMaintenanceLightSourceThermalShutdownCounter>(), //
+        make_unique<SubscribeAttributeLuminaireDiagnosticsAndMaintenanceLightSourceThermalShutdownCounter>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadLuminaireDiagnosticsAndMaintenanceLightSourceTemperature>(), //
+        make_unique<SubscribeAttributeLuminaireDiagnosticsAndMaintenanceLightSourceTemperature>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadLuminaireDiagnosticsAndMaintenanceRatedMedianUsefulLifeOfLuminaire>(), //
+        make_unique<SubscribeAttributeLuminaireDiagnosticsAndMaintenanceRatedMedianUsefulLifeOfLuminaire>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadLuminaireDiagnosticsAndMaintenanceInternalControlGearReferenceTemperature>(), //
+        make_unique<SubscribeAttributeLuminaireDiagnosticsAndMaintenanceInternalControlGearReferenceTemperature>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadLuminaireDiagnosticsAndMaintenanceRatedMedianUsefulLightSourceStarts>(), //
+        make_unique<SubscribeAttributeLuminaireDiagnosticsAndMaintenanceRatedMedianUsefulLightSourceStarts>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadLuminaireDiagnosticsAndMaintenanceGeneratedCommandList>(), //
+        make_unique<SubscribeAttributeLuminaireDiagnosticsAndMaintenanceGeneratedCommandList>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadLuminaireDiagnosticsAndMaintenanceAcceptedCommandList>(), //
+        make_unique<SubscribeAttributeLuminaireDiagnosticsAndMaintenanceAcceptedCommandList>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadLuminaireDiagnosticsAndMaintenanceAttributeList>(), //
+        make_unique<SubscribeAttributeLuminaireDiagnosticsAndMaintenanceAttributeList>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadLuminaireDiagnosticsAndMaintenanceFeatureMap>(), //
+        make_unique<SubscribeAttributeLuminaireDiagnosticsAndMaintenanceFeatureMap>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+#if MTR_ENABLE_PROVISIONAL
+        make_unique<ReadLuminaireDiagnosticsAndMaintenanceClusterRevision>(), //
+        make_unique<SubscribeAttributeLuminaireDiagnosticsAndMaintenanceClusterRevision>(), //
+#endif // MTR_ENABLE_PROVISIONAL
+    };
+
+    commands.RegisterCluster(clusterName, clusterCommands);
+#endif // MTR_ENABLE_PROVISIONAL
+}
 void registerClusterIlluminanceMeasurement(Commands & commands)
 {
     using namespace chip::app::Clusters::IlluminanceMeasurement;
@@ -182951,6 +190415,9 @@ void registerClusters(Commands & commands)
     registerClusterThermostatUserInterfaceConfiguration(commands);
     registerClusterColorControl(commands);
     registerClusterBallastConfiguration(commands);
+    registerClusterLuminaireAssetManagement(commands);
+    registerClusterLuminaireEnergyReporting(commands);
+    registerClusterLuminaireDiagnosticsAndMaintenance(commands);
     registerClusterIlluminanceMeasurement(commands);
     registerClusterTemperatureMeasurement(commands);
     registerClusterPressureMeasurement(commands);

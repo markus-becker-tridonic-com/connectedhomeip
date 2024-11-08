@@ -7532,6 +7532,151 @@ provisional cluster BallastConfiguration = 769 {
   readonly attribute int16u clusterRevision = 65533;
 }
 
+/**  */
+provisional cluster LuminaireAssetManagement = 770 {
+  revision 0;
+
+  enum LightDistributionTypeEnum : enum8 {
+    kNotSpecified = 0;
+    kTypeI = 1;
+    kTypeII = 2;
+    kTypeIII = 3;
+    kTypeIV = 4;
+    kTypeV = 5;
+    kUnknown = 255;
+  }
+
+  enum LightSourceTypeEnum : enum8 {
+    kLowPressureFluorescent = 0;
+    kHID = 2;
+    kLowVoltageHalogen = 3;
+    kIncandescent = 4;
+    kLED = 6;
+    kOLED = 7;
+    kOtherThanListedAbove = 252;
+    kUnknownLightSource = 253;
+    kNoLightSource = 254;
+    kMultipleLightSources = 255;
+  }
+
+  readonly attribute octet_string<254> luminaireManufacturerGTIN = 0;
+  readonly attribute octet_string<254> luminaireIdentificationNumber = 1;
+  readonly attribute int8u luminaireYearOfManufacture = 2;
+  readonly attribute int8u luminaireWeekOfManufacture = 3;
+  readonly attribute int16u nominalInputPower = 4;
+  readonly attribute int16u powerAtMinimumDimLevel = 5;
+  readonly attribute int16u nominalMinimumACMainsVoltage = 6;
+  readonly attribute int16u nominalMaximumACMainsVoltage = 7;
+  readonly attribute int24u nominalLightOutput = 8;
+  readonly attribute int8u colorRenderingIndex = 9;
+  readonly attribute int16u cct = 10;
+  readonly attribute LightDistributionTypeEnum lightDistributionType = 11;
+  readonly attribute nullable char_string<254> luminaireColor = 12;
+  readonly attribute nullable char_string<254> luminaireIdentification = 13;
+  readonly attribute LightSourceTypeEnum lightSourceType = 14;
+  readonly attribute command_id generatedCommandList[] = 65528;
+  readonly attribute command_id acceptedCommandList[] = 65529;
+  readonly attribute event_id eventList[] = 65530;
+  readonly attribute attrib_id attributeList[] = 65531;
+  readonly attribute bitmap32 featureMap = 65532;
+  readonly attribute int16u clusterRevision = 65533;
+}
+
+/**  */
+provisional cluster LuminaireEnergyReporting = 771 {
+  revision 0;
+
+  bitmap Feature : bitmap32 {
+    kLuminaireApparentEnergy = 0x1;
+    kLuminaireApparentPower = 0x2;
+    kLuminaireActiveLoadsideEnergy = 0x4;
+    kLuminaireActiveLoadsidePower = 0x8;
+  }
+
+  readonly attribute int8s scaleFactorForActiveEnergy = 0;
+  readonly attribute int48u activeEnergy = 1;
+  readonly attribute int8s scaleFactorForActivePower = 2;
+  readonly attribute int32u activePower = 3;
+  readonly attribute optional int8s scaleFactorForApparentEnergy = 4;
+  readonly attribute optional int48u apparentEnergy = 5;
+  readonly attribute optional int8s scaleFactorForApparentPower = 6;
+  readonly attribute optional int32u apparentPower = 7;
+  readonly attribute optional int8s scaleFactorForLoadsideEnergy = 16;
+  readonly attribute optional int48u activeEnergyLoadside = 17;
+  readonly attribute optional int8s scaleFactorForLoadsidePower = 18;
+  readonly attribute optional int32u activePowerLoadside = 19;
+  readonly attribute command_id generatedCommandList[] = 65528;
+  readonly attribute command_id acceptedCommandList[] = 65529;
+  readonly attribute event_id eventList[] = 65530;
+  readonly attribute attrib_id attributeList[] = 65531;
+  readonly attribute bitmap32 featureMap = 65532;
+  readonly attribute int16u clusterRevision = 65533;
+}
+
+/**  */
+provisional cluster LuminaireDiagnosticsAndMaintenance = 772 {
+  revision 0;
+
+  bitmap Feature : bitmap32 {
+    kLuminaireControlGearExternalSupplyVoltage = 0x1;
+    kLuminaireControlGearExternalSupplyUndervoltage = 0x2;
+    kLuminaireControlGearExternalSupplyOvervoltage = 0x4;
+    kLuminaireControlGearOutputPowerLimitation = 0x8;
+    kLuminaireControlGearThermalDerating = 0x10;
+    kLuminaireControlGearThermalShutdown = 0x20;
+    kLuminaireLightSourceShortCircuit = 0x40;
+    kLuminaireLightSourceOpenCircuit = 0x80;
+    kLuminaireLightSourceThermalDerating = 0x100;
+    kLuminaireLightSourceThermalShutdown = 0x200;
+  }
+
+  readonly attribute int32u controlGearOperatingTime = 0;
+  readonly attribute int24u controlGearStartCounter = 1;
+  readonly attribute optional int16u controlGearExternalSupplyVoltage = 2;
+  readonly attribute optional int8u controlGearExternalSupplyVoltageFrequency = 3;
+  readonly attribute optional int8u controlGearPowerFactor = 4;
+  readonly attribute int8u controlGearOverallFailureCondition = 5;
+  readonly attribute int8u controlGearOverallFailureConditionCounter = 6;
+  readonly attribute optional int8u controlGearExternalSupplyUndervoltage = 7;
+  readonly attribute optional int8u controlGearExternalSupplyUndervoltageCounter = 8;
+  readonly attribute optional int8u controlGearExternalSupplyOvervoltage = 9;
+  readonly attribute optional int8u controlGearExternalSupplyOvervoltageCounter = 10;
+  readonly attribute optional int8u controlGearOutputPowerLimitation = 11;
+  readonly attribute optional int8u controlGearOutputPowerLimitationCounter = 12;
+  readonly attribute optional int8u controlGearThermalDerating = 13;
+  readonly attribute optional int8u controlGearThermalDeratingCounter = 14;
+  readonly attribute optional int8u controlGearThermalShutdown = 15;
+  readonly attribute optional int8u controlGearThermalShutdownCounter = 16;
+  readonly attribute int8u ControlGearTemperature = 17;
+  readonly attribute int8u controlGearOutputCurrentPercentage = 18;
+  attribute int24u lightSourceStartCounterResettable = 32;
+  readonly attribute int24u lightSourceStartCounter = 33;
+  attribute int32u lightSourceOnTimeResettable = 34;
+  readonly attribute int32u lightSourceOnTime = 35;
+  readonly attribute int16u LightSourceVoltage = 36;
+  readonly attribute int16u LightSourceCurrent = 37;
+  readonly attribute int8u lightSourceOverallFailureCondition = 38;
+  readonly attribute int8u lightSourceOverallFailureConditionCounter = 39;
+  readonly attribute optional int8u lightSourceShortCircuit = 40;
+  readonly attribute optional int8u lightSourceShortCircuitCounter = 41;
+  readonly attribute optional int8u lightSourceOpenCircuit = 42;
+  readonly attribute optional int8u lightSourceOpenCircuitCounter = 43;
+  readonly attribute optional int8u lightSourceThermalDerating = 44;
+  readonly attribute optional int8u lightSourceThermalDeratingCounter = 45;
+  readonly attribute optional int8u lightSourceThermalShutdown = 46;
+  readonly attribute optional int8u lightSourceThermalShutdownCounter = 47;
+  readonly attribute optional int8u lightSourceTemperature = 48;
+  readonly attribute optional int8u ratedMedianUsefulLifeOfLuminaire = 64;
+  readonly attribute optional int8u internalControlGearReferenceTemperature = 65;
+  readonly attribute optional int16u ratedMedianUsefulLightSourceStarts = 66;
+  readonly attribute command_id generatedCommandList[] = 65528;
+  readonly attribute command_id acceptedCommandList[] = 65529;
+  readonly attribute event_id eventList[] = 65530;
+  readonly attribute attrib_id attributeList[] = 65531;
+  readonly attribute bitmap32 featureMap = 65532;
+  readonly attribute int16u clusterRevision = 65533;
+}
+
 /** Attributes and commands for configuring the measurement of illuminance, and reporting illuminance measurements. */
 cluster IlluminanceMeasurement = 1024 {
   revision 3;

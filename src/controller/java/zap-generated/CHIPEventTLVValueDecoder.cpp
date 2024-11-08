@@ -7624,6 +7624,36 @@ jobject DecodeEventValue(const app::ConcreteEventPath & aPath, TLV::TLVReader & 
         }
         break;
     }
+    case app::Clusters::LuminaireAssetManagement::Id: {
+        using namespace app::Clusters::LuminaireAssetManagement;
+        switch (aPath.mEventId)
+        {
+        default:
+            *aError = CHIP_ERROR_IM_MALFORMED_EVENT_PATH_IB;
+            break;
+        }
+        break;
+    }
+    case app::Clusters::LuminaireEnergyReporting::Id: {
+        using namespace app::Clusters::LuminaireEnergyReporting;
+        switch (aPath.mEventId)
+        {
+        default:
+            *aError = CHIP_ERROR_IM_MALFORMED_EVENT_PATH_IB;
+            break;
+        }
+        break;
+    }
+    case app::Clusters::LuminaireDiagnosticsAndMaintenance::Id: {
+        using namespace app::Clusters::LuminaireDiagnosticsAndMaintenance;
+        switch (aPath.mEventId)
+        {
+        default:
+            *aError = CHIP_ERROR_IM_MALFORMED_EVENT_PATH_IB;
+            break;
+        }
+        break;
+    }
     case app::Clusters::IlluminanceMeasurement::Id: {
         using namespace app::Clusters::IlluminanceMeasurement;
         switch (aPath.mEventId)

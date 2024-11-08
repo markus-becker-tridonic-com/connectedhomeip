@@ -3150,6 +3150,44 @@ static auto __attribute__((unused)) EnsureKnownEnumValue(ColorControl::StepModeE
     }
 }
 
+static auto __attribute__((unused)) EnsureKnownEnumValue(LuminaireAssetManagement::LightDistributionTypeEnum val)
+{
+    using EnumType = LuminaireAssetManagement::LightDistributionTypeEnum;
+    switch (val)
+    {
+    case EnumType::kNotSpecified:
+    case EnumType::kTypeI:
+    case EnumType::kTypeII:
+    case EnumType::kTypeIII:
+    case EnumType::kTypeIV:
+    case EnumType::kTypeV:
+    case EnumType::kUnknown:
+        return val;
+    default:
+        return EnumType::kUnknownEnumValue;
+    }
+}
+static auto __attribute__((unused)) EnsureKnownEnumValue(LuminaireAssetManagement::LightSourceTypeEnum val)
+{
+    using EnumType = LuminaireAssetManagement::LightSourceTypeEnum;
+    switch (val)
+    {
+    case EnumType::kLowPressureFluorescent:
+    case EnumType::kHid:
+    case EnumType::kLowVoltageHalogen:
+    case EnumType::kIncandescent:
+    case EnumType::kLed:
+    case EnumType::kOled:
+    case EnumType::kOtherThanListedAbove:
+    case EnumType::kUnknownLightSource:
+    case EnumType::kNoLightSource:
+    case EnumType::kMultipleLightSources:
+        return val;
+    default:
+        return EnumType::kUnknownEnumValue;
+    }
+}
+
 static auto __attribute__((unused)) EnsureKnownEnumValue(IlluminanceMeasurement::LightSensorTypeEnum val)
 {
     using EnumType = IlluminanceMeasurement::LightSensorTypeEnum;

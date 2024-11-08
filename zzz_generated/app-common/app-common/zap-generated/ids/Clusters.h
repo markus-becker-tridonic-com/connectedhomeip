@@ -277,6 +277,15 @@ static constexpr ClusterId Id = 0x00000300;
 namespace BallastConfiguration {
 static constexpr ClusterId Id = 0x00000301;
 } // namespace BallastConfiguration
+namespace LuminaireAssetManagement {
+static constexpr ClusterId Id = 0x00000302;
+} // namespace LuminaireAssetManagement
+namespace LuminaireEnergyReporting {
+static constexpr ClusterId Id = 0x00000303;
+} // namespace LuminaireEnergyReporting
+namespace LuminaireDiagnosticsAndMaintenance {
+static constexpr ClusterId Id = 0x00000304;
+} // namespace LuminaireDiagnosticsAndMaintenance
 namespace IlluminanceMeasurement {
 static constexpr ClusterId Id = 0x00000400;
 } // namespace IlluminanceMeasurement
